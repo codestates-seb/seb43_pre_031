@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 // import axios from 'axios';
-// import { useDispatch } from 'react-redux';
 import Button from '../elements/Button';
-// import Theme from '../utils/Theme';
 
 export default function Login() {
   // useEffect(() => {
@@ -11,7 +9,7 @@ export default function Login() {
   // }, []);
   // const dispatch = useDispatch();
 
-  // 회원 정보 보내기 (Create)
+  // 로그인 정보 보내기
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -105,7 +103,7 @@ export default function Login() {
                 onChange={onPwHandler}
               />
             </PwContainer>
-            <Button text={'Log in btn'} />
+            <Button text={'Log in'} />
           </form>
         </FormContainer>
         <LinkContainer>
