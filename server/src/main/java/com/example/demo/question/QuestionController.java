@@ -1,6 +1,7 @@
 package com.example.demo.question;
 
-import org.apache.coyote.Response;
+import com.example.demo.dto.MultiResponseDto;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +10,10 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+/**
+ * 기본 CRUD
+ * 페이지네이션
+ */
 
 @RestController
 @RequestMapping("/questions")
@@ -61,12 +66,15 @@ public class QuestionController {
 
     // 페이지네이션 나중에
     @GetMapping
-    public ResponseEntity getQuestions()
+    public ResponseEntity getQuestions(@RequestParam int page,
+                                       @RequestParam int size)
     {
-        List<Question> questions = questionService.findQuestions();
+        Page<Question> questionPage = questionService.findQuestions(page-1, size);
+
+        List<Question> questions = questionPage.getContent();
         List<QuestionDto.Response> responses = mapper.questionsToQuestionResponseDtos(questions);
 
-        return new ResponseEntity<>(responses, HttpStatus.OK);
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,questionPage), HttpStatus.OK);
     }
 
     @DeleteMapping("/{question-id}")

@@ -1,9 +1,16 @@
 package com.example.demo.question;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+/**
+ * 기본 CRUD메서드 구현
+ */
 
 @Service
 public class QuestionService {
@@ -38,9 +45,10 @@ public class QuestionService {
         return findQuestion;
     }
 
-    public List<Question> findQuestions()
+    public Page<Question> findQuestions(int page, int size)
     {
-        return questionRepository.findAll();
+        PageRequest pageRequest = PageRequest.of(page,size, Sort.by("id").descending());
+        return questionRepository.findAll(pageRequest);
     }
 
     public void removeQuestion(long id)
