@@ -1,13 +1,9 @@
 import styled from 'styled-components';
 
 const Button = (props) => {
-  const { text, type, onClick } = props;
+  const { text, onClick } = props;
 
-  return (
-    <StyledButton onClick={onClick} type={type}>
-      {text}
-    </StyledButton>
-  );
+  return <StyledButton onClick={onClick}>{text}</StyledButton>;
 };
 
 const StyledButton = styled.button`
