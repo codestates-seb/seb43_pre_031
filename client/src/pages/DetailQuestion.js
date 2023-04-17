@@ -137,7 +137,10 @@ const DetailQuestion = () => {
           Your answer couldnt be submitted. Please see the error above.
         </Warning>
       )}
-      <Button text="post your answer" onClick={postAnswer} />
+      <div className="btn-margin">
+        <Button text="Post Your Answer" onClick={postAnswer} />
+      </div>
+
       <NoticeArea>
         <p>Thanks for contributing an answer to Stack Overflow!</p>
         <li>
@@ -179,6 +182,9 @@ const Container = styled.div`
   }
   span.highlight:hover {
     color: ${(props) => props.theme.color.blue500};
+  }
+  .btn-margin {
+    margin: 1rem 0;
   }
 `;
 
