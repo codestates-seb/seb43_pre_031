@@ -7,6 +7,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
   }
   html { font-size: 10px; }
+  a {color: ${(props) =>
+    props.theme.color.blue600}; text-decoration: none; outline: none}
+  a:hover, a:active { color:${(props) => props.theme.color.blue400}}
 `;
 
 export default GlobalStyle;
