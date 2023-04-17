@@ -26,7 +26,7 @@ export default function Signup() {
       username: username,
       email: email,
       password: password,
-      captcha: captcha,
+      captcha: captcha, // 얘는 안넘겨줘도 되나? false 면 회원가입 버튼을 눌러도 에러 메세지 보이게 하기
       option: option,
     };
     console.log(body);
@@ -179,12 +179,24 @@ export default function Signup() {
               </PwContainer>
               <CaptchaContainer>
                 <CaptchaBox>
-                  <input
-                    type="checkbox"
-                    id="captcha"
-                    onChange={onCheckedCaptcha}
-                  ></input>
-                  <label htmlFor="captcha">I&apos;m not a robot</label>
+                  <CInputBox>
+                    <input
+                      type="checkbox"
+                      id="captcha"
+                      onChange={onCheckedCaptcha}
+                    ></input>
+                    <label htmlFor="captcha">I&apos;m not a robot</label>
+                  </CInputBox>
+                  <CLogoBox>
+                    <CaptchaLogo
+                      src="/assets/RecaptchaLogo.svg"
+                      alt="recaptcha logo"
+                    />
+                    <div>reCAPTCHA</div>
+                  </CLogoBox>
+                  <PolicyBox>
+                    <a href="/">Privacy</a> - <a href="/">Terms</a>
+                  </PolicyBox>
                 </CaptchaBox>
               </CaptchaContainer>
               <OptContainer>
@@ -340,20 +352,47 @@ const LinkContainer = styled.div`
 `;
 const CaptchaContainer = styled.div`
   width: 220px;
-  height: 160px;
+  height: 150px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px 30px;
   border: 1px solid ${(props) => props.theme.color.black100};
-  background-color: ${(props) => props.theme.color.black025};
+  background-color: ${(props) => props.theme.color.black};
 `;
 const CaptchaBox = styled.div`
   width: 100%;
   height: 100%;
+  display: grid;
+  grid-template-rows: 4fr 2fr 1fr;
+  grid-template-columns: 1fr;
   border: 1px solid ${(props) => props.theme.color.black100};
   background-color: ${(props) => props.theme.color.black025};
+  a {
+    color: ${(props) => props.theme.color.black500};
+  }
 `;
+const CInputBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & > input {
+    border: 1px solid ${(props) => props.theme.color.black100};
+    margin-right: 8px;
+  }
+`;
+const CLogoBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.theme.color.black500};
+`;
+const CaptchaLogo = styled.img`
+  display: block;
+  width: 24px;
+  height: 24px;
+`;
+const PolicyBox = styled(CLogoBox)``;
 const OptContainer = styled.div`
   display: flex;
   align-items: flex-start;
