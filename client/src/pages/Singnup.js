@@ -8,6 +8,8 @@ export default function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [captcha, setCaptcha] = useState(false);
+  const [option, setOption] = useState(false);
 
   const onUsernameHandler = (e) => {
     setUsername(e.target.value);
@@ -24,8 +26,16 @@ export default function Signup() {
       username: username,
       email: email,
       password: password,
+      captcha: captcha,
+      option: option,
     };
     console.log(body);
+  };
+  const onCheckedCaptcha = (e) => {
+    setCaptcha(e.target.checked);
+  };
+  const onCheckedOpt = (e) => {
+    setOption(e.target.checked);
   };
 
   return (
@@ -169,12 +179,16 @@ export default function Signup() {
               </PwContainer>
               <CaptchaContainer>
                 <CaptchaBox>
-                  <input type="checkbox" id="captcha"></input>
+                  <input
+                    type="checkbox"
+                    id="captcha"
+                    onChange={onCheckedCaptcha}
+                  ></input>
                   <label htmlFor="captcha">I&apos;m not a robot</label>
                 </CaptchaBox>
               </CaptchaContainer>
               <OptContainer>
-                <input type="checkbox" id="opt"></input>
+                <input type="checkbox" id="opt" onChange={onCheckedOpt}></input>
                 <label htmlFor="opt">
                   Opt-in to receive occasional product updates, user research
                   invitations, company announcements, and digests.
@@ -190,11 +204,11 @@ export default function Signup() {
               </OptContainer>
               <Button text={'Sign up'} />
             </form>
-            <p>
+            <PolicyContainer>
               By clicking “Sign up”, you agree to our
-              <a href="/">terms of service</a>, <a href="/">privacy policy</a>{' '}
+              <a href="/"> terms of service</a>, <a href="/">privacy policy</a>{' '}
               and <a href="/">cookie policy</a>
-            </p>
+            </PolicyContainer>
           </FormContainer>
           <LinkContainer>
             <div>
@@ -343,7 +357,11 @@ const CaptchaBox = styled.div`
 const OptContainer = styled.div`
   display: flex;
   align-items: flex-start;
+  margin: 10px 0;
   & > label {
     margin: 0 4px;
   }
+`;
+const PolicyContainer = styled.p`
+  margin-top: 24px;
 `;
