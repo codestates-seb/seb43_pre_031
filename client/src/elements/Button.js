@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 
 const Button = (props) => {
-  const { text, type, onClick } = props;
+  const { text, width, onClick } = props;
 
   return (
-    <StyledButton onClick={onClick} type={type}>
-      {text}
-    </StyledButton>
+    <Wrapper width={width}>
+      <StyledButton onClick={onClick}>{text}</StyledButton>
+    </Wrapper>
   );
 };
 
+const Wrapper = styled.div`
+  width: ${(props) => props.width};
+`;
 const StyledButton = styled.button`
+  width: 100%;
   padding: 1rem;
   border: none;
   border-top: 1px solid ${(props) => props.theme.color.blue200};
