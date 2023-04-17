@@ -123,7 +123,7 @@ export default function Login() {
                 onChange={onPwHandler}
               />
             </PwContainer>
-            <LoginBtn text={'Log in btn'} />
+            <Button text={'Log in btn'} />
           </form>
         </FormContainer>
         <LinkContainer>
@@ -152,9 +152,6 @@ export default function Login() {
 }
 
 // Styled-components
-const LoginBtn = styled(Button)`
-  //안먹히는 것 같다?
-`;
 const Main = styled.main`
   margin: 2rem;
   padding: 24px;
