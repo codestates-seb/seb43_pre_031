@@ -9,15 +9,23 @@ const Container = styled.div`
   left: 0;
   width: 100vw;
   height: 6rem;
-  background-color: orange;
+  background-color: ${(props) => props.theme.color.lightGray};
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 30rem;
-  font-size: 2rem;
+  padding: 0 25rem;
+  font-size: 1.8rem;
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
+  border-top: 0.5rem solid ${(props) => props.theme.color.orange500};
+  a {
+    text-decoration: none;
+    color: ${(props) => props.theme.color.black700};
+  }
 `;
 
-const Logo = styled.img``;
+const Logo = styled.img`
+  width: 18rem;
+`;
 
 const Search = styled.div`
   background-color: white;
@@ -32,7 +40,7 @@ const Search = styled.div`
 const Header = () => {
   return (
     <Container>
-      <Logo href="public/assets/logo.png" alt="logo" />
+      <Logo src="/assets/logo.png" alt="logo" />
       <Link to="/about">About</Link>
       <Link to="/products">Products</Link>
       <Link to="/teams">For Teams</Link>

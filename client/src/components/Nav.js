@@ -2,11 +2,33 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
+  width: 18rem;
+  position: fixed;
+  top: 2rem;
+  left: 25rem;
+  grid-area: nav;
   margin-top: 6rem;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
-  grid-area: nav;
+  font-size: 1.5rem;
+
+  .public,
+  .collectives {
+    display: flex;
+    flex-direction: column;
+    span {
+      margin-bottom: 1rem;
+    }
+
+    a {
+      margin-left: 2rem;
+    }
+  }
+  a {
+    margin-bottom: 1rem;
+    text-decoration: none;
+    color: ${(props) => props.theme.color.black700};
+  }
 `;
 
 const Nav = () => {

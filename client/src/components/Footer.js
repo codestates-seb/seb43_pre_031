@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Container = styled.footer`
   grid-area: footer;
-  border: 1px solid black;
+  background-color: ${(props) => props.theme.color.black800};
   height: 20rem;
 `;
 
