@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.10'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id "org.asciidoctor.jvm.convert" version "3.3.2"		// api
 }
 
 group = 'com.example'
@@ -18,15 +19,53 @@ repositories {
 	mavenCentral()
 }
 
+ext {
+	set('snippetsDir', file("build/generated-snippets"))		// api
+}
+
+configurations {
+	asciidoctorExtensions		// api
+}
+
 dependencies {
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'		// api
+	asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'		// api
+
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'com.google.code.gson:gson'
 }
 
 tasks.named('test') {
+	outputs.dir snippetsDir		// api
 	useJUnitPlatform()
+}
+
+tasks.named('asciidoctor') {
+	configurations "asciidoctorExtensions"		// api
+	inputs.dir snippetsDir				// api
+	dependsOn test				// api
+}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor			// api
+	from file("${asciidoctor.outputDir}")  	// api
+	into file("src/main/resources/static/docs")		// api
+}
+
+build {
+	dependsOn copyDocument	// api
+}
+
+bootJar {
+	dependsOn copyDocument    // api
+	from ("${asciidoctor.outputDir}") {  // api
+		into 'static/docs'     // api
+	}
 }
