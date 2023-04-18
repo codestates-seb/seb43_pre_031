@@ -17,11 +17,11 @@ function App() {
   const authHandler = () => {
     console.log(userInfo);
     axios
-      .get('http://localhost:4000/userinfo')
+      .get('https://973f-58-122-5-44.jp.ngrok.io/members/1')
       .then((res) => {
         setIsLogin(true);
         setUserInfo(res.data);
-        console.log(isLogin);
+        console.log(res.data);
       })
       .catch((err) => {
         if (err.response.status === 401) {

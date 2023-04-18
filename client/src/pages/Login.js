@@ -41,7 +41,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
     // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
-        .post('http://localhost:4000/userinfo', { loginInfo })
+        .post('https://973f-58-122-5-44.jp.ngrok.io/members', { loginInfo })
         .then((res) => {
           setIsLogin(true);
           setUserInfo(res.data);
