@@ -9,6 +9,7 @@ import Input from '../elements/Input';
 import Button from '../elements/Button';
 import Notice from '../elements/Notice';
 import { GiPencil } from 'react-icons/gi';
+import { API } from '../utils/API';
 
 const AskQuestion = () => {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const AskQuestion = () => {
 
   const postQuestion = () => {
     axios
-      .post(`http://localhost:4001/questions`, {
+      .post(`${API}/questions`, {
         title: title,
         content: content,
         tags: ['dummy', 'tags'],
