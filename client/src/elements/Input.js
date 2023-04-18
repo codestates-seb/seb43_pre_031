@@ -3,17 +3,19 @@ import styled from 'styled-components';
 const Input = (props) => {
   const { type, placeholder, value, label, onChange } = props;
   if (label) {
-    <div>
-      <StyledLabel htmlFor={label}>{label}</StyledLabel>
-      <StyledInput
-        id={label}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-        defaultValue={value}
-        autoComplete="off"
-      />
-    </div>;
+    return (
+      <div>
+        <StyledLabel htmlFor={label}>{label}</StyledLabel>
+        <StyledInput
+          id={label}
+          type={type}
+          placeholder={placeholder}
+          onChange={onChange}
+          defaultValue={value}
+          autoComplete="off"
+        />
+      </div>
+    );
   }
 
   return (
@@ -28,10 +30,10 @@ const Input = (props) => {
 };
 
 const StyledLabel = styled.label`
-  width: 100%;
   display: inline-block;
-  padding: 0.8rem 0.9rem;
   margin: 0 0 0.3rem 0.2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
 `;
 const StyledInput = styled.input`
   width: 100%;
