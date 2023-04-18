@@ -7,6 +7,7 @@ import axios from 'axios';
 import Input from '../elements/Input';
 import Notice from '../elements/Notice';
 import Button from '../elements/Button';
+import { API } from '../utils/API';
 
 const EditAllPosts = ({ answer }) => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const EditAllPosts = ({ answer }) => {
   const saveChanges = () => {
     if (answer) {
       axios
-        .patch(`http://localhost:4001/answers/${id}`, {
+        .patch(`${API}/answers/${id}`, {
           content: content,
         })
         .then((response) => {
@@ -33,7 +34,7 @@ const EditAllPosts = ({ answer }) => {
         });
     } else {
       axios
-        .patch(`http://localhost:4001/questions/${id}`, {
+        .patch(`${API}/questions/${id}`, {
           title: title,
           content: questionContent,
         })
@@ -46,11 +47,11 @@ const EditAllPosts = ({ answer }) => {
 
   useEffect(() => {
     if (answer) {
-      axios.get(`http://localhost:4001/answers/${id}`).then((response) => {
+      axios.get(`${API}/answers/${id}`).then((response) => {
         setContent(response.data.content);
       });
     } else {
-      axios.get(`http://localhost:4001/questions/${id}`).then((response) => {
+      axios.get(`${API}/questions/${id}`).then((response) => {
         setTitle(response.data.title);
         setQuestionContent(response.data.content);
       });

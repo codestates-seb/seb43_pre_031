@@ -7,6 +7,7 @@ import Content from '../elements/Content';
 import Question from '../components/Question';
 import ToastEditor from '../components/ToastEditor';
 import Button from '../elements/Button';
+import { API } from '../utils/API';
 
 const DetailQuestion = () => {
   let { id } = useParams();
@@ -21,8 +22,8 @@ const DetailQuestion = () => {
   const getContents = async () => {
     await axios
       .all([
-        axios.get(`http://localhost:4001/questions/${id}`),
-        axios.get(`http://localhost:4001/answers`),
+        axios.get(`${API}/questions/${id}`),
+        axios.get(`${API}/answers`),
         //question의 id(20230415111301)를 쿼리로 받아서 해당 질문에 달린 답변들을 가져오도록 해야함
       ])
       .then(
@@ -47,7 +48,7 @@ const DetailQuestion = () => {
       return;
     }
     axios
-      .post('http://localhost:4001/answers', {
+      .post(`${API}/answers`, {
         content: myAnswer,
         user: user,
         answered: date,
@@ -73,15 +74,14 @@ const DetailQuestion = () => {
 
   //질문 삭제(DELETE) ===============================================================================
   const deleteQuestion = (id) => {
-    axios.delete(`http://localhost:4001/questions/${id}`).then((response) => {
-      // axios.delete(`http://localhost:4001/questions/1`).then((response) => {
+    axios.delete(`${API}/questions/${id}`).then((response) => {
       console.log(response.data);
       navigate('/');
     });
   };
   //답변 삭제(DELETE) ===============================================================================
   const deleteAnswer = (id) => {
-    axios.delete(`http://localhost:4001/answers/${id}`).then((response) => {
+    axios.delete(`${API}/answers/${id}`).then((response) => {
       console.log(response.data);
       setAnswers(answers.filter((i) => i.id !== id));
       setCall(!call);
