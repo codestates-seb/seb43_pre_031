@@ -1,6 +1,6 @@
 package com.example.demo.question;
 
-import com.example.demo.dto.MultiResponseDto;
+import com.example.demo.response.MultiResponseDto;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

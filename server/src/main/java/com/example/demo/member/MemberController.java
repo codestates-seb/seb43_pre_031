@@ -1,6 +1,6 @@
 package com.example.demo.member;
 
-import com.example.demo.member.utils.UriCreator;
+import com.example.demo.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

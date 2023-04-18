@@ -28,8 +28,8 @@ import org.springframework.util.MultiValueMap;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.demo.util.ApiDocumentUtils.getRequestPreProcessor;
-import static com.example.demo.util.ApiDocumentUtils.getResponsePreProcessor;
+import static com.example.demo.utils.ApiDocumentUtils.getRequestPreProcessor;
+import static com.example.demo.utils.ApiDocumentUtils.getResponsePreProcessor;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
