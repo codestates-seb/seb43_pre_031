@@ -1,4 +1,5 @@
 import './App.css';
+
 import Main from './pages/Main';
 import AskQuestion from './pages/AskQuestion';
 import DetailQuestion from './pages/DetailQuestion';
@@ -12,6 +13,7 @@ function App() {
         <DetailQuestion />
       </div>
     </div>
+
   );
 }
 
