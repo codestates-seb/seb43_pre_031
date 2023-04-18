@@ -5,7 +5,6 @@ import Content from '../elements/Content';
 import Button from '../elements/Button';
 
 const Question = (props) => {
-  console.log(props);
   const {
     title,
     asked,

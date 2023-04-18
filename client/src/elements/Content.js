@@ -3,7 +3,16 @@ import ToastViewer from '../components/ToastViewer';
 
 //질문, 답변 컨텐츠와 조작 버튼들, 프로필을 담는 컴포넌트
 const Content = (props) => {
-  const { type, content, date, user, tags, editContent, deleteContent } = props; //타입, 컨텐츠, 질문 등록일(혹은 답변일), 유저 객체를 인자로 받음
+  const {
+    type,
+    content,
+    date,
+    user,
+    tags,
+    editContent,
+    deleteContent,
+    copyLink,
+  } = props; //타입, 컨텐츠, 질문 등록일(혹은 답변일), 유저 객체를 인자로 받음
 
   return (
     <div className="content-wrapper">
@@ -17,7 +26,9 @@ const Content = (props) => {
       )}
       <Controller className={type === 'answer' && 'isAnswer'}>
         <FlexWrapper className="fontcolor">
-          <span>Share</span>
+          <span role="presentation" onClick={copyLink}>
+            Share
+          </span>
           <span role="presentation" onClick={editContent}>
             Edit
           </span>
