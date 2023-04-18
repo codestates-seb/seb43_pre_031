@@ -2,12 +2,10 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 18rem;
-  position: fixed;
-  top: 2rem;
-  left: 25rem;
+  position: sticky;
+  left: 0;
   grid-area: nav;
-  margin-top: 6rem;
+  margin-top: 9rem;
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
