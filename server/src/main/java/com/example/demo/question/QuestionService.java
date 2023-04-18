@@ -1,5 +1,7 @@
 package com.example.demo.question;
 
+import com.example.demo.member.Member;
+import com.example.demo.member.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -16,15 +18,19 @@ import java.util.Optional;
 public class QuestionService {
 
     private QuestionRepository questionRepository;
+    private MemberService memberService;
 
-    public QuestionService(QuestionRepository questionRepository)
+    public QuestionService(QuestionRepository questionRepository,
+                           MemberService memberService)
     {
         this.questionRepository = questionRepository;
+        this.memberService = memberService;
     }
     public Question createQuestion(Question question)
     {
         // 검증 : 이미 등록된 질문인지
         // 필요한가?
+        verifyQuestion(question);
 
         return questionRepository.save(question);
     }
@@ -65,5 +71,10 @@ public class QuestionService {
         Question question = optional.orElseThrow(()-> new RuntimeException("존재하지 않는 질문"));
 
         return question;
+    }
+
+    private void verifyQuestion(Question question)
+    {
+        memberService.findVerifiedMember(question.getMember().getMemberId());
     }
 }

@@ -1,5 +1,7 @@
 package com.example.demo.question;
 
+import com.example.demo.answer.Answer;
+import com.example.demo.member.Member;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,12 +11,21 @@ import java.util.List;
 public class QuestionMapper {
     public Question questionPostDtoToQuestion(QuestionDto.Post dto)
     {
-        return new Question(dto.getTitle(),dto.getContent());
+        Question question = new Question();
+        Member member = new Member();
+        member.setMemberId(dto.getMemberId());
+
+        question.setTitle(dto.getTitle());
+        question.setContent(dto.getContent());
+        question.setMember(member);
+        question.addAnswer(new Answer());
+
+        return question;
     }
 
     public Question questionPatchDtoToQuestion(QuestionDto.Patch dto)
     {
-        return new Question(dto.getId(),dto.getTitle(),dto.getContent());
+        return new Question(dto.getId(),dto.getTitle(),dto.getContent(),new Member(),new ArrayList<>());
     }
 
     public QuestionDto.Response questionToQuestionResponseDto(Question question)

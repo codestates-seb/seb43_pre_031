@@ -1,5 +1,6 @@
 package com.example.demo.question;
 
+import com.example.demo.member.Member;
 import com.google.gson.Gson;
 import org.apache.catalina.security.SecurityConfig;
 import org.junit.jupiter.api.Test;
@@ -70,10 +71,10 @@ public class QuestionControllerTest {
     public void postQuestionTest() throws Exception
     {
         //given
-        QuestionDto.Post postDto = new QuestionDto.Post("title","content");
+        QuestionDto.Post postDto = new QuestionDto.Post(1L,"title","content");
         String content = gson.toJson(postDto);
 
-        Question mockResultQuestion = new Question(1L,"test","test");
+        Question mockResultQuestion = new Question(1L,"test","test",new Member(),new ArrayList<>());
 
         given(mapper.questionPostDtoToQuestion(Mockito.any(QuestionDto.Post.class))).willReturn(new Question());
         given(questionService.createQuestion(Mockito.any(Question.class))).willReturn(mockResultQuestion);
@@ -200,7 +201,7 @@ public class QuestionControllerTest {
     public void getQuestionsTest() throws Exception
     {
         List<Question> questions = new ArrayList<>();
-        for(Long i = 1L; i<=5L; i++) questions.add(new Question(i,"test","test"));
+        for(Long i = 1L; i<=5L; i++) questions.add(new Question(i,"test","test",new Member(),new ArrayList<>()));
         List<QuestionDto.Response> responses = new ArrayList<>();
         for(Long i = 5L; i>=1L; i--) responses.add(new QuestionDto.Response(i,"test","test"));
 
