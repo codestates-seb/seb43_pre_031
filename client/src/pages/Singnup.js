@@ -1,41 +1,75 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../elements/Button';
+import axios from 'axios';
+import { API } from '../utils/API';
 
 export default function Signup() {
   // 회원 정보 보내기 (Create)
 
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [signupInfo, setSignupInfo] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    isMarketing: '',
+  });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorCaptchaMessage, setCaptchaErrorMessage] = useState('');
+  const handleInputValue = (key) => (e) => {
+    setSignupInfo({ ...signupInfo, [key]: e.target.value });
+  };
   const [captcha, setCaptcha] = useState(false);
-  const [option, setOption] = useState(false);
 
-  const onUsernameHandler = (e) => {
-    setUsername(e.target.value);
-  };
-  const onEmailHandler = (e) => {
-    setEmail(e.target.value);
-  };
-  const onPwHandler = (e) => {
-    setPassword(e.target.value);
-  };
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    let body = {
-      username: username,
-      email: email,
-      password: password,
-      captcha: captcha, // 얘는 안넘겨줘도 되나? false 면 회원가입 버튼을 눌러도 에러 메세지 보이게 하기
-      option: option,
-    };
-    console.log(body);
+  const signupRequestHandler = (e) => {
+    const { fullName, email, password, isMarketing } = signupInfo;
+
+    // 유효성검사 - 에러메시지 출력 조건
+    // 1. captcha 체크가 되지 않으면 captcha 옆이나 아래에 에러메세지 출력
+    if (!captcha) {
+      setCaptchaErrorMessage('CAPTCHA response required.');
+      return;
+    }
+    // 2. username, email, password 의 입력이 누락되었을 경우 각각 입력요청 에러메시지 출력
+    // 원래 사이트의 Display name 은 빈칸이어도 유효성 검사가 없음. 하지만 1문자 이상으로 넣으면 좋겠다!
+    // Email cannot be empty.
+    // Password cannot be empty.
+    // if 문 중첩 혹은 switch?
+
+    if (!fullName || !email || !password) {
+      setErrorMessage(`${e.target.id} cannot be empty.`);
+      // 혹은 각각 분기해서 추가로 유효성 검사 넣기?
+      return;
+    } else {
+      setErrorMessage('');
+    }
+    // 4. 유효한 email 주소가 아닌 경우 입력값을 담아서 오류 메세지 출력
+    // {e.target.value} is not a valid email address.
+    // 5. password 밑의 기본 안내 메세지 - 오류 발생 시 오류 메시지로 대체
+    // 5-1. 8글자 미만인 경우
+    // Must contain at least {8-입력된 문자의 수} more characters.
+    // 5-2. 입력값에 숫자 혹은 문자가 없을 경우
+    // Please add one of the following things to make your password stronger: {없는 숫자/문자}
+
+    // 유효성 검사 통과 후 사용자가 입력한 회원가입 정보를 서버로 post 하기
+    // * email 이 중복인 경우 서버에서 오류 메세지 전송 예정
+    // * 중복인 경우 원래는 forgot your password? 사이트로 이동하고 메일 보내기 확인 버튼이 뜸. alert 창으로 띄워서 로그인 페이지로 이동하시겠습니까? 예->이동, 아니오->alert 창 닫고 회원가입 페이지에 남아있기.
+    return (
+      axios
+        .post(`${API}/members`, { signupInfo })
+        .then((res) => {
+          console.log(res.data);
+          console.log('회원가입 성공');
+        })
+        // * email 이 DB 의 회원정보와 중복되는 경우
+        .catch((err) => {
+          if (err.response.status === 401) {
+            setErrorMessage('The email or password is incorrect.');
+          }
+        })
+    );
   };
   const onCheckedCaptcha = (e) => {
     setCaptcha(e.target.checked);
-  };
-  const onCheckedOpt = (e) => {
-    setOption(e.target.checked);
   };
 
   return (
@@ -136,14 +170,13 @@ export default function Signup() {
             </SCBtnContainer>
           </SocialContainer>
           <FormContainer>
-            <form onSubmit={onSubmitHandler}>
+            <form onSubmit={(e) => e.preventDefault()}>
               <InputBox>
                 <Label htmlFor="name">Display name</Label>
                 <Input
                   type="text"
                   id="name"
-                  value={username}
-                  onChange={onUsernameHandler}
+                  onChange={handleInputValue('fullName')}
                 />
                 <ErrorMsg>The name should be more than 1 letter.</ErrorMsg>
               </InputBox>
@@ -152,10 +185,10 @@ export default function Signup() {
                 <Input
                   type="email"
                   id="email"
-                  value={email}
-                  onChange={onEmailHandler}
+                  onChange={handleInputValue('email')}
                 />
                 <ErrorMsg>The email is not a valid email address.</ErrorMsg>
+                <ErrorMsg>{errorMessage}</ErrorMsg>
               </InputBox>
               <PwContainer>
                 <PwBox>
@@ -164,8 +197,7 @@ export default function Signup() {
                 <Input
                   type="password"
                   id="password"
-                  value={password}
-                  onChange={onPwHandler}
+                  onChange={handleInputValue('password')}
                 />
                 <div>
                   Passwords must contain at least eight characters, including at
@@ -198,9 +230,14 @@ export default function Signup() {
                     <a href="/">Privacy</a> - <a href="/">Terms</a>
                   </PolicyBox>
                 </CaptchaBox>
+                <ErrorMsg>{errorCaptchaMessage}</ErrorMsg>
               </CaptchaContainer>
               <OptContainer>
-                <input type="checkbox" id="opt" onChange={onCheckedOpt}></input>
+                <input
+                  type="checkbox"
+                  id="opt"
+                  onChange={handleInputValue('isMarketing')}
+                ></input>
                 <label htmlFor="opt">
                   Opt-in to receive occasional product updates, user research
                   invitations, company announcements, and digests.
@@ -214,7 +251,7 @@ export default function Signup() {
                   <path d="M7 1C3.74 1 1 3.77 1 7c0 3.26 2.77 6 6 6 3.27 0 6-2.73 6-6s-2.73-6-6-6Zm1.06 9.06c-.02.63-.48 1.02-1.1 1-.57-.02-1.03-.43-1.01-1.06.02-.63.5-1.04 1.08-1.02.6.02 1.05.45 1.03 1.08Zm.73-3.07-.47.3c-.2.15-.36.36-.44.6a3.6 3.6 0 0 0-.08.65c0 .04-.03.14-.16.14h-1.4c-.14 0-.16-.09-.16-.13-.01-.5.11-.99.36-1.42A4.6 4.6 0 0 1 7.7 6.07c.15-.1.21-.21.3-.33.18-.2.28-.47.28-.74.01-.67-.53-1.14-1.18-1.14-.9 0-1.18.7-1.18 1.46H4.2c0-1.17.31-1.92.98-2.36a3.5 3.5 0 0 1 1.83-.44c.88 0 1.58.16 2.2.62.58.42.88 1.02.88 1.82 0 .5-.17.9-.43 1.24-.15.2-.44.47-.86.79h-.01Z"></path>
                 </svg>
               </OptContainer>
-              <Button text={'Sign up'} />
+              <Button text={'Sign up'} onClick={signupRequestHandler} />
             </form>
             <PolicyContainer>
               By clicking “Sign up”, you agree to our

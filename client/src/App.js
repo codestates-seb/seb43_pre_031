@@ -1,12 +1,12 @@
 import './App.css';
-import Main from './pages/Main';
+// import Main from './pages/Main';
 // import AskQuestion from './pages/AskQuestion';
 // import DetailQuestion from './pages/DetailQuestion';
-// import Login from './pages/Login';
+import Login from './pages/Login';
+// import Signup from './pages/Singnup';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API } from './utils/API';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -18,13 +18,13 @@ function App() {
 
   const authHandler = () => {
     axios
-      .get(`${API}/userinfo`)
+      .get(`${API}/members/1`)
       .then((res) => {
         setIsLogin(true);
         setUserInfo(res.data);
-        console.log(isLogin);
-        console.log(userInfo);
         console.log(res.data);
+        console.log(`isLogin : ${isLogin}`);
+        console.log(`userInfo : ${userInfo}`);
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -38,11 +38,15 @@ function App() {
   }, []);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <div className="App">
+      <Login setIsLogin={setIsLogin} setUserInfo={setUserInfo} />
+      {/* <Signup /> */}
+      {/* <Main />
+      <div className="temp-test">
+        <AskQuestion />
+        <DetailQuestion />
+      </div> */}
+    </div>
   );
 }
 
