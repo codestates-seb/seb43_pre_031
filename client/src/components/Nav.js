@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  position: sticky;
-  left: 0;
+  position: fixed;
+  background-color: white;
   grid-area: nav;
-  margin-top: 9rem;
+  margin-top: 8rem;
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
-
+  width: 15rem;
   .public,
   .collectives {
     display: flex;
@@ -17,7 +17,6 @@ const Container = styled.div`
     span {
       margin-bottom: 1rem;
     }
-
     a {
       margin-left: 2rem;
     }

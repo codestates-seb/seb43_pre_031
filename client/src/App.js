@@ -1,8 +1,8 @@
 import './App.css';
-// import Main from './pages/Main';
+import Main from './pages/Main';
 // import AskQuestion from './pages/AskQuestion';
 // import DetailQuestion from './pages/DetailQuestion';
-import Login from './pages/Login';
+// import Login from './pages/Login';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -36,7 +36,8 @@ function App() {
 
   return (
     <div className="App">
-      <Login setIsLogin={setIsLogin} setUserInfo={setUserInfo} />
+      {/* <Login setIsLogin={setIsLogin} setUserInfo={setUserInfo} /> */}
+      <Main />
       {/* <Main />
       <div className="temp-test">
         <AskQuestion />
