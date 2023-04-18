@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-// import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -10,7 +9,7 @@ import ToastEditor from '../components/ToastEditor';
 import Button from '../elements/Button';
 
 const DetailQuestion = () => {
-  // let { id } = useParams();
+  let { id } = useParams();
   const navigate = useNavigate();
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
@@ -22,8 +21,7 @@ const DetailQuestion = () => {
   const getContents = async () => {
     await axios
       .all([
-        // axios.get(`http://localhost:4001/questions/${id}`),
-        axios.get(`http://localhost:4001/questions/1`),
+        axios.get(`http://localhost:4001/questions/${id}`),
         axios.get(`http://localhost:4001/answers`),
         //question의 id(20230415111301)를 쿼리로 받아서 해당 질문에 달린 답변들을 가져오도록 해야함
       ])
@@ -34,14 +32,6 @@ const DetailQuestion = () => {
           console.log(res1.data);
         })
       );
-  };
-
-  //질문 삭제(DELETE) ===============================================================================
-  const deleteQuestion = (id) => {
-    axios.delete(`http://localhost:4001/questions/${id}`).then((response) => {
-      console.log(response.data);
-      navigate('/');
-    });
   };
 
   //답변 추가(POST) ===============================================================================
@@ -73,13 +63,22 @@ const DetailQuestion = () => {
   const moveForEdit = (id, type) => {
     //1. 수정 하려는 글에 대한 정보를 인자로 넘김 (api를 한번이라도 덜 호출)
     //2. 페이지 이동 후 해당 글에 대한 api를 호출 (코드가 상대적으로 간략해짐) --> 일단 채택
+    console.log('move');
     if (type === 'question') {
-      // navigate(`/question/edit/q/${id}`);
+      navigate(`/questions/editq/${id}`);
     } else {
-      // navigate(`/question/edit/a/${id}`);
+      navigate(`/questions/edita/${id}`);
     }
   };
 
+  //질문 삭제(DELETE) ===============================================================================
+  const deleteQuestion = (id) => {
+    axios.delete(`http://localhost:4001/questions/${id}`).then((response) => {
+      // axios.delete(`http://localhost:4001/questions/1`).then((response) => {
+      console.log(response.data);
+      navigate('/');
+    });
+  };
   //답변 삭제(DELETE) ===============================================================================
   const deleteAnswer = (id) => {
     axios.delete(`http://localhost:4001/answers/${id}`).then((response) => {
