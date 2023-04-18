@@ -1,18 +1,19 @@
 import './App.css';
-//import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import User from './pages/User';
+
+import Main from './pages/Main';
+import AskQuestion from './pages/AskQuestion';
+import DetailQuestion from './pages/DetailQuestion';
 
 function App() {
   return (
-    <>
-      {/* <Router>
-        <Routes>
-          <Route path="/users/user" element={<User />} />
-          <Route path="/users/Settings" element={<UserSettings />} />
-        </Routes>
-      </Router> */}
-      <User />
-    </>
+    <div className="App">
+      <Main />
+      <div className="temp-test">
+        <AskQuestion />
+        <DetailQuestion />
+      </div>
+    </div>
+
   );
 }
 

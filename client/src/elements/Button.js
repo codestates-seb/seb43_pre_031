@@ -1,10 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const Button = (props) => {
-  const { text, type, onClick } = props;
+  const { text, width, onClick } = props;
 
   return (
-    <StyledButton onClick={onClick} type={type}>
+    <StyledButton onClick={onClick} width={width}>
       {text}
     </StyledButton>
   );
@@ -19,6 +19,12 @@ const StyledButton = styled.button`
   outline: ${(props) => props.theme.color.blue500} solid 1px;
   color: white;
   cursor: pointer;
+  ${(props) =>
+    props.width &&
+    css`
+      display: block;
+      width: ${(props) => props.width};
+    `}
 
   &:hover {
     background-color: ${(props) => props.theme.color.blue600};
