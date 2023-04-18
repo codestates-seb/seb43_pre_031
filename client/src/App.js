@@ -1,10 +1,12 @@
 import './App.css';
-// import Main from './pages/Main';
+import Main from './pages/Main';
 // import AskQuestion from './pages/AskQuestion';
 // import DetailQuestion from './pages/DetailQuestion';
-import Login from './pages/Login';
+// import Login from './pages/Login';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API } from './utils/API';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -15,12 +17,13 @@ function App() {
   const [userInfo, setUserInfo] = useState(null);
 
   const authHandler = () => {
-    console.log(userInfo);
     axios
-      .get('https://973f-58-122-5-44.jp.ngrok.io/members/1')
+      .get(`${API}/userinfo`)
       .then((res) => {
         setIsLogin(true);
         setUserInfo(res.data);
+        console.log(isLogin);
+        console.log(userInfo);
         console.log(res.data);
       })
       .catch((err) => {
@@ -35,14 +38,11 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Login setIsLogin={setIsLogin} setUserInfo={setUserInfo} />
-      {/* <Main />
-      <div className="temp-test">
-        <AskQuestion />
-        <DetailQuestion />
-      </div> */}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Main />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

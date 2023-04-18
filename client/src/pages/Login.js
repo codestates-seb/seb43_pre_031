@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Button from '../elements/Button';
+import { API } from '../utils/API';
 
 export default function Login({ setUserInfo, setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({
@@ -41,7 +42,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
     // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
-        .post('https://973f-58-122-5-44.jp.ngrok.io/members', { loginInfo })
+        .post(API, { loginInfo })
         .then((res) => {
           setIsLogin(true);
           setUserInfo(res.data);
