@@ -51,4 +51,10 @@ public class Answer extends BaseEntity {
         }
     }
 
+    public Answer(long id, String content, AnswerStatus status) {
+        this.id = id;
+        this.content = content;
+        this.status = status;
+    }
+
 }
