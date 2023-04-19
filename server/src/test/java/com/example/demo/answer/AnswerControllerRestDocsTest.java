@@ -1,5 +1,7 @@
 package com.example.demo.answer;
 
+import com.example.demo.member.Member;
+import com.example.demo.question.Question;
 import com.google.gson.Gson;
 import org.apache.catalina.security.SecurityConfig;
 import org.junit.jupiter.api.Test;
@@ -58,7 +60,7 @@ public class AnswerControllerRestDocsTest {
         AnswerDto.Post post = new AnswerDto.Post("post content");
         String content = gson.toJson(post);
 
-        Answer mockResultAnswer = new Answer(1L,"content", Answer.AnswerStatus.ANSWER_VALID);
+        Answer mockResultAnswer = new Answer(1L,"content", Answer.AnswerStatus.ANSWER_VALID,new Member(),new Question());
 
         given(mapper.answerPostDtoToAnswer(Mockito.any(AnswerDto.Post.class))).willReturn(new Answer());
         given(answerService.createAnswer(Mockito.any(Answer.class))).willReturn(mockResultAnswer);
@@ -160,8 +162,8 @@ public class AnswerControllerRestDocsTest {
 
     @Test
     public void getAnswersTest() throws Exception {
-        Answer answer1 = new Answer(1L, "Content", Answer.AnswerStatus.ANSWER_VALID);
-        Answer answer2 = new Answer(2L, "Content", Answer.AnswerStatus.ANSWER_VALID);
+        Answer answer1 = new Answer(1L, "Content", Answer.AnswerStatus.ANSWER_VALID,new Member(),new Question());
+        Answer answer2 = new Answer(2L, "Content", Answer.AnswerStatus.ANSWER_VALID,new Member(),new Question());
         AnswerDto.Response response1 = new AnswerDto.Response(1L,"content1", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
         AnswerDto.Response response2 = new AnswerDto.Response(2L,"content2", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
 
