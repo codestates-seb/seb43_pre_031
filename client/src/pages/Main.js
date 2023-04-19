@@ -1,9 +1,9 @@
 import Nav from '../components/Nav';
 import Header from '../components/Header';
-import Questions from '../components/Questions';
-import Aside from '../components/Aside';
 import Footer from '../components/Footer';
 import styled from 'styled-components';
+import Questions from '../components/Questions';
+import Aside from '../components/Aside';
 
 const Container = styled.div`
   width: 100vw;
