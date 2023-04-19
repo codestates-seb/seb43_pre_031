@@ -5,14 +5,14 @@ import Button from '../elements/Button';
 import { API } from '../utils/API';
 
 export default function Login({ setUserInfo, setIsLogin }) {
-  const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: '',
-  });
+  const [loginInfo, setLoginInfo] = useState({});
 
   // 로그인 정보 보내기
   const [errorMessage, setErrorMessage] = useState('');
+  const [errorPwMessage, setPwErrorMessage] = useState('');
   const handleInputValue = (key) => (e) => {
+    setErrorMessage('');
+    setPwErrorMessage('');
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
@@ -22,8 +22,11 @@ export default function Login({ setUserInfo, setIsLogin }) {
     // 유효성검사 - 에러메시지 출력 조건
     // 1. 이메일이나 패스워드 중 하나라도 입력이 누락되었을 경우 입력요청 에러메시지 출력
     // {Email/Password} cannot be empty.
-    if (!email || !password) {
-      setErrorMessage('Plese write email and password.');
+    if (!email) {
+      setErrorMessage('Email cannot be empty');
+      return;
+    } else if (!password) {
+      setPwErrorMessage('Password cannot be empty');
       return;
     } else {
       setErrorMessage('');
@@ -39,7 +42,10 @@ export default function Login({ setUserInfo, setIsLogin }) {
       console.log('유효한 이메일 주소입니다');
     }
 
+    console.log(loginInfo);
+
     // 유효성 검사 통과 후에 유저의 로그인 정보를 서버로 보내기
+    // => post 완료. 그럼 서버 단에서 이걸 받아서 회원정보랑 비교를 해주시겠지?
     // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
@@ -47,7 +53,15 @@ export default function Login({ setUserInfo, setIsLogin }) {
         .then((res) => {
           setIsLogin(true);
           setUserInfo(res.data);
+          // JWT : AccessToken 을 받아와서 변수에 저장 후
+          // API 요청시마다 헤더에 담아서 보내기
+          // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+          // 자동로그인 : refreshToken 값 설정
+          // 로그인 만료되기 전에 연장 필요한가?
+          //
+          console.log(loginInfo);
           console.log(res.data);
+          console.log('로그인 성공!');
         })
         // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우
         .catch((err) => {
@@ -57,6 +71,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
         })
     );
   };
+
   return (
     <>
       <Main>
@@ -128,6 +143,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
                 id="password"
                 onChange={handleInputValue('password')}
               />
+              {errorPwMessage ? <ErrorMsg>{errorPwMessage}</ErrorMsg> : ''}
             </PwContainer>
             <Button
               width="100%"

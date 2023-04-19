@@ -16,26 +16,23 @@ function App() {
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
 
-  const authHandler = () => {
-    axios
-      .get(`${API}/members/1`)
-      .then((res) => {
-        setIsLogin(true);
-        setUserInfo(res.data);
-        console.log(res.data);
-        console.log(`isLogin : ${isLogin}`);
-        console.log(`userInfo : ${userInfo}`);
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          console.log(err.response.data);
-        }
-      });
-  };
+  // const authHandler = () => {
+  //   axios
+  //     .get(`${API}/members`)
+  //     .then((res) => {
+  //       setIsLogin(true);
+  //       setUserInfo(res.data);
+  //     })
+  //     .catch((err) => {
+  //       if (err.response.status === 401) {
+  //         console.log(err.response.data);
+  //       }
+  //     });
+  // };
 
-  useEffect(() => {
-    authHandler();
-  }, []);
+  // useEffect(() => {
+  //   authHandler();
+  // }, []);
 
   return (
     <div className="App">

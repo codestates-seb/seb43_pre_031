@@ -1,5 +1,5 @@
 {
-  "userinfo": [
+  "members": [
     {
       "id": 0,
       "name": "이현진",
@@ -17,13 +17,6 @@
       "name": "안유진",
       "email": "yujin@gmail.com",
       "password": 1111
-    },
-    {
-      "loginInfo": {
-        "email": "g@",
-        "password": "f"
-      },
-      "id": 3
     }
   ],
   "questions": [
