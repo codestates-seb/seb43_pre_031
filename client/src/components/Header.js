@@ -5,10 +5,8 @@ import Button from '../elements/Button';
 
 const Container = styled.div`
   z-index: 1;
-  grid-area: header;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100vw;
   height: 6rem;
   background-color: ${(props) => props.theme.color.lightGray};

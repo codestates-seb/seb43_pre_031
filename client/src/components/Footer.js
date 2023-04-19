@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 
 const Container = styled.footer`
-  grid-area: footer;
+  position: absolute;
+  bottom: 0;
   background-color: ${(props) => props.theme.color.black800};
   height: 20rem;
+  width: 100%;
 `;
 
 const Footer = () => {

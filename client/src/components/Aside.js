@@ -4,10 +4,9 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ReorderIcon from '@mui/icons-material/Reorder';
 
 const Container = styled.aside`
-  grid-area: aside;
   margin-left: 3rem;
   margin-top: 6rem;
-  width: 100%;
+  width: 30rem;
   ul {
     background-color: #fdf7e2;
     margin-top: 2.5rem;

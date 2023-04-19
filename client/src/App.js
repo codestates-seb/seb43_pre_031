@@ -1,8 +1,11 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 import './App.css';
 import Main from './pages/Main';
+// import AskQuestion from './pages/AskQuestion';
+// import DetailQuestion from './pages/DetailQuestion';
+// import Login from './pages/Login';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+// import Main from './pages/Main';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
@@ -12,6 +15,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import EditAllPosts from './pages/EditAllPosts';
 import User from './pages/User';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
