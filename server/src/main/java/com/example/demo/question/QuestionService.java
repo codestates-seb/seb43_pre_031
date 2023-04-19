@@ -35,12 +35,15 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public Question updateQuestion(Question question)
+    public Question updateQuestion(Question question, Long id)
     {
-        Question findQuestion = findVerifiedQuestion(question.getId());
+        Question findQuestion = findVerifiedQuestion(id);
 
         Optional.ofNullable(question.getTitle()).ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getContent()).ifPresent(content -> findQuestion.setContent(content));
+        Optional.ofNullable(question.getAsked_at()).ifPresent(asked_at -> findQuestion.setAsked_at(asked_at));
+        Optional.ofNullable(question.getModified_at()).ifPresent(modified_at -> findQuestion.setModified_at(modified_at));
+        Optional.ofNullable(question.getTags()).ifPresent(tags -> findQuestion.setTags(tags));
 
         return questionRepository.save(findQuestion);
     }

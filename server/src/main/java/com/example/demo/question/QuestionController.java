@@ -1,6 +1,7 @@
 package com.example.demo.question;
 
 import com.example.demo.response.MultiResponseDto;
+import com.example.demo.utils.UriCreator;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/questions")
 public class QuestionController {
 
+    private final static String QUESTION_DEFAULT_URL = "/questions";
     private QuestionService questionService;
     private QuestionMapper mapper;
 
@@ -37,11 +39,7 @@ public class QuestionController {
         Question savedQuestion = questionService.createQuestion(question);
 
         // URI 인스턴트로 만들어서 헤더에 정보추가하기
-        URI location = UriComponentsBuilder
-                .newInstance()
-                .path("/questions" + "/{question-id}")
-                .buildAndExpand(savedQuestion.getId())
-                .toUri();
+        URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, savedQuestion.getId());
 
         return ResponseEntity.created(location).build();
     }
@@ -50,9 +48,9 @@ public class QuestionController {
     public ResponseEntity patchQuestion(@RequestBody QuestionDto.Patch dto,
                                         @PathVariable("question-id") long questionId)
     {
-        dto.setId(questionId);
+        //dto.setId(questionId);
 
-        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(dto));
+        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(dto),questionId);
 
         return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
     }
@@ -64,11 +62,12 @@ public class QuestionController {
         return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
     }
 
-    // 페이지네이션 나중에
     @GetMapping
-    public ResponseEntity getQuestions(@RequestParam int page,
-                                       @RequestParam int size)
+    public ResponseEntity getQuestions(@RequestParam(value = "page", required = false) Integer page,
+                                       @RequestParam(value = "size", required = false) Integer size)
     {
+        if(page == null) page = 1;
+        if(size == null) size = 10;
         Page<Question> questionPage = questionService.findQuestions(page-1, size);
 
         List<Question> questions = questionPage.getContent();
@@ -76,6 +75,7 @@ public class QuestionController {
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses,questionPage), HttpStatus.OK);
     }
+
 
     @DeleteMapping("/{question-id}")
     public ResponseEntity deleteQuestion(@PathVariable("question-id") long id)

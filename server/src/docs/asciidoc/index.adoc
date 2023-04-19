@@ -230,4 +230,3 @@ include::{snippets}/delete-answer/path-parameters.adoc[]
 
 .http-response
 include::{snippets}/delete-answer/http-response.adoc[]
-=======

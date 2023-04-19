@@ -19,6 +19,8 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
         http
+                .headers().frameOptions().sameOrigin()// 혹시 cors 문제생기면 이 부분 삭제
+                .and()
                 .csrf().disable()
                 .authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest)
