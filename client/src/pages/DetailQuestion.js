@@ -66,9 +66,9 @@ const DetailQuestion = () => {
     //2. 페이지 이동 후 해당 글에 대한 api를 호출 (코드가 상대적으로 간략해짐) --> 일단 채택
     console.log('move');
     if (type === 'question') {
-      navigate(`/questions/editq/${id}`);
+      navigate(`/question/editq/${id}`);
     } else {
-      navigate(`/questions/edita/${id}`);
+      navigate(`/question/edita/${id}`);
     }
   };
 
