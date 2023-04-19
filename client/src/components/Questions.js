@@ -26,21 +26,16 @@ const Title = styled.div`
 const Questions = ({ questions }) => {
   const navigate = useNavigate();
   return (
-    <>
-      <Container>
-        <Title>
-          <h1>All Questions</h1>
-          <Button
-            text="Ask Question"
-            onClick={() => navigate('/question/ask')}
-          />
-        </Title>
-        <h2>{questions.length} questions</h2>
-        {questions.map((question) => (
-          <QuestionList key={question.id} question={question} />
-        ))}
-      </Container>
-    </>
+    <Container>
+      <Title>
+        <h1>All Questions</h1>
+        <Button text="Ask Question" onClick={() => navigate('/question/ask')} />
+      </Title>
+      <h2>{questions.length} questions</h2>
+      {questions.map((question) => (
+        <QuestionList key={question.id} question={question} />
+      ))}
+    </Container>
   );
 };
 

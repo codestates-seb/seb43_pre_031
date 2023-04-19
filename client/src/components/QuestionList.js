@@ -1,7 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const QuestionList = ({ question }) => {
-  console.log(question);
+  const navigate = useNavigate();
   return (
     <Container>
       <List>
@@ -11,7 +12,13 @@ const QuestionList = ({ question }) => {
           <span>{question.viewed} views</span>
         </div>
         <Content>
-          <Title>{question.title}</Title>
+          <Title
+            onClick={() => {
+              navigate(`/question/${question.id}`);
+            }}
+          >
+            {question.title}
+          </Title>
           <Description>{question.content}</Description>
           <Tags>
             {question.tags.map((tag) => (

@@ -85,11 +85,7 @@ const Header = () => {
   const navigate = useNavigate();
   return (
     <Container>
-      <Logo
-        src="/assets/logo.png"
-        alt="logo"
-        onClick={() => navigate('/users/login')}
-      />
+      <Logo src="/assets/logo.png" alt="logo" onClick={() => navigate('/')} />
       <Link to="/about">About</Link>
       <Link to="/products">Products</Link>
       <Link to="/teams">For Teams</Link>

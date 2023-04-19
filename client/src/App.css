@@ -1,13 +1,11 @@
 .content-page-wrapper {
-  /* background-color: aquamarine; */
   display: flex;
   width: 80%;
   margin: 0 auto;
-  /* margin: 0 auto; */
 }
 .content-page {
   margin-left: 20rem;
-  height: 150vh;
+  min-height: 150vh;
   border-left: 1px solid #BBC0C4;
   
 }
