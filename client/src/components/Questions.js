@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import Button from '../elements/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
-  grid-area: main;
   border-left: 1px solid ${(props) => props.theme.color.black200};
   margin-top: 6rem;
-  height: 100vh;
-
+  margin-left: 15rem;
+  height: auto;
+  width: 70%;
   h2 {
     padding: 0 2.5rem 2.5rem 2.5rem;
     font-size: 2rem;
@@ -81,11 +82,12 @@ const Author = styled.div`
 `;
 
 const Questions = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Title>
         <h1>All Questions</h1>
-        <Button text="Ask Question" />
+        <Button text="Ask Question" onClick={() => navigate('/question/ask')} />
       </Title>
       <h2>23,644,472 questions</h2>
       <Lists>

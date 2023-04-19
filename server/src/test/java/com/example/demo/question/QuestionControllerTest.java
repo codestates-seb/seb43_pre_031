@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -52,6 +53,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
         excludeFilters = {
             @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
 })
+@MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
 public class QuestionControllerTest {
     @Autowired
@@ -73,8 +75,9 @@ public class QuestionControllerTest {
         //given
         QuestionDto.Post postDto = new QuestionDto.Post(1L,"title","content");
         String content = gson.toJson(postDto);
-
-        Question mockResultQuestion = new Question(1L,"test","test",new Member(),new ArrayList<>());
+        Member member = new Member();
+        member.setMemberId(1L);
+        Question mockResultQuestion = new Question(1L,"test","test",member,new ArrayList<>());
 
         given(mapper.questionPostDtoToQuestion(Mockito.any(QuestionDto.Post.class))).willReturn(new Question());
         given(questionService.createQuestion(Mockito.any(Question.class))).willReturn(mockResultQuestion);
@@ -98,6 +101,7 @@ public class QuestionControllerTest {
                                 getRequestPreProcessor(),
                                 getResponsePreProcessor(),
                                 requestFields(List.of(
+                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("질문 작성자"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("질문 제목"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용")
                                 )),
