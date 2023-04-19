@@ -6,7 +6,7 @@ import ReorderIcon from '@mui/icons-material/Reorder';
 const Container = styled.aside`
   margin-left: 3rem;
   margin-top: 6rem;
-  width: 30rem;
+  width: 50rem;
   ul {
     background-color: #fdf7e2;
     margin-top: 2.5rem;

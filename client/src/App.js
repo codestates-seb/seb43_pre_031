@@ -5,9 +5,9 @@ import Main from './pages/Main';
 // import Login from './pages/Login';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-// import Main from './pages/Main';
 import Header from './components/Header';
 import Nav from './components/Nav';
+import Aside from './components/Aside';
 import Footer from './components/Footer';
 import AskQuestion from './pages/AskQuestion';
 import DetailQuestion from './pages/DetailQuestion';
@@ -24,6 +24,7 @@ function App() {
   // 최초 렌더링 시 회원정보 받아오기
   const [isLogin, setIsLogin] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [questions, setQuestions] = useState([]);
 
   const authHandler = () => {
     console.log(userInfo);
@@ -43,8 +44,18 @@ function App() {
       });
   };
 
+  const getQuestions = () => {
+    axios
+      .get('http://localhost:4000/questions')
+      .then((res) => {
+        setQuestions(res.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
   useEffect(() => {
     authHandler();
+    getQuestions();
   }, []);
 
   return (
@@ -54,7 +65,7 @@ function App() {
         <Nav />
         <div className="content-page">
           <Routes>
-            <Route path="/" element={<Main />} />
+            <Route path="/" element={<Main questions={questions} />} />
             <Route path="/users/login" element={<Login />} />
             <Route path="/users/signup" element={<Signup />} />
             <Route path="/user" element={<User />} />
@@ -64,6 +75,7 @@ function App() {
             <Route path="/question/edita/:id" element={<EditAllPosts />} />
           </Routes>
         </div>
+        <Aside />
       </div>
       <Footer />
     </BrowserRouter>

@@ -84,44 +84,6 @@
         "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
       },
       "answer_count": 22
-    },
-    {
-      "title": "",
-      "content": "",
-      "tags": [
-        "dummy",
-        "tags"
-      ],
-      "vote": 0,
-      "asked": "1 min ago",
-      "viewed": 1,
-      "modified": "never",
-      "edited": "never",
-      "answer_count": 0,
-      "author": {
-        "username": "idx123",
-        "userimage": "https://randomuser.me/api/portraits/thumb/men/100.jpg"
-      },
-      "id": 3
-    },
-    {
-      "title": "질문 작성 테스트",
-      "content": "질문글을 작성해봅시다",
-      "tags": [
-        "dummy",
-        "tags"
-      ],
-      "vote": 0,
-      "asked": "1 min ago",
-      "viewed": 1,
-      "modified": "never",
-      "edited": "never",
-      "answer_count": 0,
-      "author": {
-        "username": "idx123",
-        "userimage": "https://randomuser.me/api/portraits/thumb/men/100.jpg"
-      },
-      "id": 4
     }
   ],
   "answers": [

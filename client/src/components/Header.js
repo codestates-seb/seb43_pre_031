@@ -85,7 +85,11 @@ const Header = () => {
   const navigate = useNavigate();
   return (
     <Container>
-      <Logo src="/assets/logo.png" alt="logo" onClick={() => navigate('/')} />
+      <Logo
+        src="/assets/logo.png"
+        alt="logo"
+        onClick={() => navigate('/users/login')}
+      />
       <Link to="/about">About</Link>
       <Link to="/products">Products</Link>
       <Link to="/teams">For Teams</Link>
@@ -94,8 +98,20 @@ const Header = () => {
           <SearchIcon />
           <input type="text" placeholder="Search..." />
         </Search>
-        <button className="login">Log in</button>
-        <Button text="Sign up" />
+        <button
+          className="login"
+          onClick={() => {
+            navigate('/users/login');
+          }}
+        >
+          Log in
+        </button>
+        <Button
+          text="Sign up"
+          onClick={() => {
+            navigate('/users/signup');
+          }}
+        />
         {/* <button className="signup">Sign up</button> */}
       </div>
     </Container>
