@@ -21,6 +21,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
 
     // 유효성검사 - 에러메시지 출력 조건
     // 1. 이메일이나 패스워드 중 하나라도 입력이 누락되었을 경우 입력요청 에러메시지 출력
+    // {Email/Password} cannot be empty.
     if (!email || !password) {
       setErrorMessage('Plese write email and password.');
       return;
@@ -42,7 +43,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
     // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
-        .post(API, { loginInfo })
+        .post(`${API}/members`, { loginInfo })
         .then((res) => {
           setIsLogin(true);
           setUserInfo(res.data);

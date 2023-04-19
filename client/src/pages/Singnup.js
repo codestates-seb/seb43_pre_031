@@ -8,10 +8,10 @@ export default function Signup() {
   // 회원 정보 보내기 (Create)
 
   const [signupInfo, setSignupInfo] = useState({
-    username: '',
+    fullName: '',
     email: '',
     password: '',
-    option: '',
+    isMarketing: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
   const [errorCaptchaMessage, setCaptchaErrorMessage] = useState('');
@@ -21,7 +21,7 @@ export default function Signup() {
   const [captcha, setCaptcha] = useState(false);
 
   const signupRequestHandler = (e) => {
-    const { username, email, password, option } = signupInfo;
+    const { fullName, email, password, isMarketing } = signupInfo;
 
     // 유효성검사 - 에러메시지 출력 조건
     // 1. captcha 체크가 되지 않으면 captcha 옆이나 아래에 에러메세지 출력
@@ -35,7 +35,7 @@ export default function Signup() {
     // Password cannot be empty.
     // if 문 중첩 혹은 switch?
 
-    if (!username || !email || !password) {
+    if (!fullName || !email || !password) {
       setErrorMessage(`${e.target.id} cannot be empty.`);
       // 혹은 각각 분기해서 추가로 유효성 검사 넣기?
       return;
@@ -55,7 +55,7 @@ export default function Signup() {
     // * 중복인 경우 원래는 forgot your password? 사이트로 이동하고 메일 보내기 확인 버튼이 뜸. alert 창으로 띄워서 로그인 페이지로 이동하시겠습니까? 예->이동, 아니오->alert 창 닫고 회원가입 페이지에 남아있기.
     return (
       axios
-        .post(API, { signupInfo })
+        .post(`${API}/members`, { signupInfo })
         .then((res) => {
           console.log(res.data);
           console.log('회원가입 성공');
@@ -176,7 +176,7 @@ export default function Signup() {
                 <Input
                   type="text"
                   id="name"
-                  onChange={handleInputValue('username')}
+                  onChange={handleInputValue('fullName')}
                 />
                 <ErrorMsg>The name should be more than 1 letter.</ErrorMsg>
               </InputBox>
@@ -236,7 +236,7 @@ export default function Signup() {
                 <input
                   type="checkbox"
                   id="opt"
-                  onChange={handleInputValue('option')}
+                  onChange={handleInputValue('isMarketing')}
                 ></input>
                 <label htmlFor="opt">
                   Opt-in to receive occasional product updates, user research

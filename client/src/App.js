@@ -2,8 +2,8 @@ import './App.css';
 // import Main from './pages/Main';
 // import AskQuestion from './pages/AskQuestion';
 // import DetailQuestion from './pages/DetailQuestion';
-// import Login from './pages/Login';
-import Signup from './pages/Singnup';
+import Login from './pages/Login';
+// import Signup from './pages/Singnup';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API } from './utils/API';
@@ -18,10 +18,11 @@ function App() {
 
   const authHandler = () => {
     axios
-      .get(`${API}/userinfo`)
+      .get(`${API}/members/1`)
       .then((res) => {
         setIsLogin(true);
         setUserInfo(res.data);
+        console.log(res.data);
         console.log(`isLogin : ${isLogin}`);
         console.log(`userInfo : ${userInfo}`);
       })
@@ -38,8 +39,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* <Login setIsLogin={setIsLogin} setUserInfo={setUserInfo} /> */}
-      <Signup />
+      <Login setIsLogin={setIsLogin} setUserInfo={setUserInfo} />
+      {/* <Signup /> */}
       {/* <Main />
       <div className="temp-test">
         <AskQuestion />
