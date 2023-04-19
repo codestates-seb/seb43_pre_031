@@ -1,19 +1,14 @@
 import './App.css';
-
-import Main from './pages/Main';
-import AskQuestion from './pages/AskQuestion';
-import DetailQuestion from './pages/DetailQuestion';
+import User from './pages/User';
+import { Routes, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <Main />
-      <div className="temp-test">
-        <AskQuestion />
-        <DetailQuestion />
-      </div>
+    <div>
+      <Routes>
+        <Route path="/*" element={<User />} />
+      </Routes>
     </div>
-
   );
 }
 
