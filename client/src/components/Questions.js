@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Button from '../elements/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   grid-area: main;
@@ -81,11 +82,12 @@ const Author = styled.div`
 `;
 
 const Questions = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <Title>
         <h1>All Questions</h1>
-        <Button text="Ask Question" />
+        <Button text="Ask Question" onClick={() => navigate('/question/ask')} />
       </Title>
       <h2>23,644,472 questions</h2>
       <Lists>
