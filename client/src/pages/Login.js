@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Button from '../elements/Button';
 import { API } from '../utils/API';
+import { Link } from 'react-router-dom';
 
 export default function Login({ setUserInfo, setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({});
@@ -21,12 +22,8 @@ export default function Login({ setUserInfo, setIsLogin }) {
 
     // 유효성검사 - 에러메시지 출력 조건
     // 1. 이메일이나 패스워드 중 하나라도 입력이 누락되었을 경우 입력요청 에러메시지 출력
-    // {Email/Password} cannot be empty.
-    if (!email) {
-      setErrorMessage('Email cannot be empty');
-      return;
-    } else if (!password) {
-      setPwErrorMessage('Password cannot be empty');
+    if (!email || !password) {
+      setErrorMessage('Plese write email and password.');
       return;
     } else {
       setErrorMessage('');
@@ -42,7 +39,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
       console.log('유효한 이메일 주소입니다');
     }
 
-    console.log(loginInfo);
+    console.log('유효성 검사 통과');
 
     // 유효성 검사 통과 후에 유저의 로그인 정보를 서버로 보내기
     // => post 완료. 그럼 서버 단에서 이걸 받아서 회원정보랑 비교를 해주시겠지?
@@ -58,7 +55,6 @@ export default function Login({ setUserInfo, setIsLogin }) {
           // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
           // 자동로그인 : refreshToken 값 설정
           // 로그인 만료되기 전에 연장 필요한가?
-          //
           console.log(loginInfo);
           console.log(res.data);
           console.log('로그인 성공!');
@@ -73,7 +69,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
   };
 
   return (
-    <>
+    <MainContainer>
       <Main>
         <SocialContainer>
           <LogoBox
@@ -154,7 +150,8 @@ export default function Login({ setUserInfo, setIsLogin }) {
         </FormContainer>
         <LinkContainer>
           <div>
-            Don’t have an account? <a href="/">Sign up</a>
+            Don’t have an account?
+            <Link to="/users/signup">Sign up</Link>
           </div>
           <div>
             Are you an employer?{' '}
@@ -173,11 +170,16 @@ export default function Login({ setUserInfo, setIsLogin }) {
           </div>
         </LinkContainer>
       </Main>
-    </>
+    </MainContainer>
   );
 }
 
 // Styled-components
+const MainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const Main = styled.main`
   margin: 2rem;
   padding: 24px;

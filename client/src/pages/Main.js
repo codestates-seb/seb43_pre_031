@@ -15,6 +15,7 @@ const Container = styled.div`
     width: 70%;
     height: 100%;
     display: flex;
+    justify-content: center;
   }
 `;
 

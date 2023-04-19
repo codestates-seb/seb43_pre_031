@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import Button from '../elements/Button';
 import axios from 'axios';
 import { API } from '../utils/API';
+import { Link } from 'react-router-dom';
 
 export default function Signup() {
-  // 회원 정보 보내기 (Create)
+  // 회원 정보 보내기 (Create-post)
 
   const [signupInfo, setSignupInfo] = useState({
     fullName: '',
@@ -14,6 +15,8 @@ export default function Signup() {
     isMarketing: '',
   });
   const [errorMessage, setErrorMessage] = useState('');
+  const [errorEmailMessage, setErrorEmailMessage] = useState('');
+  const [errorPwMessage, setErrorPwMessage] = useState('');
   const [errorCaptchaMessage, setCaptchaErrorMessage] = useState('');
   const handleInputValue = (key) => (e) => {
     setSignupInfo({ ...signupInfo, [key]: e.target.value });
@@ -22,52 +25,77 @@ export default function Signup() {
 
   const signupRequestHandler = (e) => {
     const { fullName, email, password, isMarketing } = signupInfo;
-
+    console.log(`isMarketing : ${isMarketing}`);
     // 유효성검사 - 에러메시지 출력 조건
     // 1. captcha 체크가 되지 않으면 captcha 옆이나 아래에 에러메세지 출력
     if (!captcha) {
       setCaptchaErrorMessage('CAPTCHA response required.');
       return;
     }
-    // 2. username, email, password 의 입력이 누락되었을 경우 각각 입력요청 에러메시지 출력
-    // 원래 사이트의 Display name 은 빈칸이어도 유효성 검사가 없음. 하지만 1문자 이상으로 넣으면 좋겠다!
-    // Email cannot be empty.
-    // Password cannot be empty.
-    // if 문 중첩 혹은 switch?
-
-    if (!fullName || !email || !password) {
-      setErrorMessage(`${e.target.id} cannot be empty.`);
-      // 혹은 각각 분기해서 추가로 유효성 검사 넣기?
-      return;
-    } else {
-      setErrorMessage('');
+    // 2. username 의 입력이 누락되었을 경우 각각 입력요청 에러메시지 출력
+    if (!fullName) {
+      setErrorMessage(`Name cannot be empty.`);
     }
     // 4. 유효한 email 주소가 아닌 경우 입력값을 담아서 오류 메세지 출력
     // {e.target.value} is not a valid email address.
-    // 5. password 밑의 기본 안내 메세지 - 오류 발생 시 오류 메시지로 대체
-    // 5-1. 8글자 미만인 경우
-    // Must contain at least {8-입력된 문자의 수} more characters.
-    // 5-2. 입력값에 숫자 혹은 문자가 없을 경우
-    // Please add one of the following things to make your password stronger: {없는 숫자/문자}
+    const mailFormat = /^[A-Za-z0-9_-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
+    if (!email.match(mailFormat)) {
+      setErrorEmailMessage(`${signupInfo.email} is not a valid email address.`);
+    }
+
+    // 5. password 밑의 기본 안내 메세지//
+    // 5-1. 8글자 미만인 경우//
+    // 5-2. 입력값에 숫자 혹은 문자가 없을 경우//
+    if (!signupInfo.password.length) {
+      setErrorPwMessage('Password cannot be empty.');
+    }
+    if (
+      signupInfo.password.length > 1 &&
+      !signupInfo.password.match(/[^0-9]/)
+    ) {
+      setErrorPwMessage(
+        'Please add one of the following things to make your password stronger: letter'
+      );
+    }
+    if (
+      signupInfo.password.length > 1 &&
+      !signupInfo.password.match(/[0-9]/g)
+    ) {
+      setErrorPwMessage(
+        'Please add one of the following things to make your password stronger: number'
+      );
+    }
+    if (signupInfo.password.length > 0 && signupInfo.password.length < 8) {
+      setErrorPwMessage(
+        `Must contain at least ${
+          8 - signupInfo.password.length
+        } more characters.`
+      );
+    }
 
     // 유효성 검사 통과 후 사용자가 입력한 회원가입 정보를 서버로 post 하기
     // * email 이 중복인 경우 서버에서 오류 메세지 전송 예정
-    // * 중복인 경우 원래는 forgot your password? 사이트로 이동하고 메일 보내기 확인 버튼이 뜸. alert 창으로 띄워서 로그인 페이지로 이동하시겠습니까? 예->이동, 아니오->alert 창 닫고 회원가입 페이지에 남아있기.
-    return (
-      axios
-        .post(`${API}/members`, { signupInfo })
-        .then((res) => {
-          console.log(res.data);
-          console.log('회원가입 성공');
-        })
-        // * email 이 DB 의 회원정보와 중복되는 경우
-        .catch((err) => {
-          if (err.response.status === 401) {
-            setErrorMessage('The email or password is incorrect.');
-          }
-        })
-    );
+    // * 중복인 경우 forgot your password? 사이트로 이동하고 메일 보내기 확인 버튼이 뜸.
+    else {
+      setErrorMessage('');
+      setErrorPwMessage('');
+      return (
+        axios
+          .post(`${API}/members`, { signupInfo })
+          .then((res) => {
+            console.log(res.data);
+            console.log('회원가입 성공');
+          })
+          // * email 이 DB 의 회원정보와 중복되는 경우
+          .catch((err) => {
+            if (err.response.status === 401) {
+              setErrorMessage('The email or password is incorrect.');
+            }
+          })
+      );
+    }
   };
+
   const onCheckedCaptcha = (e) => {
     setCaptcha(e.target.checked);
   };
@@ -178,7 +206,7 @@ export default function Signup() {
                   id="name"
                   onChange={handleInputValue('fullName')}
                 />
-                <ErrorMsg>The name should be more than 1 letter.</ErrorMsg>
+                <ErrorMsg>{errorMessage}</ErrorMsg>
               </InputBox>
               <InputBox>
                 <Label htmlFor="email">Email</Label>
@@ -187,8 +215,7 @@ export default function Signup() {
                   id="email"
                   onChange={handleInputValue('email')}
                 />
-                <ErrorMsg>The email is not a valid email address.</ErrorMsg>
-                <ErrorMsg>{errorMessage}</ErrorMsg>
+                <ErrorMsg>{errorEmailMessage}</ErrorMsg>
               </InputBox>
               <PwContainer>
                 <PwBox>
@@ -203,11 +230,7 @@ export default function Signup() {
                   Passwords must contain at least eight characters, including at
                   least 1 letter and 1 number.
                 </div>
-                <ErrorMsg>
-                  Please add one of the following things to make your password
-                  stronger:
-                </ErrorMsg>
-                <ErrorMsg>Must contain at least 3 more characters.</ErrorMsg>
+                <ErrorMsg>{errorPwMessage}</ErrorMsg>
               </PwContainer>
               <CaptchaContainer>
                 <CaptchaBox>
@@ -261,7 +284,8 @@ export default function Signup() {
           </FormContainer>
           <LinkContainer>
             <div>
-              Already have an account? <a href="/">Log in</a>
+              Already have an account?
+              <Link to="/users/login">Log in</Link>
             </div>
             <div>
               Are you an employer?{' '}
