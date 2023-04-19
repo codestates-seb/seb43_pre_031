@@ -6,22 +6,27 @@ import Footer from '../components/Footer';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  display: grid;
-  margin: 0 auto;
-  grid-template-columns: 1fr 1fr 3.5fr 1.5fr 1fr;
-  grid-template-areas:
-    'header header header header header'
-    '. nav main aside .'
-    'footer footer footer footer footer';
+  width: 100vw;
+  display: flex;
+  height: 200vh;
+  position: relative;
+  .content {
+    margin: 0 auto;
+    width: 70%;
+    height: 100%;
+    display: flex;
+  }
 `;
 
 const Main = () => {
   return (
     <Container>
       <Header />
-      <Nav />
-      <Questions />
-      <Aside />
+      <div className="content">
+        <Nav />
+        <Questions />
+        <Aside />
+      </div>
       <Footer />
     </Container>
   );
