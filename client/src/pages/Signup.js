@@ -24,7 +24,7 @@ export default function Signup() {
   const [captcha, setCaptcha] = useState(false);
 
   const signupRequestHandler = () => {
-    const { fullName, email, isMarketing } = signupInfo;
+    const { fullName, email, password, isMarketing } = signupInfo;
     console.log(`isMarketing : ${isMarketing}`);
     // 유효성검사 - 에러메시지 출력 조건
     // 1. captcha 체크가 되지 않으면 captcha 옆이나 아래에 에러메세지 출력
@@ -35,20 +35,21 @@ export default function Signup() {
     // 2. username 의 입력이 누락되었을 경우 각각 입력요청 에러메시지 출력
     if (!fullName) {
       setErrorMessage(`Name cannot be empty.`);
+      return;
     }
     // 4. 유효한 email 주소가 아닌 경우 입력값을 담아서 오류 메세지 출력
     // {e.target.value} is not a valid email address.
     const mailFormat = /^[A-Za-z0-9_-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
     if (!email.match(mailFormat)) {
       setErrorEmailMessage(`${signupInfo.email} is not a valid email address.`);
+      return;
     }
-
     // 5. password 밑의 기본 안내 메세지//
-    // 5-1. 8글자 미만인 경우//
-    // 5-2. 입력값에 숫자 혹은 문자가 없을 경우//
-    if (!signupInfo.password.length) {
+    if (!password) {
       setErrorPwMessage('Password cannot be empty.');
+      return;
     }
+    // 5-1. 입력값에 숫자 혹은 문자가 없을 경우//
     if (
       signupInfo.password.length > 1 &&
       !signupInfo.password.match(/[^0-9]/)
@@ -56,6 +57,7 @@ export default function Signup() {
       setErrorPwMessage(
         'Please add one of the following things to make your password stronger: letter'
       );
+      return;
     }
     if (
       signupInfo.password.length > 1 &&
@@ -64,36 +66,42 @@ export default function Signup() {
       setErrorPwMessage(
         'Please add one of the following things to make your password stronger: number'
       );
+      return;
     }
+    // 5-2. 8글자 미만인 경우//
     if (signupInfo.password.length > 0 && signupInfo.password.length < 8) {
       setErrorPwMessage(
         `Must contain at least ${
           8 - signupInfo.password.length
         } more characters.`
       );
+      return;
+    } else {
+      setErrorMessage('');
+      setErrorPwMessage('');
     }
-
     // 유효성 검사 통과 후 사용자가 입력한 회원가입 정보를 서버로 post 하기
     // * email 이 중복인 경우 서버에서 오류 메세지 전송 예정
     // * 중복인 경우 forgot your password? 사이트로 이동하고 메일 보내기 확인 버튼이 뜸.
-    else {
-      setErrorMessage('');
-      setErrorPwMessage('');
-      return (
-        axios
-          .post(`${API}/members`, { signupInfo })
-          .then((res) => {
-            console.log(res.data);
-            console.log('회원가입 성공');
-          })
-          // * email 이 DB 의 회원정보와 중복되는 경우
-          .catch((err) => {
-            if (err.response.status === 401) {
-              setErrorMessage('The email or password is incorrect.');
-            }
-          })
-      );
-    }
+
+    return (
+      axios
+        .post(`${API}/members`, { signupInfo })
+        .then((res) => {
+          console.log(res.data);
+          console.log('회원가입 성공');
+          // * (백엔드) 회원가입 성공 후 /users/login 페이지로 redirect
+        })
+        // * (백엔드) email 이 DB 의 회원정보와 중복되는 경우 -> send recovery email 페이지로 이동
+        .catch((err) => {
+          console.log(err);
+          // if (err.response.status === 401) {
+          //   setErrorMessage(
+          //     'Forgot your account’s password? Enter your email address and we’ll send you a recovery link.'
+          //   );
+          // }
+        })
+    );
   };
 
   const onCheckedCaptcha = (e) => {
