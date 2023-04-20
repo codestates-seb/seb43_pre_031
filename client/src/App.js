@@ -18,33 +18,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 axios.defaults.withCredentials = true;
 
 function App() {
-<<<<<<< HEAD
   // 로그인 성공 시 회원정보 받아오기
   // const [isLogin, setIsLogin] = useState(false);
   // const [userInfo, setUserInfo] = useState(null);
-=======
-  // 최초 렌더링 시 회원정보 받아오기
-  const [isLogin, setIsLogin] = useState(false);
-  const [userInfo, setUserInfo] = useState(null);
-  const [questions, setQuestions] = useState([]);
-
-  const authHandler = () => {
-    console.log(userInfo);
-    axios
-      .get('http://localhost:4000/userinfo')
-      // .get('https://d5fc-58-122-102-109.ngrok-free.app/answers')
-      .then((res) => {
-        setIsLogin(true);
-        setUserInfo(res.data);
-        console.log(isLogin);
-        console.log(res);
-      })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          console.log(err.response.data);
-        }
-      });
-  };
 
   const getQuestions = () => {
     axios
@@ -56,10 +32,8 @@ function App() {
   };
 
   useEffect(() => {
-    authHandler();
     getQuestions();
   }, []);
->>>>>>> a4b6f240650700f61b6db57079e9201696976e7a
 
   return (
     <BrowserRouter>
