@@ -1,25 +1,35 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../elements/Button';
+import { useNavigate } from 'react-router-dom';
 
 export default function FindPW() {
   const [errorMessage, setErrorMessage] = useState('');
+  const [isValid, setIsValid] = useState(false);
 
-  const loginRequestHandler = (e) => {
-    handleInputValue(e.target.value);
-  };
-  const handleInputValue = (email) => {
+  let email;
+  let navigate = useNavigate();
+
+  const loginRequestHandler = () => {
     const mailFormat = /^[A-Za-z0-9_-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
-    if (!email.match(mailFormat)) {
-      setErrorMessage('Invalid email address');
-      return;
-    } else if (email.length === 0) {
+    if (!email.match(mailFormat) || email.length === 0) {
       setErrorMessage('Invalid email address');
       return;
     } else {
       setErrorMessage('');
     }
+    console.log(`email 보낼곳 ${email}`);
+    // email 유효성 검사를 통과하면 메일 발송 완료 페이지로 이동하기
+    // email 유효성 검사 통과 여부는 isValid 상태로 관리
+    setIsValid(true);
+    console.log(isValid);
   };
+  // isValid 가 true 면 메인페이지로 이동
+  // 근데 두번 클릭해야 이동한다!
+  const moveTo = () => {
+    navigate('/');
+  };
+
   return (
     <>
       <MainContainer>
@@ -32,13 +42,17 @@ export default function FindPW() {
             <form onSubmit={(e) => e.preventDefault()}>
               <InputBox>
                 <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" />
+                <Input
+                  type="email"
+                  id="email"
+                  onChange={(e) => (email = e.target.value)}
+                />
                 {errorMessage ? <ErrorMsg>{errorMessage}</ErrorMsg> : ''}
               </InputBox>
               <Button
                 width="100%"
                 text="Send recovery email"
-                onClick={loginRequestHandler}
+                onClick={isValid ? moveTo : loginRequestHandler}
               ></Button>
             </form>
           </FormContainer>
