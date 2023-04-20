@@ -1,5 +1,34 @@
 import styled from 'styled-components';
 
+export const ProfileBody = () => {
+  return (
+    <UserProfile>
+      <h2>About</h2>
+      <div className="right">
+        <p>
+          Your about me section is currently blank. Would you like to add one?
+          <span> Edit profile</span>
+        </p>
+      </div>
+      <h2>Badges</h2>
+      <div className="right">
+        <p>
+          You have not earned any <span>badges.</span>
+        </p>
+      </div>
+      <h2>Posts</h2>
+      <div className="right post">
+        <p>Just getting started? Try answering a question!</p>
+        <p>
+          Your most helpful questions, answers and tags will appear here. Start
+          by <span>answering a question</span> or <span>selecting tags</span>
+          that match topics you’re interested in.
+        </p>
+      </div>
+    </UserProfile>
+  );
+};
+
 const UserProfile = styled.div`
   /* width: 782.25px; */
   width: 100%;
@@ -47,32 +76,3 @@ const UserProfile = styled.div`
     }
   }
 `;
-
-export const Profilebody = () => {
-  return (
-    <UserProfile>
-      <h2>About</h2>
-      <div className="right">
-        <p>
-          Your about me section is currently blank. Would you like to add one?
-          <span> Edit profile</span>
-        </p>
-      </div>
-      <h2>Badges</h2>
-      <div className="right">
-        <p>
-          You have not earned any <span>badges.</span>
-        </p>
-      </div>
-      <h2>Posts</h2>
-      <div className="right post">
-        <p>Just getting started? Try answering a question!</p>
-        <p>
-          Your most helpful questions, answers and tags will appear here. Start
-          by <span>answering a question</span> or <span>selecting tags</span>
-          that match topics you’re interested in.
-        </p>
-      </div>
-    </UserProfile>
-  );
-};
