@@ -10,3 +10,10 @@ spring:
       ddl-auto: create
     show-sql: true
 
+mail:
+  address:
+    admin: admin@gmail.com
+jwt:
+  key: ${JWT_SECRET_KEY}
+  access-token-expiration-minutes: 30
+  refresh-token-expiration-minutes: 420

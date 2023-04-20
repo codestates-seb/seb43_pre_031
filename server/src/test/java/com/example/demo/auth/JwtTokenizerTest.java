@@ -1,6 +1,6 @@
 package com.example.demo.auth;
 
-import com.example.demo.jwt.JwtTokenizer;
+import com.example.demo.auth.jwt.JwtTokenizer;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.io.Decoders;
 import org.junit.jupiter.api.BeforeAll;
