@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Input = (props) => {
-  const { type, placeholder, value, label, onChange } = props;
+  const { type, placeholder, value, defaultValue, label, onChange } = props;
   if (label) {
     return (
       <div>
@@ -11,7 +11,8 @@ const Input = (props) => {
           type={type}
           placeholder={placeholder}
           onChange={onChange}
-          defaultValue={value}
+          value={value}
+          defaultValue={defaultValue}
           autoComplete="off"
         />
       </div>
@@ -19,13 +20,17 @@ const Input = (props) => {
   }
 
   return (
-    <StyledInput
-      type={type}
-      placeholder={placeholder}
-      onChange={onChange}
-      defaultValue={value}
-      autoComplete="off"
-    />
+    <>
+      <StyledInput
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+        value={value}
+        defaultValue={defaultValue}
+        autoComplete="off"
+      />
+      {/* {error !== '' && <Error>{error}</Error>} */}
+    </>
   );
 };
 
