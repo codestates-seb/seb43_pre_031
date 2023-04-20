@@ -13,6 +13,7 @@ import Signup from './pages/Signup';
 import EditAllPosts from './pages/EditAllPosts';
 import User from './pages/User';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -21,6 +22,8 @@ function App() {
   // 로그인 성공 시 회원정보 받아오기
   // const [isLogin, setIsLogin] = useState(false);
   // const [userInfo, setUserInfo] = useState(null);
+
+  const [questions, setQuestions] = useState([]);
 
   const getQuestions = () => {
     axios
