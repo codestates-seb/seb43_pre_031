@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+
 import com.example.demo.auth.filter.JwtAuthenticationFilter;
 import com.example.demo.auth.filter.JwtVerificationFilter;
 import com.example.demo.auth.handler.MemberAuthenticationFailureHandler;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -20,7 +22,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
 import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
@@ -36,32 +37,25 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
-    {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
-                .authorizeRequests()
-                .requestMatchers(CorsUtils::isPreFlightRequest)
-                .permitAll()
-                .and()
-                .cors().configurationSource(corsConfigurationSource())
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .apply(new CustomFilterConfigurer())
-                .and()
-                .authorizeRequests()
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeRequests(authorize -> authorize
+                        .requestMatchers(CorsUtils::isPreFlightRequest)
+                        .permitAll()
                         .antMatchers(HttpMethod.POST, "/members").permitAll()
                         .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")
                         .antMatchers(HttpMethod.GET, "/members").hasRole("ADMIN")
                         .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
                         .anyRequest().permitAll()
-                );
+                )
+                .cors(withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .formLogin().disable()
+                .httpBasic().disable();
 
         return http.build();
     }
