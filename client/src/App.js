@@ -75,12 +75,15 @@ function App() {
             <Route path="/question/ask" element={<AskQuestion />} />
             <Route path="/question/:id" element={<DetailQuestion />} />
             <Route path="/question/editq/:id" element={<EditAllPosts />} />
-            <Route path="/question/edita/:id" element={<EditAllPosts />} />
+            <Route
+              path="/question/edita/:id"
+              element={<EditAllPosts answer />}
+            />
           </Routes>
         </div>
         <Aside />
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
