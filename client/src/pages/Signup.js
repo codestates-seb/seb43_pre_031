@@ -23,8 +23,8 @@ export default function Signup() {
   };
   const [captcha, setCaptcha] = useState(false);
 
-  const signupRequestHandler = (e) => {
-    const { fullName, email, password, isMarketing } = signupInfo;
+  const signupRequestHandler = () => {
+    const { fullName, email, isMarketing } = signupInfo;
     console.log(`isMarketing : ${isMarketing}`);
     // 유효성검사 - 에러메시지 출력 조건
     // 1. captcha 체크가 되지 않으면 captcha 옆이나 아래에 에러메세지 출력
