@@ -83,7 +83,7 @@ function App() {
         </div>
         <Aside />
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </BrowserRouter>
   );
 }
