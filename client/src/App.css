@@ -1,8 +1,11 @@
-/* .content-page-wrapper {
-  width: 100%;
+.content-page-wrapper {
+  display: flex;
+  width: 80%;
+  margin: 0 auto;
 }
 .content-page {
-  width: 55%;
-  margin: 0 auto;
-  margin-top: 3rem;
-} */
+  margin-left: 20rem;
+  min-height: 150vh;
+  border-left: 1px solid #bbc0c4;
+  position: relative;
+}
