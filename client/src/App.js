@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import AskQuestion from './pages/AskQuestion';
 import DetailQuestion from './pages/DetailQuestion';
 import Login from './pages/Login';
+import Logout from './pages/Logout';
 import Signup from './pages/Signup';
 import EditAllPosts from './pages/EditAllPosts';
 import User from './pages/User';
@@ -47,6 +48,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main questions={questions} />} />
             <Route path="/users/login" element={<Login />} />
+            <Route path="/users/logout" element={<Logout />} />
             <Route path="/users/signup" element={<Signup />} />
             <Route path="/user" element={<User />} />
             <Route path="/question/ask" element={<AskQuestion />} />
