@@ -5,7 +5,6 @@ import Content from '../elements/Content';
 import Button from '../elements/Button';
 
 const Question = (props) => {
-  console.log(props);
   const {
     title,
     asked,
@@ -26,7 +25,10 @@ const Question = (props) => {
         <Title>
           <h1>{title}</h1>
           <div>
-            <Button text="AskQuestion" onClick={() => navigate(`/`)} />
+            <Button
+              text="AskQuestion"
+              onClick={() => navigate(`/question/ask`)}
+            />
           </div>
         </Title>
         <ExtraInfoArea>
@@ -46,9 +48,13 @@ const Question = (props) => {
       </TitleSection>
       <ContentSection>
         <VoteWrapper>
-          <IoMdArrowDropup size="5rem" />
+          <i className="vote">
+            <IoMdArrowDropup size="5rem" />
+          </i>
           <span>{vote}</span>
-          <IoMdArrowDropdown size="5rem" />
+          <i className="vote">
+            <IoMdArrowDropdown size="5rem" />
+          </i>
         </VoteWrapper>
         {user && (
           <Content
@@ -68,6 +74,9 @@ const Question = (props) => {
 
 const TitleSection = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.color.black075};
+  span {
+    font-size: 1.3rem;
+  }
 `;
 
 const Title = styled.div`
@@ -100,8 +109,12 @@ const VoteWrapper = styled.div`
   flex-direction: column;
 
   span {
+    color: ${(props) => props.theme.color.black700};
     font-size: 2.6rem;
     text-align: center;
+  }
+  .vote {
+    color: ${(props) => props.theme.color.black200};
   }
 `;
 
