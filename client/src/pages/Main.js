@@ -1,10 +1,7 @@
-import Nav from '../components/Nav';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import styled from 'styled-components';
 import Questions from '../components/Questions';
-import Aside from '../components/Aside';
 
+<<<<<<< HEAD
 const Container = styled.div`
   width: 100vw;
   display: flex;
@@ -18,17 +15,14 @@ const Container = styled.div`
     justify-content: center;
   }
 `;
+=======
+const Container = styled.div``;
+>>>>>>> a4b6f240650700f61b6db57079e9201696976e7a
 
-const Main = () => {
+const Main = ({ questions }) => {
   return (
     <Container>
-      <Header />
-      <div className="content">
-        <Nav />
-        <Questions />
-        <Aside />
-      </div>
-      <Footer />
+      <Questions questions={questions} />
     </Container>
   );
 };

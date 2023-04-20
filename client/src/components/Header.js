@@ -94,8 +94,20 @@ const Header = () => {
           <SearchIcon />
           <input type="text" placeholder="Search..." />
         </Search>
-        <button className="login">Log in</button>
-        <Button text="Sign up" />
+        <button
+          className="login"
+          onClick={() => {
+            navigate('/users/login');
+          }}
+        >
+          Log in
+        </button>
+        <Button
+          text="Sign up"
+          onClick={() => {
+            navigate('/users/signup');
+          }}
+        />
         {/* <button className="signup">Sign up</button> */}
       </div>
     </Container>
