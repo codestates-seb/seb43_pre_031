@@ -1,6 +1,18 @@
 import styled from 'styled-components';
 import { Main } from '../components/Users/Main';
 
+const User = () => {
+  return (
+    <>
+      <UserWrapper>
+        <Main />
+      </UserWrapper>
+    </>
+  );
+};
+
+export default User;
+
 export const UserWrapper = styled.div`
   margin: 50px auto 0 auto;
   width: 100%;
@@ -91,15 +103,3 @@ export const UserWrapper = styled.div`
     }
   }
 `;
-
-const User = () => {
-  return (
-    <>
-      <UserWrapper>
-        <Main />
-      </UserWrapper>
-    </>
-  );
-};
-
-export default User;

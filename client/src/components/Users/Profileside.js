@@ -1,5 +1,42 @@
 import styled from 'styled-components';
 
+export const ProfileSide = () => {
+  return (
+    <SideContent>
+      <h2>Stats</h2>
+      <div className="left">
+        <ul>
+          <li>
+            1<span>reputation</span>
+          </li>
+          <li>
+            0<span>reached</span>
+          </li>
+          <li>
+            0<span>answers</span>
+          </li>
+          <li>
+            0<span>questions</span>
+          </li>
+        </ul>
+      </div>
+      <div className="flex">
+        <h2>Communities</h2>
+        <p>Edit</p>
+      </div>
+      <div className="left">
+        <div className="flex">
+          <div>
+            <p>
+              Stack Overflow<span>1</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </SideContent>
+  );
+};
+
 export const SideContent = styled.div`
   width: 35rem;
   margin: 1.2rem 1.2rem 1.2rem 0;
@@ -86,40 +123,3 @@ export const SideContent = styled.div`
     }
   }
 `;
-
-export const Profileside = () => {
-  return (
-    <SideContent>
-      <h2>Stats</h2>
-      <div className="left">
-        <ul>
-          <li>
-            1<span>reputation</span>
-          </li>
-          <li>
-            0<span>reached</span>
-          </li>
-          <li>
-            0<span>answers</span>
-          </li>
-          <li>
-            0<span>questions</span>
-          </li>
-        </ul>
-      </div>
-      <div className="flex">
-        <h2>Communities</h2>
-        <p>Edit</p>
-      </div>
-      <div className="left">
-        <div className="flex">
-          <div>
-            <p>
-              Stack Overflow<span>1</span>
-            </p>
-          </div>
-        </div>
-      </div>
-    </SideContent>
-  );
-};

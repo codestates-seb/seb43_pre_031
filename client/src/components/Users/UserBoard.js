@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export const UserBoard = () => {
   return (
     <section className="user-wrapper">
@@ -20,7 +22,9 @@ export const UserBoard = () => {
       </div>
 
       <div className="userboard-btns">
-        <button>Edit profile</button>
+        <Link to="/settings">
+          <button>Edit profile</button>
+        </Link>
         <button>Network profile</button>
       </div>
     </section>
