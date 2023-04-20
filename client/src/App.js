@@ -16,6 +16,7 @@ import User from './pages/User';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import storage from './lib/storage';
+import FindPW from './pages/FindPW';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -71,6 +72,7 @@ function App() {
               element={<Logout setIsLogin={setIsLogin} />}
             />
             <Route path="/users/signup" element={<Signup />} />
+            <Route path="/users/account-recovery" element={<FindPW />} />
             <Route path="/user" element={<User />} />
             <Route path="/question/ask" element={<AskQuestion />} />
             <Route path="/question/:id" element={<DetailQuestion />} />
