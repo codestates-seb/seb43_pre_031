@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
-import '@toast-ui/editor/dist/toastui-editor.css';
 import Content from '../elements/Content';
 import Question from '../components/Question';
-import ToastEditor from '../components/ToastEditor';
+import Editor from '../components/Editor';
 import Button from '../elements/Button';
+import Notice from '../elements/Notice';
 import { API } from '../utils/API';
 
 const DetailQuestion = () => {
@@ -30,7 +30,6 @@ const DetailQuestion = () => {
         axios.spread((res1, res2) => {
           setQuestion(res1.data);
           setAnswers(res2.data);
-          console.log(res1.data);
         })
       );
   };
@@ -54,8 +53,9 @@ const DetailQuestion = () => {
         answered: date,
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response);
         setAnswers([...answers, myAnswer]);
+        setMyAnswer('');
         setCall(!call);
       });
   };
@@ -64,7 +64,6 @@ const DetailQuestion = () => {
   const moveForEdit = (id, type) => {
     //1. 수정 하려는 글에 대한 정보를 인자로 넘김 (api를 한번이라도 덜 호출)
     //2. 페이지 이동 후 해당 글에 대한 api를 호출 (코드가 상대적으로 간략해짐) --> 일단 채택
-    console.log('move');
     if (type === 'question') {
       navigate(`/question/editq/${id}`);
     } else {
@@ -75,14 +74,14 @@ const DetailQuestion = () => {
   //질문 삭제(DELETE) ===============================================================================
   const deleteQuestion = (id) => {
     axios.delete(`${API}/questions/${id}`).then((response) => {
-      console.log(response.data);
+      console.log(response);
       navigate('/');
     });
   };
   //답변 삭제(DELETE) ===============================================================================
   const deleteAnswer = (id) => {
     axios.delete(`${API}/answers/${id}`).then((response) => {
-      console.log(response.data);
+      console.log(response);
       setAnswers(answers.filter((i) => i.id !== id));
       setCall(!call);
     });
@@ -130,7 +129,7 @@ const DetailQuestion = () => {
       </p>
 
       <h2>Your Answer</h2>
-      <ToastEditor value={myAnswer} onEditorChange={setMyAnswer} />
+      <Editor value={myAnswer} onEditorChange={setMyAnswer} />
       {myAnswer === '' && isEmpty && (
         <Warning>
           Your answer couldnt be submitted. Please see the error above.
@@ -140,7 +139,7 @@ const DetailQuestion = () => {
         <Button text="Post Your Answer" onClick={postAnswer} />
       </div>
 
-      <NoticeArea>
+      <Notice>
         <p>Thanks for contributing an answer to Stack Overflow!</p>
         <li>
           Please be sure to answer the question. Provide details and share your
@@ -153,10 +152,10 @@ const DetailQuestion = () => {
           personal experience.
         </li>
         <p>
-          To learn more, see our
+          To learn more, see our{' '}
           <span className="highlight">tips on writing great answers.</span>
         </p>
-      </NoticeArea>
+      </Notice>
     </Container>
   );
 };
@@ -187,24 +186,9 @@ const Container = styled.div`
   }
 `;
 
-const NoticeArea = styled.div`
-  background-color: ${(props) => props.theme.color.yellow050};
-  border: 1px solid ${(props) => props.theme.color.yellow400};
-  border-radius: ${(props) => props.theme.common.borderRadius};
-  padding: 1rem 2rem;
-  margin-top: 1rem;
-  margin-bottom: 2.5rem;
-
-  p {
-    margin: 1rem 0;
-  }
-  li {
-    margin-left: 2rem;
-  }
-`;
-
 const Warning = styled.p`
   color: ${(props) => props.theme.color.red700};
+  font-size: 1.3rem;
   font-weight: 800;
   margin: 1.6rem 0;
 `;
