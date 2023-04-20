@@ -36,14 +36,8 @@
       "content": "I have my first **_node.js_** app (runs fine locally) but I am unable to deploy it via heroku (first time w/ heroku as well).The code is below. SO doesn't let me write so much code,so I would just say that the running the code locally as well within my network shows no issue. ## **Any idea???**",
       "vote": 641,
       "tags": [
-        {
-          "tid": 1,
-          "name": "node.js"
-        },
-        {
-          "tid": 2,
-          "name": "heroku"
-        }
+        "node.js",
+        "heroku"
       ],
       "edited": "Mar 28, 2013 at 22:32",
       "author": {
@@ -61,22 +55,9 @@
       "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
       "vote": 903,
       "tags": [
-        {
-          "tid": 1,
-          "name": "mysql"
-        },
-        {
-          "tid": 2,
-          "name": "sql"
-        },
-        {
-          "tid": 3,
-          "name": "max"
-        },
-        {
-          "tid": 4,
-          "name": "distinct"
-        }
+        "mysql",
+        "max",
+        "distinct"
       ],
       "edited": "May 10, 2022 at 23:59",
       "author": {
@@ -100,16 +81,19 @@
       "answer_count": 0,
       "author": {
         "username": "idx123",
-        "userimage": "https://randomuser.me/api/portraits/thumb/men/100.jpg"
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/56.jpg"
       },
       "id": 3
     },
     {
       "title": "질문 작성 테스트",
-      "content": "질문글을 작성해봅시다",
+      "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
       "tags": [
-        "dummy",
-        "tags"
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
       ],
       "vote": 0,
       "asked": "1 min ago",
@@ -119,30 +103,29 @@
       "answer_count": 0,
       "author": {
         "username": "idx123",
-        "userimage": "https://randomuser.me/api/portraits/thumb/men/100.jpg"
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/55.jpg"
       },
       "id": 4
     }
   ],
   "answers": [
     {
-      "id": 1,
-      "questionId": 1,
-      "content": "...??",
-      "user": {
-        "username": "hotdog123",
-        "userimage": "https://randomuser.me/api/portraits/thumb/women/1.jpg"
-      },
-      "answered": "Mar 28, 2013 at 22:36"
-    },
-    {
-      "content": "`npm run start`gg",
+      "content": "**This Dabongdochi will solve your question.**\n\n![image](https://dreamrail.co.kr/files/attach/images/2022/05/30/a0821a86da739458d27635f12ffed75d.png)",
       "user": {
         "username": "idx123",
         "userimage": "https://randomuser.me/api/portraits/thumb/women/3.jpg"
       },
       "answered": "Apr 17, 2023 at 22:36",
       "id": 3
+    },
+    {
+      "content": "`const PI = 3.14;`\n\n파이는 맛있다",
+      "user": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/women/3.jpg"
+      },
+      "answered": "Apr 17, 2023 at 22:36",
+      "id": 6
     }
   ]
 }
