@@ -52,6 +52,11 @@ public class MemberService {
         return findMember;
     }
 
+    /**
+     * 작성자: 한재영
+     * @param userName
+     * @return
+     */
     public Member findVerifiedMember(String userName)
     {
         Optional<Member> optionalMember = memberRepository.findByFullName(userName);
