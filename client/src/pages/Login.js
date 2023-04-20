@@ -4,6 +4,7 @@ import axios from 'axios';
 import Button from '../elements/Button';
 import { API } from '../utils/API';
 import { Link } from 'react-router-dom';
+import storage from '../lib/storage';
 
 export default function Login({ setUserInfo, setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({});
@@ -50,6 +51,10 @@ export default function Login({ setUserInfo, setIsLogin }) {
         .then((res) => {
           setIsLogin(true);
           setUserInfo(res.data);
+          // 로컬스토리지에 유저 ID 와 로그인 상태 저장
+          storage.set('userID', res.data.id);
+          storage.set('login', true);
+
           // JWT : AccessToken 을 받아와서 변수에 저장 후
           // API 요청시마다 헤더에 담아서 보내기
           // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
