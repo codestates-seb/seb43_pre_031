@@ -1,35 +1,80 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-// import axios from 'axios';
+import axios from 'axios';
 import Button from '../elements/Button';
+import { API } from '../utils/API';
+import { Link } from 'react-router-dom';
+import storage from '../lib/storage';
 
-export default function Login() {
-  // useEffect(() => {
-  //   axios.get('/user').then((response) => console.log(response.data));
-  // }, []);
-  // const dispatch = useDispatch();
+export default function Login({ setUserInfo, setIsLogin }) {
+  const [loginInfo, setLoginInfo] = useState({});
 
   // 로그인 정보 보내기
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorPwMessage, setPwErrorMessage] = useState('');
+  const handleInputValue = (key) => (e) => {
+    setErrorMessage('');
+    setPwErrorMessage('');
+    setLoginInfo({ ...loginInfo, [key]: e.target.value });
+  };
 
-  const onEmailHandler = (e) => {
-    setEmail(e.target.value);
-  };
-  const onPwHandler = (e) => {
-    setPassword(e.target.value);
-  };
-  const onSubmitHandler = (e) => {
-    e.preventDefault();
-    let body = {
-      email: email,
-      password: password,
-    };
-    console.log(body);
+  const loginRequestHandler = () => {
+    const { email, password } = loginInfo;
+
+    // 유효성검사 - 에러메시지 출력 조건
+    // 1. 이메일이나 패스워드 중 하나라도 입력이 누락되었을 경우 입력요청 에러메시지 출력
+    if (!email || !password) {
+      setErrorMessage('Plese write email and password.');
+      return;
+    } else {
+      setErrorMessage('');
+    }
+    // 2. email 주소에 @ 와 . 이 들어가지 않고, @ 앞뒤, . 뒤에 문자가 들어가지 않은 경우 (브라우저에서 잡아주긴 함)
+    // 'The email is not a valid email address.'
+    const mailFormat = /^[A-Za-z0-9_-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
+    if (!email.match(mailFormat)) {
+      setErrorMessage('The email is not a valid email address.');
+      return;
+    } else {
+      setErrorMessage('');
+      console.log('유효한 이메일 주소입니다');
+    }
+
+    console.log('유효성 검사 통과');
+
+    // 유효성 검사 통과 후에 유저의 로그인 정보를 서버로 보내기
+    // => post 완료. 그럼 서버 단에서 이걸 받아서 회원정보랑 비교를 해주시겠지?
+    // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
+    return (
+      axios
+        .post(`${API}/members`, { loginInfo })
+        .then((res) => {
+          setIsLogin(true);
+          setUserInfo(res.data);
+          // 로컬스토리지에 유저 ID 와 로그인 상태 저장
+          storage.set('userID', res.data.id);
+          storage.set('login', true);
+
+          // JWT : AccessToken 을 받아와서 변수에 저장 후
+          // API 요청시마다 헤더에 담아서 보내기
+          // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+          // 자동로그인 : refreshToken 값 설정
+          // 로그인 만료되기 전에 연장 필요한가?
+          console.log(loginInfo);
+          console.log(res.data);
+          console.log('로그인 성공!');
+        })
+        // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우
+        .catch((err) => {
+          if (err.response.status === 401) {
+            setErrorMessage('The email or password is incorrect.');
+          }
+        })
+    );
   };
 
   return (
-    <>
+    <MainContainer>
       <Main>
         <SocialContainer>
           <LogoBox
@@ -79,17 +124,15 @@ export default function Login() {
           </SCBtnContainer>
         </SocialContainer>
         <FormContainer>
-          <form onSubmit={onSubmitHandler}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <InputBox>
               <Label htmlFor="email">Email</Label>
               <Input
                 type="email"
                 id="email"
-                value={email}
-                onChange={onEmailHandler}
+                onChange={handleInputValue('email')}
               />
-              <ErrorMsg>The email is not a valid email address.</ErrorMsg>
-              <ErrorMsg>The email or password is incorrect.</ErrorMsg>
+              {errorMessage ? <ErrorMsg>{errorMessage}</ErrorMsg> : ''}
             </InputBox>
             <PwContainer>
               <PwBox>
@@ -99,16 +142,21 @@ export default function Login() {
               <Input
                 type="password"
                 id="password"
-                value={password}
-                onChange={onPwHandler}
+                onChange={handleInputValue('password')}
               />
+              {errorPwMessage ? <ErrorMsg>{errorPwMessage}</ErrorMsg> : ''}
             </PwContainer>
-            <Button text={'Log in'} />
+            <Button
+              width="100%"
+              text={'Log in'}
+              onClick={loginRequestHandler}
+            />
           </form>
         </FormContainer>
         <LinkContainer>
           <div>
-            Don’t have an account? <a href="/">Sign up</a>
+            Don’t have an account?
+            <Link to="/users/signup">Sign up</Link>
           </div>
           <div>
             Are you an employer?{' '}
@@ -127,11 +175,16 @@ export default function Login() {
           </div>
         </LinkContainer>
       </Main>
-    </>
+    </MainContainer>
   );
 }
 
 // Styled-components
+const MainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const Main = styled.main`
   margin: 2rem;
   padding: 24px;

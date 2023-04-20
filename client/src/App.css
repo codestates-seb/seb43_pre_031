@@ -1,5 +1,11 @@
-.temp-test {
-  width: 40%;
+.content-page-wrapper {
+  display: flex;
+  width: 80%;
   margin: 0 auto;
-  margin-top: 3rem;
+}
+.content-page {
+  margin-left: 20rem;
+  min-height: 150vh;
+  border-left: 1px solid #BBC0C4;
+  position: relative;
 }
