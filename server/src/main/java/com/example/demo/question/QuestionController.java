@@ -54,6 +54,17 @@ public class QuestionController {
 
         return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
     }
+
+    @PatchMapping("/{question-id}/votes/{up-and-down}")
+    public ResponseEntity patchQuestionVote(@PathVariable("question-id") long questionId,
+                                            @PathVariable("up-and-down") String upAndDown)
+    {
+        Question question = questionService.updateQuestionVote(upAndDown, questionId);
+
+        return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
+    }
+
+
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") long questionId)
     {

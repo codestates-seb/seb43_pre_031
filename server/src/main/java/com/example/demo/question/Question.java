@@ -31,6 +31,9 @@ public class Question {
     private String modified_at;
     @Setter
     private String tags;
+    @Setter
+    private int votes;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -39,6 +42,14 @@ public class Question {
     private List<Answer> answers = new ArrayList<>();
 
     //status 추가 필요
+
+//    @OneToOne(mappedBy = "question", cascade = CascadeType.PERSIST)
+//    private Vote vote;
+//
+//    public void setVote(Vote vote)
+//    {
+//        this.vote = vote;
+//    }
 
     public void setMember(Member member) {
         this.member = member;

@@ -67,6 +67,16 @@ public class QuestionService {
         questionRepository.deleteById(id);
     }
 
+    public Question updateQuestionVote(String upAndDown, long questionId)
+    {
+        Question findQuestion = findVerifiedQuestion(questionId);
+
+        if(upAndDown.equals("up")) findQuestion.setVotes(findQuestion.getVotes()+1);
+        else findQuestion.setVotes(findQuestion.getVotes()-1);
+
+        return questionRepository.save(findQuestion);
+    }
+
     public Question findVerifiedQuestion(long id)
     {
         Optional<Question> optional = questionRepository.findById(id);
@@ -80,4 +90,5 @@ public class QuestionService {
     {
         memberService.findVerifiedMember(question.getMember().getMemberId());
     }
+
 }
