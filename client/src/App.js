@@ -8,7 +8,7 @@ import axios from 'axios';
 // import Main from './pages/Main';
 import Header from './components/Header';
 import Nav from './components/Nav';
-import Footer from './components/Footer';
+// import Footer from './components/Footer';
 import AskQuestion from './pages/AskQuestion';
 import DetailQuestion from './pages/DetailQuestion';
 import Login from './pages/Login';
@@ -29,7 +29,6 @@ function App() {
     console.log(userInfo);
     axios
       .get('http://localhost:4000/userinfo')
-      // .get('https://d5fc-58-122-102-109.ngrok-free.app/answers')
       .then((res) => {
         setIsLogin(true);
         setUserInfo(res.data);
@@ -61,11 +60,14 @@ function App() {
             <Route path="/question/ask" element={<AskQuestion />} />
             <Route path="/question/:id" element={<DetailQuestion />} />
             <Route path="/question/editq/:id" element={<EditAllPosts />} />
-            <Route path="/question/edita/:id" element={<EditAllPosts />} />
+            <Route
+              path="/question/edita/:id"
+              element={<EditAllPosts answer />}
+            />
           </Routes>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </BrowserRouter>
   );
 }
