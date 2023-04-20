@@ -1,6 +1,8 @@
 package com.example.demo.member;
 
 import com.example.demo.auth.utils.CustomAuthorityUtils;
+import com.example.demo.exception.BusinessLogicException;
+import com.example.demo.exception.ExceptionCode;
 import com.example.demo.helper.event.MemberRegistrationApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -68,7 +70,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
-        Member findMember = optionalMember.orElseThrow(() -> new RuntimeException());
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
 

@@ -51,8 +51,8 @@ public class QuestionMapper {
                 question.getId(),
                 question.getTitle(),
                 question.getContent(),
-                question.getAsked_at(),
-                question.getModified_at(),
+                question.getAskedAt(),
+                question.getModifiedAt(),
                 question.getMember().getMemberId(),
                 question.getMember().getFullName(),
                 stringToList(question.getTags())

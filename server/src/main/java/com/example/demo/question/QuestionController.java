@@ -1,13 +1,17 @@
 package com.example.demo.question;
 
+import com.example.demo.response.ErrorResponse;
 import com.example.demo.response.MultiResponseDto;
 import com.example.demo.utils.UriCreator;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -32,7 +36,7 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post dto)
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post dto)
     {
         Question question = mapper.questionPostDtoToQuestion(dto);
 

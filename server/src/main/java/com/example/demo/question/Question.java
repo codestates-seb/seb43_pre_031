@@ -26,9 +26,9 @@ public class Question {
     @Setter
     private String content;
     @Setter
-    private String asked_at;
+    private String askedAt;
     @Setter
-    private String modified_at;
+    private String modifiedAt;
     @Setter
     private String tags;
     @Setter
@@ -65,20 +65,20 @@ public class Question {
         answers.add(answer);
     }
 
-    public Question(String title, String content, String asked_at, String tags)
+    public Question(String title, String content, String askedAt, String tags)
     {
         this.title = title;
         this.content = content;
-        this.asked_at = asked_at;
+        this.askedAt = askedAt;
         this.tags = tags;
     }
 
-    public Question(long id, String title, String content, String modified_at, String tags)
+    public Question(long id, String title, String content, String modifiedAt, String tags)
     {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.modified_at = modified_at;
+        this.modifiedAt = modifiedAt;
         this.tags = tags;
     }
 }

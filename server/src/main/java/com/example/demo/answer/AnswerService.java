@@ -1,5 +1,7 @@
 package com.example.demo.answer;
 
+import com.example.demo.exception.BusinessLogicException;
+import com.example.demo.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -31,7 +33,7 @@ public class AnswerService {
 
     public Answer findAnswer(long id) {
         Optional<Answer> optionalAnswer = answerRepository.findById(id);
-        Answer findAnswer = optionalAnswer.orElseThrow(() -> new IllegalArgumentException("Answer not found"));
+        Answer findAnswer = optionalAnswer.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
 
         return findAnswer;
     }
