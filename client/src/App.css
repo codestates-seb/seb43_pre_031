@@ -6,6 +6,6 @@
 .content-page {
   margin-left: 20rem;
   min-height: 150vh;
-  border-left: 1px solid #BBC0C4;
-  
+  border-left: 1px solid #bbc0c4;
+  position: relative;
 }
