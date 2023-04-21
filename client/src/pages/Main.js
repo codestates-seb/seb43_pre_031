@@ -8,6 +8,7 @@ import Paging from '../elements/Paging';
 const Main = ({ questions }) => {
   const navigate = useNavigate();
 
+  // 페이지네이션 상태
   const [count, setCount] = useState(0); // 아이템 총 개수
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수
@@ -25,7 +26,6 @@ const Main = ({ questions }) => {
   const setPage = (error) => {
     setCurrentPage(error);
   };
-
   return (
     <Container>
       <Title>
