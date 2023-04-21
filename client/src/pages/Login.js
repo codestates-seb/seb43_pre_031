@@ -6,7 +6,7 @@ import { API } from '../utils/API';
 import { Link, useNavigate } from 'react-router-dom';
 import storage from '../lib/storage';
 
-export default function Login({ setUserInfo, setIsLogin }) {
+export default function Login({ setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({});
 
   // 로그인 정보 보내기
@@ -50,8 +50,8 @@ export default function Login({ setUserInfo, setIsLogin }) {
         .post(`${API}/members`, { loginInfo })
         .then((res) => {
           setIsLogin(true);
-          setUserInfo(res.data);
           // 로컬스토리지에 유저 ID 와 로그인 상태 저장
+          console.log(`res.data.id ${res.data.id}`);
           storage.set('userID', res.data.id);
           storage.set('login', true);
 
@@ -66,9 +66,10 @@ export default function Login({ setUserInfo, setIsLogin }) {
         })
         // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우
         .catch((err) => {
-          if (err.response.status === 401) {
-            setErrorMessage('The email or password is incorrect.');
-          }
+          console.log(err);
+          // if (err.response.status === 401) {
+          //   setErrorMessage('The email or password is incorrect.');
+          // }
         })
     );
   };
