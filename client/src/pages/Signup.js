@@ -86,7 +86,7 @@ export default function Signup() {
 
     return (
       axios
-        .post(`${API}/members`, { signupInfo })
+        .post(`${API}/members`, { ...signupInfo })
         .then((res) => {
           console.log(res.data);
           console.log('회원가입 성공');
