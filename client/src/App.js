@@ -19,6 +19,7 @@ import storage from './lib/storage';
 import FindPW from './pages/FindPW';
 import ContainAll from './pages/templates/ContainAll';
 import NavFooter from './pages/templates/NavFooter';
+import OnlyFooter from './pages/templates/OnlyFooter';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -110,10 +111,13 @@ function App() {
 
         <Route path="/" element={<NavFooter />}>
           <Route path="/user" element={<User />} />
-          <Route path="/question/ask" element={<AskQuestion />} />
           <Route path="/question/:id" element={<DetailQuestion />} />
           <Route path="/question/editq/:id" element={<EditAllPosts />} />
           <Route path="/question/edita/:id" element={<EditAllPosts answer />} />
+        </Route>
+
+        <Route path="/" element={<OnlyFooter />}>
+          <Route path="/question/ask" element={<AskQuestion />} />
         </Route>
       </Routes>
     </BrowserRouter>
