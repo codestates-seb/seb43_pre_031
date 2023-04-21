@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Member {
+public class Member implements Principal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
@@ -29,10 +30,6 @@ public class Member {
 
     @Column(length = 100, nullable = false)
     private String password;
-
-    @Column
-    private Boolean isCaptcha = false;
-
     @Column
     private Boolean isMarketing = false;
 
@@ -51,6 +48,11 @@ public class Member {
 
     @OneToMany(mappedBy = "member")
     private List<Answer> answers = new ArrayList<>();
+
+    @Override
+    public String getName() {
+        return getEmail();
+    }
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활동중"),
@@ -71,5 +73,10 @@ public class Member {
 
     public void addAnswer(Answer answer) {
         answers.add(answer);
+    }
+
+    public enum MemberRole {
+        ROLE_USER,
+        ROLE_ADMIN
     }
 }
