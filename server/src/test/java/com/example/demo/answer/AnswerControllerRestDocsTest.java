@@ -58,7 +58,7 @@ public class AnswerControllerRestDocsTest {
 
     @Test
     public void postAnswerTest() throws Exception {
-        AnswerDto.Post post = new AnswerDto.Post(1L, "post content");
+        AnswerDto.Post post = new AnswerDto.Post(1L, "a@a","post content");
         String content = gson.toJson(post);
         Answer mockResultAnswer = new Answer(1L,"content", Answer.AnswerStatus.ANSWER_VALID,new Member(),new Question());
 
@@ -99,7 +99,7 @@ public class AnswerControllerRestDocsTest {
         AnswerDto.Response response = new AnswerDto.Response(id,1,1,"홍길동","patch content" ,LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
 
         given(mapper.answerPatchDtoToAnswer(Mockito.any(AnswerDto.Patch.class))).willReturn(new Answer());
-        given(answerService.updateAnswer(Mockito.any(Answer.class))).willReturn(new Answer());
+        given(answerService.updateAnswer(Mockito.any(Answer.class),Mockito.anyLong())).willReturn(new Answer());
         given(mapper.answerToAnswerResponseDto(Mockito.any(Answer.class))).willReturn(response);
 
         ResultActions actions =

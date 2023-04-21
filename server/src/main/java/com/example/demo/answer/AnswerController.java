@@ -40,9 +40,10 @@ public class AnswerController {
     }
 
     @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody,
-                                    @AuthenticationPrincipal String email) {
-        Answer answer = answerService.createAnswer(requestBody, email);
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody)
+                                    //@AuthenticationPrincipal String email)
+    {
+        Answer answer = answerService.createAnswer(requestBody, requestBody.getEmail());
         //Answer answer = answerService.createAnswer(email, mapper.answerPostDtoToAnswer(requestBody)););
 
         URI location = UriCreator.createUri(ANSWER_DEFAULT_URL, answer.getId());
@@ -54,7 +55,7 @@ public class AnswerController {
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
         requestBody.setId(id);
 
-        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(requestBody));
+        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(requestBody), id);
 
         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }

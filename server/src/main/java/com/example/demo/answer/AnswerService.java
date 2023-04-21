@@ -43,8 +43,8 @@ public class AnswerService {
         return answerRepository.save(answer);
     }
 
-    public Answer updateAnswer(Answer answer) {
-        Answer findAnswer = findAnswer(answer.getId());
+    public Answer updateAnswer(Answer answer, long id) {
+        Answer findAnswer = findAnswer(id);
 
         Optional.ofNullable(answer.getContent()).ifPresent(content -> findAnswer.setContent(content));
         findAnswer.setModified_at(LocalDateTime.now());
