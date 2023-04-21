@@ -1,7 +1,35 @@
 import styled from 'styled-components';
-// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { API } from '../utils/API';
 
 export const SettingsBody = () => {
+  // const [username, setUsername] = useState('');
+  // const [location, setLocation] = useState('');
+  // const [mptitle, setMptitle] = useState('');
+  // const [aboutme, setAboutme] = useState('');
+
+  // const onChange = (event) => {
+  //   const {
+  //     target: { name, value },
+  //   } = event;
+  //   if (name === 'username') {
+  //     setUsername(value);
+  //   } else if (name === 'location') {
+  //     setLocation(value);
+  //   } else if (name === 'mptitle') {
+  //     setMptitle(value);
+  //   } else if (name === 'aboutme') {
+  //     setAboutme(value);
+  //   }
+  // };
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+  // };
+
+  const navigate = useNavigate();
+
   return (
     <>
       <SettingContent>
@@ -10,15 +38,42 @@ export const SettingsBody = () => {
         <p>Public information</p>
         <div className="right">
           <span>Profile image</span>
+          <input type="file" accept="image/*" />
           <div className="user-imgBox"></div>
-          <span>Display name</span>
-          <input></input>
-          <span>Location</span>
-          <input></input>
-          <span>Title</span>
-          <input placeholder="No title has been set"></input>
-          <span>About me</span>
-          <input></input>
+          <form onSubmit={onSubmit}>
+            <span>Display name</span>
+            <input
+              name="username"
+              type="text"
+              maxLength={30}
+              value={username}
+              onChange={onChange}
+            ></input>
+            <span>Location</span>
+            <input
+              name="location"
+              type="text"
+              maxLength={100}
+              value={location}
+              onChange={onChange}
+            ></input>
+            <span>Title</span>
+            <input
+              name="mptitle"
+              type="text"
+              maxLength={225}
+              value={mptitle}
+              onChange={onChange}
+              placeholder="No title has been set"
+            ></input>
+            <span>About me</span>
+            <input
+              name="aboutme"
+              type="text"
+              value={aboutme}
+              onChange={onChange}
+            ></input>
+          </form>
         </div>
         <p>Links</p>
         <div className="right-link">
@@ -36,8 +91,12 @@ export const SettingsBody = () => {
           <span>Full name</span>
           <input></input>
         </div>
-        <button>Save profile</button>
-        <button>Cancel</button>
+        <form onSubmit={onSubmit}>
+          <input type="submit">Save profile</input>
+          <button name="cancel" onClick={() => navigate(`/profile`)}>
+            Cancel
+          </button>
+        </form>
       </SettingContent>
     </>
   );
