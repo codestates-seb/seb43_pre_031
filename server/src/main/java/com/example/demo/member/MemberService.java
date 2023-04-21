@@ -72,9 +72,11 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getFullName()).ifPresent(fullName -> findMember.setFullName(fullName));
-        Optional.ofNullable(member.getPassword()).ifPresent(password -> findMember.setPassword(password));
         Optional.ofNullable(member.getIsMarketing()).ifPresent(isMarketing -> findMember.setIsMarketing(isMarketing));
         Optional.ofNullable(member.getMemberStatus()).ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
+
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
 
         return memberRepository.save(findMember);
     }
