@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import '@toast-ui/editor/dist/toastui-editor.css';
-import ToastEditor from '../components/ToastEditor';
+import ToastEditor from '../components/Editor';
 import axios from 'axios';
 import Input from '../elements/Input';
 import Notice from '../elements/Notice';
 import Button from '../elements/Button';
 import { API } from '../utils/API';
+import TagInput from '../elements/TagInput';
 
 const EditAllPosts = ({ answer }) => {
   const { id } = useParams();
@@ -15,7 +15,8 @@ const EditAllPosts = ({ answer }) => {
   const [title, setTitle] = useState('');
   const [questionContent, setQuestionContent] = useState(''); //질문 내용
   const [content, setContent] = useState(''); //답변 내용
-  //   const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [isEmpty, setIsEmpty] = useState(false); //필드가 비었는지 확인
 
   const editTitle = (e) => {
     setTitle(e.target.value);
@@ -24,6 +25,10 @@ const EditAllPosts = ({ answer }) => {
   //수정 내용 저장(patch/put)===========
   const saveChanges = () => {
     if (answer) {
+      if (content === '') {
+        setIsEmpty(true);
+        return;
+      }
       axios
         .patch(`${API}/answers/${id}`, {
           content: content,
@@ -33,10 +38,15 @@ const EditAllPosts = ({ answer }) => {
           navigate(-1);
         });
     } else {
+      if (title === '' || questionContent === '' || tags.length === 0) {
+        setIsEmpty(true);
+        return;
+      }
       axios
         .patch(`${API}/questions/${id}`, {
           title: title,
           content: questionContent,
+          tags: tags,
         })
         .then((response) => {
           console.log(response);
@@ -54,6 +64,7 @@ const EditAllPosts = ({ answer }) => {
       axios.get(`${API}/questions/${id}`).then((response) => {
         setTitle(response.data.title);
         setQuestionContent(response.data.content);
+        setTags(response.data.tags);
       });
     }
   }, []);
@@ -79,38 +90,21 @@ const EditAllPosts = ({ answer }) => {
             value={title}
             onChange={editTitle}
           />
-          {questionContent && (
-            <ToastEditor
-              value={questionContent}
-              onEditorChange={setQuestionContent}
-            />
-          )}
-          <Input
-            type="text"
-            label="Tags"
-            placeholder="e.g. (typescript asp.net-mvc ios)"
+          <ToastEditor
+            value={questionContent}
+            onEditorChange={setQuestionContent}
           />
-          <Input
-            type="text"
-            label="Edit Summary"
-            placeholder="breifly explain your changes (corrected spelling,fixed grammar, improved formatting)"
-          />
+          <TagInput tags={tags} setTags={setTags} />
         </FormWrapper>
       ) : (
         <FormWrapper>
           {/* onClick={()=>navigate(`question/${pid}`)} */}
           <p>해당 답변이 달린 게시글로 가는 링크(title)</p>
           <h1>Answer</h1>
-          {content && (
-            <ToastEditor value={content} onEditorChange={setContent} />
-          )}
-          <Input
-            type="text"
-            label="Edit Summary"
-            placeholder="breifly explain your changes (corrected spelling,fixed grammar, improved formatting)"
-          />
+          <ToastEditor value={content} onEditorChange={setContent} />
         </FormWrapper>
       )}
+      {isEmpty && <Warning>body is missing.</Warning>}
       <div className="buttons">
         <Button text="Edit Changes" onClick={saveChanges} />
         <Button text="Cancel" onClick={() => navigate(-1)} />
@@ -130,7 +124,7 @@ const Container = styled.div`
     gap: 1rem;
   }
 `;
-const FormWrapper = styled.div`
+const FormWrapper = styled.form`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -144,6 +138,11 @@ const FormWrapper = styled.div`
     color: ${(props) => props.theme.color.blue700};
     cursor: pointer;
   }
+`;
+
+const Warning = styled.p`
+  color: ${(props) => props.theme.color.red700};
+  font-weight: 800;
 `;
 
 export default EditAllPosts;

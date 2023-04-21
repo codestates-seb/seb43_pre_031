@@ -14,11 +14,7 @@ const Notice = (props) => {
     );
   }
 
-  return (
-    <NoticeWrapper color={color}>
-      <div>{children}</div>
-    </NoticeWrapper>
-  );
+  return <NoticeWrapper color={color}>{children}</NoticeWrapper>;
 };
 
 const NoticeTipWrapper = styled.div`
@@ -26,6 +22,7 @@ const NoticeTipWrapper = styled.div`
   border-radius: ${(props) => props.theme.common.borderRadius};
   border: 1px solid ${(props) => props.theme.color.black075};
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  color: ${(props) => props.theme.color.black800};
 
   > div {
     padding: 1.2rem;
@@ -43,21 +40,25 @@ const NoticeTipWrapper = styled.div`
   }
   p {
     color: ${(props) => props.theme.color.black700};
-    font-size: 1.2rem;
   }
 `;
 
 const NoticeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   padding: 2.2rem;
   border-radius: ${(props) => props.theme.common.borderRadius};
   background-color: ${(props) => props.theme.color.yellow050};
   border: 1px solid ${(props) => props.theme.color.yellow200};
+  color: ${(props) => props.theme.color.black800};
+  font-size: 1.3rem;
 
   ${(props) =>
     props.color &&
     css`
-      background-color: ${(props) => props.theme.color.blue100};
-      border: 1px solid ${(props) => props.theme.color.blue400};
+      background-color: ${(props) => props.theme.color.blue050};
+      border: 1px solid ${(props) => props.theme.color.blue300};
     `}
 `;
 

@@ -6,6 +6,12 @@ import GlobalStyle from './utils/GlobalStyle';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // <ThemeProvider theme={theme}>
+  //   <BrowserRouter>
+  //     <GlobalStyle />
+  //     <App />
+  //   </BrowserRouter>
+  // </ThemeProvider>
   <ThemeProvider theme={theme}>
     <GlobalStyle />
     <App />
