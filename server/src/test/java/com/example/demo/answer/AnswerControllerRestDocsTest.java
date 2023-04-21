@@ -63,7 +63,7 @@ public class AnswerControllerRestDocsTest {
         Answer mockResultAnswer = new Answer(1L,"content", Answer.AnswerStatus.ANSWER_VALID,new Member(),new Question());
 
         given(mapper.answerPostDtoToAnswer(Mockito.any(AnswerDto.Post.class))).willReturn(new Answer());
-        given(answerService.createAnswer(Mockito.any(AnswerDto.Post.class), null)).willReturn(mockResultAnswer);
+        given(answerService.createAnswer(Mockito.any(AnswerDto.Post.class), Mockito.anyString())).willReturn(mockResultAnswer);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -81,6 +81,8 @@ public class AnswerControllerRestDocsTest {
                         preprocessResponse(prettyPrint()),
                         requestFields(
                                 List.of(
+                                        fieldWithPath("question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("email").type(JsonFieldType.STRING).description("답변자 이메일"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("답변 내용")
                                 )
                         ),
@@ -123,6 +125,9 @@ public class AnswerControllerRestDocsTest {
                                 )),
                                 responseFields(List.of(
                                         fieldWithPath("id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("member_id").type(JsonFieldType.NUMBER).description("답변자 id"),
+                                        fieldWithPath("memberName").type(JsonFieldType.STRING).description("답변자 이름"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("답변 내용"),
                                         fieldWithPath("created_at").type(JsonFieldType.STRING).description("답변 생성일"),
                                         fieldWithPath("modified_at").type(JsonFieldType.STRING).description("답변 수정일"),
@@ -151,6 +156,9 @@ public class AnswerControllerRestDocsTest {
                                 pathParameters(parameterWithName("id").description("답변 식별자")),
                                 responseFields(List.of(
                                         fieldWithPath("id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("member_id").type(JsonFieldType.NUMBER).description("답변자 id"),
+                                        fieldWithPath("memberName").type(JsonFieldType.STRING).description("답변자 이름"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("답변 내용"),
                                         fieldWithPath("created_at").type(JsonFieldType.STRING).description("답변 생성일"),
                                         fieldWithPath("modified_at").type(JsonFieldType.STRING).description("답변 수정일"),
@@ -193,6 +201,9 @@ public class AnswerControllerRestDocsTest {
                                 responseFields(List.of(
                                         fieldWithPath("data").type(JsonFieldType.ARRAY).description("응답 데이터"),
                                         fieldWithPath("data[].id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("data[].question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("data[].member_id").type(JsonFieldType.NUMBER).description("답변자 id"),
+                                        fieldWithPath("data[].memberName").type(JsonFieldType.STRING).description("답변자 이름"),
                                         fieldWithPath("data[].content").type(JsonFieldType.STRING).description("답변 내용"),
                                         fieldWithPath("data[].created_at").type(JsonFieldType.STRING).description("답변 생성일"),
                                         fieldWithPath("data[].modified_at").type(JsonFieldType.STRING).description("답변 수정일"),
