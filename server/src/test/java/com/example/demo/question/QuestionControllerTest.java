@@ -32,6 +32,7 @@ import java.util.List;
 
 import static com.example.demo.utils.ApiDocumentUtils.getRequestPreProcessor;
 import static com.example.demo.utils.ApiDocumentUtils.getResponsePreProcessor;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
@@ -73,11 +74,12 @@ public class QuestionControllerTest {
     public void postQuestionTest() throws Exception
     {
         //given
-        QuestionDto.Post postDto = new QuestionDto.Post(1L,"title","content");
+        QuestionDto.Post postDto = new QuestionDto.Post("title","content","등록일","Name",List.of("a","b","c"));
         String content = gson.toJson(postDto);
         Member member = new Member();
         member.setMemberId(1L);
-        Question mockResultQuestion = new Question(1L,"test","test",member,new ArrayList<>());
+        Question mockResultQuestion = new Question("test","test","등록일","[\"java\"]");
+        mockResultQuestion.setId(1L);
 
         given(mapper.questionPostDtoToQuestion(Mockito.any(QuestionDto.Post.class))).willReturn(new Question());
         given(questionService.createQuestion(Mockito.any(Question.class))).willReturn(mockResultQuestion);
@@ -101,9 +103,11 @@ public class QuestionControllerTest {
                                 getRequestPreProcessor(),
                                 getResponsePreProcessor(),
                                 requestFields(List.of(
-                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("질문 작성자"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("질문 제목"),
-                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용")
+                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용"),
+                                        fieldWithPath("asked_at").type(JsonFieldType.STRING).description("질문 등록일"),
+                                        fieldWithPath("member").type(JsonFieldType.STRING).description("질문 작성자 이름"),
+                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("태그")
                                 )),
                                 responseHeaders(
                                         headerWithName(HttpHeaders.LOCATION).description("Location header. 등록된 리소스의 URI")
@@ -118,13 +122,14 @@ public class QuestionControllerTest {
     {
         //given
         Long id = 1L;
-        QuestionDto.Patch patch = new QuestionDto.Patch(id,"test", "content");
+        QuestionDto.Patch patch = new QuestionDto.Patch("test", "content","수정일","userName",List.of("a","b","c"));
         String content = gson.toJson(patch);
 
-        QuestionDto.Response response = new QuestionDto.Response(1L,"test", "test");
+        QuestionDto.Response response = new QuestionDto.Response(
+                1L,"test", "test","2023-04-19 16:11:11","2023-04-20 11:22:33",1L,"김코딩",new ArrayList<>());
 
         given(mapper.questionPatchDtoToQuestion(Mockito.any(QuestionDto.Patch.class))).willReturn(new Question());
-        given(questionService.updateQuestion(Mockito.any(Question.class))).willReturn(new Question());
+        given(questionService.updateQuestion(Mockito.any(Question.class),anyLong())).willReturn(new Question());
         given(mapper.questionToQuestionResponseDto(Mockito.any(Question.class))).willReturn(response);
 
 
@@ -142,7 +147,6 @@ public class QuestionControllerTest {
         //then
         actions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(patch.getId()))
                 .andExpect(jsonPath("$.title").value(patch.getTitle()))
                 .andDo(
                         document(
@@ -151,14 +155,22 @@ public class QuestionControllerTest {
                                 getResponsePreProcessor(),
                                 pathParameters(parameterWithName("id").description("질문 식별자")),
                                 requestFields(List.of(
-                                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        //fieldWithPath("id").type(JsonFieldType.NUMBER).description("질문 식별자"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("질문 제목"),
-                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용")
+                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용"),
+                                        fieldWithPath("modified_at").type(JsonFieldType.STRING).description("질문 수정일"),
+                                        fieldWithPath("member").type(JsonFieldType.STRING).description("질문 작성자 이름"),
+                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("질문 태그")
                                 )),
                                 responseFields(List.of(
                                         fieldWithPath("id").type(JsonFieldType.NUMBER).description("질문 식별자"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("질문 제목"),
-                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용")
+                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용"),
+                                        fieldWithPath("asked_at").type(JsonFieldType.STRING).description("질문 등록일"),
+                                        fieldWithPath("modified_at").type(JsonFieldType.STRING).description("질문 수정일"),
+                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("질문 작성자 id"),
+                                        fieldWithPath("member").type(JsonFieldType.STRING).description("질문 작성자 이름"),
+                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("태그")
                                 ))
                         )
                 );
@@ -170,7 +182,8 @@ public class QuestionControllerTest {
     {
         //given
         Long id = 1L;
-        QuestionDto.Response response = new QuestionDto.Response(1L,"test", "test");
+        QuestionDto.Response response = new QuestionDto.Response(
+                1L,"test", "test","2023-04-19 16:11:11","2023-04-20 11:22:33",1L,"김코딩",List.of("a","b","c"));
 
         given(questionService.findQuestion(Mockito.anyLong())).willReturn(new Question());
         given(mapper.questionToQuestionResponseDto(Mockito.any(Question.class))).willReturn(response);
@@ -194,7 +207,12 @@ public class QuestionControllerTest {
                                 responseFields(List.of(
                                         fieldWithPath("id").type(JsonFieldType.NUMBER).description("질문 식별자"),
                                         fieldWithPath("title").type(JsonFieldType.STRING).description("질문 제목"),
-                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용")
+                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용"),
+                                        fieldWithPath("asked_at").type(JsonFieldType.STRING).description("질문 등록일"),
+                                        fieldWithPath("modified_at").type(JsonFieldType.STRING).description("질문 수정일"),
+                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("질문 작성자 id"),
+                                        fieldWithPath("member").type(JsonFieldType.STRING).description("질문 작성자 이름"),
+                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("태그")
                                 ))
                         )
                 );
@@ -205,15 +223,15 @@ public class QuestionControllerTest {
     public void getQuestionsTest() throws Exception
     {
         List<Question> questions = new ArrayList<>();
-        for(Long i = 1L; i<=5L; i++) questions.add(new Question(i,"test","test",new Member(),new ArrayList<>()));
+        for(Long i = 1L; i<=5L; i++) questions.add(new Question(i,"test","test", "test", "test"));
         List<QuestionDto.Response> responses = new ArrayList<>();
-        for(Long i = 5L; i>=1L; i--) responses.add(new QuestionDto.Response(i,"test","test"));
+        for(Long i = 5L; i>=1L; i--) responses.add(new QuestionDto.Response(i,"test", "test","2023-04-19 16:11:11","2023-04-20 11:22:33",1L,"김코딩",List.of("a","b","c")));
 
 
 //        int page = 2, size = 2;
 //        PageRequest pageRequest = PageRequest.of(page-1,size, Sort.by("id").descending());
 
-        String page = "2", size = "2";
+        String page = "1", size = "5";
         MultiValueMap<String,String> queryParams = new LinkedMultiValueMap<>();
         queryParams.add("page",page);
         queryParams.add("size",size);
@@ -240,10 +258,15 @@ public class QuestionControllerTest {
                                 )),
                                 responseFields(
                                         List.of(
-                                                fieldWithPath("data").type(JsonFieldType.ARRAY).description("페이지네이션 데이터"),
+                                                fieldWithPath("data").type(JsonFieldType.ARRAY).description("결과 데이터"),
                                                 fieldWithPath("data[].id").type(JsonFieldType.NUMBER).description("질문 식별자"),
                                                 fieldWithPath("data[].title").type(JsonFieldType.STRING).description("질문 제목"),
                                                 fieldWithPath("data[].content").type(JsonFieldType.STRING).description("질문 내용"),
+                                                fieldWithPath("data[].asked_at").type(JsonFieldType.STRING).description("질문 등록일"),
+                                                fieldWithPath("data[].modified_at").type(JsonFieldType.STRING).description("질문 수정일"),
+                                                fieldWithPath("data[].memberId").type(JsonFieldType.NUMBER).description("질문 작성자 id"),
+                                                fieldWithPath("data[].member").type(JsonFieldType.STRING).description("질문 작성자 이름"),
+                                                fieldWithPath("data[].tags").type(JsonFieldType.ARRAY).description("태그"),
                                                 fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
                                                 fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지 번호"),
                                                 fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
@@ -260,7 +283,7 @@ public class QuestionControllerTest {
     {
         //given
         Long id = 1L;
-        QuestionDto.Response response = new QuestionDto.Response(1L,"test", "test");
+        QuestionDto.Response response = new QuestionDto.Response(1L,"test", "test","2023-04-19 16:11:11",null,1L,"김코딩",List.of("a"));
 
         doNothing().when(questionService).removeQuestion(Mockito.anyLong());
 

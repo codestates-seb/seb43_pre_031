@@ -37,7 +37,7 @@ public class Answer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
-    public void addQuestion(Question question) {
+    public void setQuestion(Question question) {
         this.question = question;
     }
 
@@ -49,6 +49,12 @@ public class Answer extends BaseEntity {
         AnswerStatus(String status) {
             this.answerStatus = status;
         }
+    }
+
+    public Answer(long id, String content, AnswerStatus status) {
+        this.id = id;
+        this.content = content;
+        this.status = status;
     }
 
 }
