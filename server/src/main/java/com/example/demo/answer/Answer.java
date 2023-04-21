@@ -37,7 +37,7 @@ public class Answer extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
-    public void addQuestion(Question question) {
+    public void setQuestion(Question question) {
         this.question = question;
     }
 

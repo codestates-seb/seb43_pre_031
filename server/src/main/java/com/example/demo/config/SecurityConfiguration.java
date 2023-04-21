@@ -3,6 +3,8 @@ package com.example.demo.config;
 
 import com.example.demo.auth.filter.JwtAuthenticationFilter;
 import com.example.demo.auth.filter.JwtVerificationFilter;
+import com.example.demo.auth.handler.MemberAccessDeniedHandler;
+import com.example.demo.auth.handler.MemberAuthenticationEntryPoint;
 import com.example.demo.auth.handler.MemberAuthenticationFailureHandler;
 import com.example.demo.auth.handler.MemberAuthenticationSuccessHandler;
 import com.example.demo.auth.jwt.JwtTokenizer;
@@ -42,6 +44,17 @@ public class SecurityConfiguration {
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
+                .cors(withDefaults())
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .formLogin().disable()
+                .httpBasic().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .and()
+                .apply(new CustomFilterConfigurer())
+                .and()
                 .authorizeRequests(authorize -> authorize
                         .requestMatchers(CorsUtils::isPreFlightRequest)
                         .permitAll()
@@ -51,11 +64,8 @@ public class SecurityConfiguration {
                         .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
                         .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
                         .anyRequest().permitAll()
-                )
-                .cors(withDefaults())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .formLogin().disable()
-                .httpBasic().disable();
+                );
+
 
         return http.build();
     }
@@ -84,7 +94,7 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
-            jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
+            jwtAuthenticationFilter.setFilterProcessesUrl("/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
 

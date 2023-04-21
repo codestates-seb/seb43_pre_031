@@ -1,4 +1,4 @@
-package com.example.demo.auth.Service;
+package com.example.demo.auth.details;
 
 import com.example.demo.auth.utils.CustomAuthorityUtils;
 import com.example.demo.exception.BusinessLogicException;

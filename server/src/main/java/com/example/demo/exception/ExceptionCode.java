@@ -9,7 +9,9 @@ public enum ExceptionCode {
     ANSWER_NOT_FOUND(404, "Answer not found"),
     CANNOT_CHANGE_MEMBER(403, "Member can not change"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),
-    INVALID_MEMBER_STATUS(400, "Invalid member status");
+    INVALID_MEMBER_STATUS(400, "Invalid member status"),
+    UNAUTHORIZED(401, "인증되지 않은 사용자");
+
 
     @Getter
     private int status;
