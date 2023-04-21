@@ -420,8 +420,338 @@
       "answer_count": 39
     },
     {
-      "id": 2,
+      "id": 22,
       "title": "How can I SELECT rows with MAX(Column value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 2,
+      "title": "How cah MAX(Column value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 3,
+      "title": "How can I SEL(Column value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 4,
+      "title": "How cith MAX(Column value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 5,
+      "title": "How can I SELECT rows wther column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 6,
+      "title": "How can I SColumn value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 7,
+      "title": " with MAX(Column value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 8,
+      "title": " can I SELECT rows with MAX(Column value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 9,
+      "title": "How can I SELEC(Column value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 10,
+      "title": "How can I SELECColumn value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        {
+          "tid": 1,
+          "name": "mysql"
+        },
+        {
+          "tid": 2,
+          "name": "sql"
+        },
+        {
+          "tid": 3,
+          "name": "max"
+        },
+        {
+          "tid": 4,
+          "name": "distinct"
+        }
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "id": 11,
+      "title": "How can I SEL(Column value), PARTITION by another column in MYSQL?",
       "asked": "14 years ago",
       "modified": "3 month ago",
       "viewed": "1.9m",

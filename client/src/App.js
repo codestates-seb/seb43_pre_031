@@ -36,7 +36,6 @@ function App() {
 
   // 로그인 성공 시 로그인한 회원정보를 받아오기
   const [isLogin, setIsLogin] = useState(false);
-
   const [questions, setQuestions] = useState([]);
 
   const getQuestions = () => {

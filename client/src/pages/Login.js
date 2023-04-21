@@ -72,7 +72,6 @@ export default function Login({ setUserInfo, setIsLogin }) {
         })
     );
   };
-
   return (
     <MainContainer>
       <Main>

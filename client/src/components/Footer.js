@@ -40,6 +40,7 @@ const Container = styled.footer`
 `;
 
 const Footer = () => {
+  if (window.location.pathname === '/users/login') return null;
   return (
     <Container>
       <div className="content">
