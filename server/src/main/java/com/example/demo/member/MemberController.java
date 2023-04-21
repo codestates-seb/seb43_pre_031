@@ -35,6 +35,15 @@ public class MemberController {
         return ResponseEntity.created(location).build();
     }
 
+    @PostMapping("/login")
+    public String loginMember(@RequestBody LoginDto requestBody) {
+        try {
+            return memberService.login(requestBody);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+    }
+
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(@PathVariable("member-id") @Positive long memberId,
                                       @Valid @RequestBody MemberDto.Patch requestBody) {
