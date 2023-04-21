@@ -43,7 +43,8 @@ export default Main;
 
 const Container = styled.div`
   margin-top: 6rem;
-  height: auto;
+  width: 100%;
+  margin-left: 18rem;
   h2 {
     padding: 0 2.5rem 2.5rem 2.5rem;
     font-size: 2rem;

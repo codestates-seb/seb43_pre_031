@@ -40,9 +40,7 @@ const QuestionList = ({ question }) => {
 
 export default QuestionList;
 
-const Container = styled.ul`
-  /* width: 100%; */
-`;
+const Container = styled.ul``;
 
 const List = styled.li`
   padding: 2rem;
@@ -82,20 +80,23 @@ const Description = styled.p``;
 
 const Tags = styled.div`
   margin: 1.5rem 0;
-  span {
-    background-color: ${(props) => props.theme.color.blue100};
-    color: ${(props) => props.theme.color.blue800};
-    padding: 0.5rem 0.7rem;
-    margin-right: 0.8rem;
-    border-radius: 3px;
-    cursor: pointer;
-    &:hover {
-      background-color: ${(props) => props.theme.color.blue200};
-    }
-  }
 `;
 
-const Tag = styled.span``;
+const Tag = styled.span`
+  background-color: ${(props) => props.theme.color.blue100};
+  color: ${(props) => props.theme.color.blue800};
+  margin-right: 0.8rem;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0.5rem 0.7rem;
+  display: inline-block;
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  &:hover {
+    background-color: ${(props) => props.theme.color.blue200};
+  }
+`;
 
 const Author = styled.div`
   justify-content: flex-end;

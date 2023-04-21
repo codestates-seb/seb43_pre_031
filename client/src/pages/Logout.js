@@ -102,6 +102,7 @@ export default function Logout({ setIsLogin }) {
 
 // Styled-components
 const LogoutContainer = styled.main`
+  padding-top: 6rem;
   width: 100%;
   max-width: 526px;
   height: 100%;
@@ -110,6 +111,10 @@ const LogoutContainer = styled.main`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 const GuidanceText = styled.div`
   font-size: 2rem;
