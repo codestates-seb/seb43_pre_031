@@ -20,6 +20,8 @@ const Paging = ({ page, count, setPage }) => {
 export default Paging;
 
 const Container = styled.div`
+  margin-left: 2rem;
+  margin-bottom: 5rem;
   .pagination {
     display: flex;
     justify-content: flex-start;
