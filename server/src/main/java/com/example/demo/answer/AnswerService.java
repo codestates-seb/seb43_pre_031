@@ -11,7 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,6 +58,18 @@ public class AnswerService {
 
     public Page<Answer> findAnswers(int page, int size) {
         return answerRepository.findAll(PageRequest.of(page,size, Sort.by("id").descending()));
+    }
+
+    /**
+     * 작성자: 한재영
+     */
+    public List<Answer> findAnswers(long questionId)
+    {
+        Optional<List<Answer>> optional = answerRepository.findAllByQuestionId(questionId);
+
+        List<Answer> answers = optional.orElse(null);
+
+        return answers;
     }
 
     public void deleteAnswer(long id) {

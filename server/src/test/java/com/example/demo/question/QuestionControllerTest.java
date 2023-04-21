@@ -1,5 +1,7 @@
 package com.example.demo.question;
 
+import com.example.demo.answer.Answer;
+import com.example.demo.answer.AnswerDto;
 import com.example.demo.member.Member;
 import com.google.gson.Gson;
 import org.apache.catalina.security.SecurityConfig;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +30,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -182,11 +186,27 @@ public class QuestionControllerTest {
     {
         //given
         Long id = 1L;
-        QuestionDto.Response response = new QuestionDto.Response(
-                1L,"test", "test","2023-04-19 16:11:11","2023-04-20 11:22:33",1L,"김코딩",List.of("a","b","c"));
+        Question question = new Question();
+        question.setId(1L);
+        List<AnswerDto.Response> answers = new ArrayList<>();
+
+        for(long i = 1L; i<5L; i++)
+        {
+            AnswerDto.Response answer = new AnswerDto.Response(
+                    i,1L,i,
+                    "test","content",  LocalDateTime.now(), LocalDateTime.now(),
+                    Answer.AnswerStatus.ANSWER_VALID);
+            answers.add(answer);
+        }
+
+        QuestionDto.ResponseWithAnswers response = new QuestionDto.ResponseWithAnswers(
+                1L,"test", "test",
+                "2023-04-19 16:11:11","2023-04-20 11:22:33",
+                1L,"김코딩", List.of("a","b","c"),
+                answers);
 
         given(questionService.findQuestion(Mockito.anyLong())).willReturn(new Question());
-        given(mapper.questionToQuestionResponseDto(Mockito.any(Question.class))).willReturn(response);
+        given(mapper.questionToQuestionResponseWithAnswersDto(Mockito.any(Question.class))).willReturn(response);
 
         //when
         ResultActions actions =
@@ -212,7 +232,16 @@ public class QuestionControllerTest {
                                         fieldWithPath("modified_at").type(JsonFieldType.STRING).description("질문 수정일"),
                                         fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("질문 작성자 id"),
                                         fieldWithPath("member").type(JsonFieldType.STRING).description("질문 작성자 이름"),
-                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("태그")
+                                        fieldWithPath("tags").type(JsonFieldType.ARRAY).description("태그"),
+                                        fieldWithPath("answers").type(JsonFieldType.ARRAY).description("답변 리스트"),
+                                        fieldWithPath("answers[].id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("answers[].question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("answers[].member_id").type(JsonFieldType.NUMBER).description("답변 작성자 id"),
+                                        fieldWithPath("answers[].memberName").type(JsonFieldType.STRING).description("답변 작성자 이름"),
+                                        fieldWithPath("answers[].content").type(JsonFieldType.STRING).description("답변 내용"),
+                                        fieldWithPath("answers[].created_at").type(JsonFieldType.STRING).description("답변 등록일"),
+                                        fieldWithPath("answers[].modified_at").type(JsonFieldType.STRING).description("답변 수정일"),
+                                        fieldWithPath("answers[].status").type(JsonFieldType.STRING).description("답변 상태")
                                 ))
                         )
                 );

@@ -494,7 +494,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members?_csrf=91dd049e-d61b-4e2f-93b1-dd392ce7b8d5' -i -X POST \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members?_csrf=683634a5-2772-4fab-a102-c9fe932edd4f' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
@@ -508,7 +508,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /members?_csrf=91dd049e-d61b-4e2f-93b1-dd392ce7b8d5 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /members?_csrf=683634a5-2772-4fab-a102-c9fe932edd4f HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Content-Length: 112
@@ -591,7 +591,7 @@ Location: /members/1</code></pre>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=08eca300-a382-4f4c-bfff-b7ac6c015d6f' -i -X PATCH \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=ddeef37b-fbdc-4de8-b1d5-11c1a2097436' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
@@ -606,7 +606,7 @@ Location: /members/1</code></pre>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /members/1?_csrf=08eca300-a382-4f4c-bfff-b7ac6c015d6f HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /members/1?_csrf=ddeef37b-fbdc-4de8-b1d5-11c1a2097436 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Content-Length: 138
@@ -741,14 +741,14 @@ Content-Length: 139
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=27ba4a10-35f0-467c-8a70-53a5de7aaae4' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=e7350c91-803f-40ba-aadf-39f7ce2224e1' -i -X GET \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1?_csrf=27ba4a10-35f0-467c-8a70-53a5de7aaae4 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1?_csrf=e7350c91-803f-40ba-aadf-39f7ce2224e1 HTTP/1.1
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -836,13 +836,13 @@ Content-Length: 140
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=06aae0e3-5f3d-4974-a257-539ec1a22186' -i -X DELETE</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=93c65c5b-0784-474a-b1ac-ea9d67e5e9d7' -i -X DELETE</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/1?_csrf=06aae0e3-5f3d-4974-a257-539ec1a22186 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/1?_csrf=93c65c5b-0784-474a-b1ac-ea9d67e5e9d7 HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1195,7 +1195,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 218
+Content-Length: 1273
 
 {
   "id" : 1,
@@ -1205,7 +1205,44 @@ Content-Length: 218
   "modified_at" : "2023-04-20 11:22:33",
   "memberId" : 1,
   "member" : "김코딩",
-  "tags" : [ "a", "b", "c" ]
+  "tags" : [ "a", "b", "c" ],
+  "answers" : [ {
+    "id" : 1,
+    "question_id" : 1,
+    "member_id" : 1,
+    "memberName" : "test",
+    "content" : "content",
+    "created_at" : "2023-04-21T19:34:32.3345657",
+    "modified_at" : "2023-04-21T19:34:32.3345657",
+    "status" : "ANSWER_VALID"
+  }, {
+    "id" : 2,
+    "question_id" : 1,
+    "member_id" : 2,
+    "memberName" : "test",
+    "content" : "content",
+    "created_at" : "2023-04-21T19:34:32.3345657",
+    "modified_at" : "2023-04-21T19:34:32.3345657",
+    "status" : "ANSWER_VALID"
+  }, {
+    "id" : 3,
+    "question_id" : 1,
+    "member_id" : 3,
+    "memberName" : "test",
+    "content" : "content",
+    "created_at" : "2023-04-21T19:34:32.3345657",
+    "modified_at" : "2023-04-21T19:34:32.3345657",
+    "status" : "ANSWER_VALID"
+  }, {
+    "id" : 4,
+    "question_id" : 1,
+    "member_id" : 4,
+    "memberName" : "test",
+    "content" : "content",
+    "created_at" : "2023-04-21T19:34:32.3345657",
+    "modified_at" : "2023-04-21T19:34:32.3345657",
+    "status" : "ANSWER_VALID"
+  } ]
 }</code></pre>
 </div>
 </div>
@@ -1263,6 +1300,51 @@ Content-Length: 218
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">태그</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 리스트</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers[].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers[].question_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers[].member_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 작성자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers[].memberName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers[].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers[].created_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 등록일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers[].modified_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 수정일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>answers[].status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변 상태</p></td>
 </tr>
 </tbody>
 </table>
@@ -1648,7 +1730,7 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 244
+Content-Length: 250
 
 {
   "id" : 1,
@@ -1656,8 +1738,8 @@ Content-Length: 244
   "member_id" : 1,
   "memberName" : "홍길동",
   "content" : "patch content",
-  "created_at" : "2023-04-21T16:01:40.9821",
-  "modified_at" : "2023-04-21T16:01:40.9821",
+  "created_at" : "2023-04-21T19:34:36.2965665",
+  "modified_at" : "2023-04-21T19:34:36.2965665",
   "status" : "ANSWER_VALID"
 }</code></pre>
 </div>
@@ -1769,8 +1851,8 @@ Content-Length: 244
   "member_id" : 1,
   "memberName" : "홍길동",
   "content" : "content",
-  "created_at" : "2023-04-21T16:01:41.0121004",
-  "modified_at" : "2023-04-21T16:01:41.0121004",
+  "created_at" : "2023-04-21T19:34:36.3305671",
+  "modified_at" : "2023-04-21T19:34:36.3305671",
   "status" : "ANSWER_VALID"
 }</code></pre>
 </div>
@@ -1864,8 +1946,8 @@ Content-Length: 657
     "member_id" : 1,
     "memberName" : "홍길동1",
     "content" : "content1",
-    "created_at" : "2023-04-21T16:01:40.6080984",
-    "modified_at" : "2023-04-21T16:01:40.6090989",
+    "created_at" : "2023-04-21T19:34:36.1755665",
+    "modified_at" : "2023-04-21T19:34:36.1755665",
     "status" : "ANSWER_VALID"
   }, {
     "id" : 2,
@@ -1873,8 +1955,8 @@ Content-Length: 657
     "member_id" : 2,
     "memberName" : "홍길동2",
     "content" : "content2",
-    "created_at" : "2023-04-21T16:01:40.6090989",
-    "modified_at" : "2023-04-21T16:01:40.6090989",
+    "created_at" : "2023-04-21T19:34:36.1755665",
+    "modified_at" : "2023-04-21T19:34:36.1755665",
     "status" : "ANSWER_VALID"
   } ],
   "pageInfo" : {

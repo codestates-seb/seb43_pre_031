@@ -1,5 +1,7 @@
 package com.example.demo.question;
 
+import com.example.demo.answer.Answer;
+import com.example.demo.answer.AnswerDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,5 +51,20 @@ public class QuestionDto {
         private Long memberId;
         private String member;
         private List<String> tags;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    public static class ResponseWithAnswers
+    {
+        private Long id;
+        private String title;
+        private String content;
+        private String asked_at;
+        private String modified_at;
+        private Long memberId;
+        private String member;
+        private List<String> tags;
+        private List<AnswerDto.Response> answers;
     }
 }

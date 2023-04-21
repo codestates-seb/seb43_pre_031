@@ -1,6 +1,7 @@
 package com.example.demo.question;
 
 import com.example.demo.answer.Answer;
+import com.example.demo.answer.AnswerMapper;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberService;
 import org.springframework.stereotype.Component;
@@ -12,9 +13,12 @@ import java.util.List;
 @Component
 public class QuestionMapper {
     private MemberService memberService;
-    public QuestionMapper(MemberService memberService)
+    private AnswerMapper answerMapper;
+    public QuestionMapper(MemberService memberService,
+                          AnswerMapper answerMapper)
     {
         this.memberService = memberService;
+        this.answerMapper = answerMapper;
     }
     public Question questionPostDtoToQuestion(QuestionDto.Post dto)
     {
@@ -56,6 +60,21 @@ public class QuestionMapper {
                 question.getMember().getMemberId(),
                 question.getMember().getFullName(),
                 stringToList(question.getTags())
+        );
+    }
+
+    public QuestionDto.ResponseWithAnswers questionToQuestionResponseWithAnswersDto(Question question)
+    {
+        return new QuestionDto.ResponseWithAnswers(
+                question.getId(),
+                question.getTitle(),
+                question.getContent(),
+                question.getAskedAt(),
+                question.getModifiedAt(),
+                question.getMember().getMemberId(),
+                question.getMember().getFullName(),
+                stringToList(question.getTags()),
+                answerMapper.answerToAnswerResponseDtos(question.getAnswers())
         );
     }
 

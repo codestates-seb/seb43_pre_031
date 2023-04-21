@@ -74,7 +74,7 @@ public class QuestionController {
     {
         Question question = questionService.findQuestion(questionId);
 
-        return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.questionToQuestionResponseWithAnswersDto(question), HttpStatus.OK);
     }
 
     @GetMapping

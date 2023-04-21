@@ -1,5 +1,6 @@
 package com.example.demo.question;
 
+import com.example.demo.answer.AnswerService;
 import com.example.demo.exception.BusinessLogicException;
 import com.example.demo.exception.ExceptionCode;
 import com.example.demo.member.MemberService;
@@ -19,17 +20,22 @@ public class QuestionService {
 
     private QuestionRepository questionRepository;
     private MemberService memberService;
+    private AnswerService answerService;
 
     public QuestionService(QuestionRepository questionRepository,
-                           MemberService memberService)
+                           MemberService memberService,
+                           AnswerService answerService)
     {
         this.questionRepository = questionRepository;
         this.memberService = memberService;
+        this.answerService = answerService;
     }
     public Question createQuestion(Question question)
     {
         // 검증 : 이미 등록된 질문인지
         // 필요한가?
+
+        //회원
         verifyQuestion(question);
 
         return questionRepository.save(question);
@@ -51,6 +57,11 @@ public class QuestionService {
     public Question findQuestion(long id)
     {
         Question findQuestion = findVerifiedQuestion(id);
+
+//      question 필드에 answer가 존재해서 DB에서 저장된 question을 찾아올때 answer를 찾는 쿼리문도 함께보냄
+//        answerService.findAnswers(id).stream().forEach(answer -> {findQuestion.addAnswer(answer);
+//            System.out.println(answer.getQuestion().getId());});
+
         return findQuestion;
     }
 
