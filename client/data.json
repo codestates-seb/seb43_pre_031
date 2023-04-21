@@ -402,7 +402,10 @@
       "viewed": "380k",
       "content": "I have my first **_node.js_** app (runs fine locally) but I am unable to deploy it via heroku (first time w/ heroku as well).The code is below. SO doesn't let me write so much code,so I would just say that the running the code locally as well within my network shows no issue. ## **Any idea???**",
       "vote": 641,
-      "tags": ["node.js", "heroku"],
+      "tags": [
+        "node.js",
+        "heroku"
+      ],
       "edited": "Mar 28, 2013 at 22:32",
       "author": {
         "username": "user428900",
@@ -418,7 +421,11 @@
       "viewed": "1.9m",
       "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
       "vote": 903,
-      "tags": ["mysql", "max", "distinct"],
+      "tags": [
+        "mysql",
+        "max",
+        "distinct"
+      ],
       "edited": "May 10, 2022 at 23:59",
       "author": {
         "username": "unknownuser001",
@@ -429,7 +436,13 @@
     {
       "title": "질문 작성 테스트",
       "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
-      "tags": ["1", "2", "3", "4", "5"],
+      "tags": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
       "vote": 0,
       "asked": "1 min ago",
       "viewed": 1,
