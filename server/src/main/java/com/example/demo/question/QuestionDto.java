@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 /**
@@ -16,9 +18,11 @@ public class QuestionDto {
     @AllArgsConstructor
     public static class Post
     {
+        @NotBlank
         private String title;
         private String content;
         private String asked_at;
+        @NotBlank
         private String member;
         private List<String> tags;
     }
