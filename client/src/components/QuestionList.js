@@ -21,8 +21,8 @@ const QuestionList = ({ question }) => {
           </Title>
           <Description>{question.content}</Description>
           <Tags>
-            {question.tags.map((tag) => (
-              <Tag key={tag.tid}>{tag.name}</Tag>
+            {question.tags.map((tag, idx) => (
+              <Tag key={idx}>{tag}</Tag>
             ))}
           </Tags>
           <Author>
