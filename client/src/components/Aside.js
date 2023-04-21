@@ -34,6 +34,7 @@ const Container = styled.aside`
 `;
 
 const Aside = () => {
+  if (window.location.pathname === '/users/login') return null;
   return (
     <Container>
       <ul>
