@@ -1,7 +1,35 @@
 import styled from 'styled-components';
-// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+// import { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { API } from '../utils/API';
 
 export const SettingsBody = () => {
+  // const [username, setUsername] = useState('');
+  // const [location, setLocation] = useState('');
+  // const [mptitle, setMptitle] = useState('');
+  // const [aboutme, setAboutme] = useState('');
+
+  // const onChange = (event) => {
+  //   const {
+  //     target: { name, value },
+  //   } = event;
+  //   if (name === 'username') {
+  //     setUsername(value);
+  //   } else if (name === 'location') {
+  //     setLocation(value);
+  //   } else if (name === 'mptitle') {
+  //     setMptitle(value);
+  //   } else if (name === 'aboutme') {
+  //     setAboutme(value);
+  //   }
+  // };
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+  // };
+
+  const navigate = useNavigate();
+
   return (
     <>
       <SettingContent>
@@ -10,15 +38,42 @@ export const SettingsBody = () => {
         <p>Public information</p>
         <div className="right">
           <span>Profile image</span>
+          <input type="file" accept="image/*" />
           <div className="user-imgBox"></div>
-          <span>Display name</span>
-          <input></input>
-          <span>Location</span>
-          <input></input>
-          <span>Title</span>
-          <input placeholder="No title has been set"></input>
-          <span>About me</span>
-          <input></input>
+          <form>
+            <span>Display name</span>
+            <input
+              name="username"
+              type="text"
+              maxLength={30}
+              // value={username}
+              // onChange={onChange}
+            ></input>
+            <span>Location</span>
+            <input
+              name="location"
+              type="text"
+              maxLength={100}
+              value={location}
+              // onChange={onChange}
+            ></input>
+            <span>Title</span>
+            <input
+              name="mptitle"
+              type="text"
+              maxLength={225}
+              // value={mptitle}
+              // onChange={onChange}
+              placeholder="No title has been set"
+            ></input>
+            <span>About me</span>
+            <input
+              name="aboutme"
+              type="text"
+              // value={aboutme}
+              // onChange={onChange}
+            ></input>
+          </form>
         </div>
         <p>Links</p>
         <div className="right-link">
@@ -36,8 +91,13 @@ export const SettingsBody = () => {
           <span>Full name</span>
           <input></input>
         </div>
-        <button>Save profile</button>
-        <button>Cancel</button>
+        {/* <form onSubmit={onSubmit}> */}
+        <form>
+          <input type="submit">Save profile</input>
+          <button name="cancel" onClick={() => navigate(`/profile`)}>
+            Cancel
+          </button>
+        </form>
       </SettingContent>
     </>
   );
@@ -63,7 +123,7 @@ export const SettingContent = styled.div`
   span {
     font-size: 1.5rem;
     font-weight: Bold;
-        margin: 0 0 0.2rem 1rem;
+    margin: 0 0 0.2rem 1rem;
   }
   hr {
     height: 0rem;
@@ -91,38 +151,37 @@ export const SettingContent = styled.div`
     flex-direction: column;
     background-color: white;
     margin-bottom: 2.3rem;
-      }
-      .right-link {
-        border-radius: 0.5rem;
-        border: 1px solid ${(props) => props.theme.color.black100};
-        padding: 1rem;
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        background-color: white;
-        margin-bottom: 2.3rem;
-          }
-          button {
-            padding: 1rem;
-  border: none;
-  border-top: 1px solid ${(props) => props.theme.color.blue200};
-  margin: 3rem 1rem 0 0;
-  border-radius: ${(props) => props.theme.common.borderRadius};
-  background-color: ${(props) => props.theme.color.blue500};
-  outline: ${(props) => props.theme.color.blue500} solid 1px;
-  color: white;
-  cursor: pointer;
-          
-
-  &:hover {
-    background-color: ${(props) => props.theme.color.blue600};
   }
-
-  &:active {
-    outline: ${(props) => props.theme.color.blue100} solid 0.4rem;
+  .right-link {
+    border-radius: 0.5rem;
+    border: 1px solid ${(props) => props.theme.color.black100};
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    background-color: white;
+    margin-bottom: 2.3rem;
   }
-          }
+  button {
+    padding: 1rem;
+    border: none;
+    border-top: 1px solid ${(props) => props.theme.color.blue200};
+    margin: 3rem 1rem 0 0;
+    border-radius: ${(props) => props.theme.common.borderRadius};
+    background-color: ${(props) => props.theme.color.blue500};
+    outline: ${(props) => props.theme.color.blue500} solid 1px;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${(props) => props.theme.color.blue600};
     }
+
+    &:active {
+      outline: ${(props) => props.theme.color.blue100} solid 0.4rem;
+    }
+  }
+
   .user-imgBox {
     width: 164x;
     height: 164px;
@@ -132,5 +191,4 @@ export const SettingContent = styled.div`
     background-size: contain;
     background-repeat: no-repeat;
   }
-}
 `;

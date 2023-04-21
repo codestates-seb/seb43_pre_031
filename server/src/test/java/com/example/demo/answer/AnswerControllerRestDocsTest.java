@@ -19,6 +19,7 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -57,13 +58,12 @@ public class AnswerControllerRestDocsTest {
 
     @Test
     public void postAnswerTest() throws Exception {
-        AnswerDto.Post post = new AnswerDto.Post("post content");
+        AnswerDto.Post post = new AnswerDto.Post(1L, "a@a","post content");
         String content = gson.toJson(post);
-
         Answer mockResultAnswer = new Answer(1L,"content", Answer.AnswerStatus.ANSWER_VALID,new Member(),new Question());
 
         given(mapper.answerPostDtoToAnswer(Mockito.any(AnswerDto.Post.class))).willReturn(new Answer());
-        given(answerService.createAnswer(Mockito.any(Answer.class))).willReturn(mockResultAnswer);
+        given(answerService.createAnswer(Mockito.any(AnswerDto.Post.class), Mockito.anyString())).willReturn(mockResultAnswer);
 
         ResultActions actions =
                 mockMvc.perform(
@@ -81,6 +81,8 @@ public class AnswerControllerRestDocsTest {
                         preprocessResponse(prettyPrint()),
                         requestFields(
                                 List.of(
+                                        fieldWithPath("question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("email").type(JsonFieldType.STRING).description("답변자 이메일"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("답변 내용")
                                 )
                         ),
@@ -96,10 +98,10 @@ public class AnswerControllerRestDocsTest {
         AnswerDto.Patch patch = new AnswerDto.Patch(id,"patch content");
         String content = gson.toJson(patch);
 
-        AnswerDto.Response response = new AnswerDto.Response(id,"patch content", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
+        AnswerDto.Response response = new AnswerDto.Response(id,1,1,"홍길동","patch content" ,LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
 
         given(mapper.answerPatchDtoToAnswer(Mockito.any(AnswerDto.Patch.class))).willReturn(new Answer());
-        given(answerService.updateAnswer(Mockito.any(Answer.class))).willReturn(new Answer());
+        given(answerService.updateAnswer(Mockito.any(Answer.class),Mockito.anyLong())).willReturn(new Answer());
         given(mapper.answerToAnswerResponseDto(Mockito.any(Answer.class))).willReturn(response);
 
         ResultActions actions =
@@ -123,6 +125,9 @@ public class AnswerControllerRestDocsTest {
                                 )),
                                 responseFields(List.of(
                                         fieldWithPath("id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("member_id").type(JsonFieldType.NUMBER).description("답변자 id"),
+                                        fieldWithPath("memberName").type(JsonFieldType.STRING).description("답변자 이름"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("답변 내용"),
                                         fieldWithPath("created_at").type(JsonFieldType.STRING).description("답변 생성일"),
                                         fieldWithPath("modified_at").type(JsonFieldType.STRING).description("답변 수정일"),
@@ -136,7 +141,7 @@ public class AnswerControllerRestDocsTest {
     @Test
     public void getAnswerTest() throws Exception {
         Long id = 1L;
-        AnswerDto.Response response = new AnswerDto.Response(id,"content", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
+        AnswerDto.Response response = new AnswerDto.Response(id,1,1, "홍길동", "content", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
 
         given(answerService.findAnswer(Mockito.anyLong())).willReturn(new Answer());
         given(mapper.answerToAnswerResponseDto(Mockito.any(Answer.class))).willReturn(response);
@@ -151,6 +156,9 @@ public class AnswerControllerRestDocsTest {
                                 pathParameters(parameterWithName("id").description("답변 식별자")),
                                 responseFields(List.of(
                                         fieldWithPath("id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("member_id").type(JsonFieldType.NUMBER).description("답변자 id"),
+                                        fieldWithPath("memberName").type(JsonFieldType.STRING).description("답변자 이름"),
                                         fieldWithPath("content").type(JsonFieldType.STRING).description("답변 내용"),
                                         fieldWithPath("created_at").type(JsonFieldType.STRING).description("답변 생성일"),
                                         fieldWithPath("modified_at").type(JsonFieldType.STRING).description("답변 수정일"),
@@ -164,8 +172,8 @@ public class AnswerControllerRestDocsTest {
     public void getAnswersTest() throws Exception {
         Answer answer1 = new Answer(1L, "Content", Answer.AnswerStatus.ANSWER_VALID,new Member(),new Question());
         Answer answer2 = new Answer(2L, "Content", Answer.AnswerStatus.ANSWER_VALID,new Member(),new Question());
-        AnswerDto.Response response1 = new AnswerDto.Response(1L,"content1", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
-        AnswerDto.Response response2 = new AnswerDto.Response(2L,"content2", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
+        AnswerDto.Response response1 = new AnswerDto.Response(1L,1,1, "홍길동1", "content1", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
+        AnswerDto.Response response2 = new AnswerDto.Response(2L,2,2, "홍길동2", "content2", LocalDateTime.now(), LocalDateTime.now(), Answer.AnswerStatus.ANSWER_VALID);
 
         Page<Answer> pageAnswers = new PageImpl<>(List.of(answer1, answer2));
         List<AnswerDto.Response> responses = Arrays.asList(response1, response2);
@@ -193,6 +201,9 @@ public class AnswerControllerRestDocsTest {
                                 responseFields(List.of(
                                         fieldWithPath("data").type(JsonFieldType.ARRAY).description("응답 데이터"),
                                         fieldWithPath("data[].id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("data[].question_id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("data[].member_id").type(JsonFieldType.NUMBER).description("답변자 id"),
+                                        fieldWithPath("data[].memberName").type(JsonFieldType.STRING).description("답변자 이름"),
                                         fieldWithPath("data[].content").type(JsonFieldType.STRING).description("답변 내용"),
                                         fieldWithPath("data[].created_at").type(JsonFieldType.STRING).description("답변 생성일"),
                                         fieldWithPath("data[].modified_at").type(JsonFieldType.STRING).description("답변 수정일"),

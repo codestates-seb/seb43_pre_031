@@ -9,6 +9,15 @@ import { Activity } from './Activity';
 import { Route, Routes } from 'react-router-dom';
 
 export const Main = () => {
+  // const [userObj, setUserObj] = useState(null);
+  //   useEffect() => {
+  //     axios
+  //     if(user) {
+  //       setUserObj(user);
+  //     }
+  //     setInit(true);
+  //   });
+  // }, []);
   return (
     <main className="position">
       <UserBoard />
