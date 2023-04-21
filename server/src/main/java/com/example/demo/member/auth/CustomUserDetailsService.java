@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Optional;
 
-@Component
+//@Component
 public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils authorityUtils;

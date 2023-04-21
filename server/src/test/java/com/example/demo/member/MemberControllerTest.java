@@ -1,6 +1,5 @@
 package com.example.demo.member;
 
-import com.example.demo.answer.AnswerController;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

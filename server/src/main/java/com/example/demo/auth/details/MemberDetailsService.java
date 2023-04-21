@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Optional;
 
-//@Component
+@Component
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils authorityUtils;
@@ -35,6 +35,7 @@ public class MemberDetailsService implements UserDetailsService {
     private final class MemberDetails extends Member implements UserDetails {
         MemberDetails(Member member) {
             setMemberId(member.getMemberId());
+            setFullName(member.getFullName());
             setEmail(member.getEmail());
             setPassword(member.getPassword());
             setRoles(member.getRoles());

@@ -4,16 +4,11 @@ import com.example.demo.exception.BusinessLogicException;
 import com.example.demo.exception.ExceptionCode;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberRepository;
-import com.example.demo.member.MemberService;
 import com.example.demo.question.Question;
 import com.example.demo.question.QuestionRepository;
-import com.example.demo.question.QuestionService;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
