@@ -40,7 +40,9 @@ const QuestionList = ({ question }) => {
 
 export default QuestionList;
 
-const Container = styled.ul``;
+const Container = styled.ul`
+  /* width: 100%; */
+`;
 
 const List = styled.li`
   padding: 2rem;
