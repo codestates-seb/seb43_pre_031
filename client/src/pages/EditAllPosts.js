@@ -46,6 +46,8 @@ const EditAllPosts = ({ answer }) => {
         .patch(`${API}/questions/${id}`, {
           title: title,
           content: questionContent,
+          modified_at: '2023-04-21',
+          member: 'idx123',
           tags: tags,
         })
         .then((response) => {
