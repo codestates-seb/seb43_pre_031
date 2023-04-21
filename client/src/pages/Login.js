@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Button from '../elements/Button';
 import { API } from '../utils/API';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import storage from '../lib/storage';
 
 export default function Login({ setUserInfo, setIsLogin }) {
@@ -72,6 +72,7 @@ export default function Login({ setUserInfo, setIsLogin }) {
         })
     );
   };
+  const navigate = useNavigate();
   return (
     <MainContainer>
       <Main>
@@ -136,7 +137,13 @@ export default function Login({ setUserInfo, setIsLogin }) {
             <PwContainer>
               <PwBox>
                 <Label htmlFor="password">Password</Label>
-                <Span>Forgot password?</Span>
+                <FPSpan
+                  onClick={() => {
+                    navigate('/users/account-recovery');
+                  }}
+                >
+                  Forgot password?
+                </FPSpan>
               </PwBox>
               <Input
                 type="password"
@@ -264,9 +271,14 @@ const Input = styled.input`
     outline: ${(props) => props.theme.color.blue100} solid 0.4rem;
   }
 `;
-const Span = styled.span`
+const FPSpan = styled.span`
   font-size: 1rem;
   color: ${(props) => props.theme.color.blue600};
+  &:hover {
+    color: ${(props) => props.theme.color.blue500};
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 const ErrorMsg = styled.div`
   color: red;
