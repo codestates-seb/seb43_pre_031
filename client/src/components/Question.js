@@ -9,8 +9,8 @@ const Question = (props) => {
     title,
     asked,
     modified,
-    viewed,
-    vote,
+    // viewed,
+    // vote,
     content,
     user,
     tags,
@@ -42,7 +42,7 @@ const Question = (props) => {
           </div>
           <div>
             <span>Viewed</span>
-            <span>{viewed} times</span>
+            <span>1 times</span>
           </div>
         </ExtraInfoArea>
       </TitleSection>
@@ -51,7 +51,8 @@ const Question = (props) => {
           <i className="vote">
             <IoMdArrowDropup size="5rem" />
           </i>
-          <span>{vote}</span>
+          {/* <span>{vote}</span> */}
+          <span>0</span>
           <i className="vote">
             <IoMdArrowDropdown size="5rem" />
           </i>
