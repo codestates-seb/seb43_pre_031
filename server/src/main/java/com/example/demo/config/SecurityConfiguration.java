@@ -28,7 +28,7 @@ import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-@Configuration
+//@Configuration
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
@@ -56,13 +56,13 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeRequests(authorize -> authorize
-                        .requestMatchers(CorsUtils::isPreFlightRequest)
-                        .permitAll()
-                        .antMatchers(HttpMethod.POST, "/members").permitAll()
-                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/members").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
-                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
+//                        .requestMatchers(CorsUtils::isPreFlightRequest)
+//                        .permitAll()
+//                        .antMatchers(HttpMethod.POST, "/members").permitAll()
+//                        .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")
+//                        .antMatchers(HttpMethod.GET, "/members").hasRole("ADMIN")
+//                        .antMatchers(HttpMethod.GET, "/members/**").hasAnyRole("USER", "ADMIN")
+//                        .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
                         .anyRequest().permitAll()
                 );
 

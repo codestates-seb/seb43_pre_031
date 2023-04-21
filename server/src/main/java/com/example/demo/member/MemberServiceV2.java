@@ -1,44 +1,31 @@
 package com.example.demo.member;
 
+import com.example.demo.auth.utils.CustomAuthorityUtils;
 import com.example.demo.exception.BusinessLogicException;
 import com.example.demo.exception.ExceptionCode;
-import com.example.demo.member.auth.CustomUserDetailsService;
-import com.example.demo.member.auth.utils.CustomAuthorityUtils;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.example.demo.helper.event.MemberRegistrationApplicationEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Transactional
-@Service
-public class MemberService {
+//@Service
+public class MemberServiceV2 {
     private final MemberRepository memberRepository;
+    private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
-    private final AuthenticationManager authenticationManager;
 
-    public MemberService(MemberRepository memberRepository,
-                         PasswordEncoder passwordEncoder,
-                         CustomAuthorityUtils authorityUtils,
-                         AuthenticationManager authenticationManager) {
+    public MemberServiceV2(MemberRepository memberRepository, ApplicationEventPublisher publisher, PasswordEncoder passwordEncoder, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
+        this.publisher = publisher;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
-        this.authenticationManager = authenticationManager;
     }
 
     public Member createMember(Member member) {
@@ -52,19 +39,8 @@ public class MemberService {
 
         Member savedMember = memberRepository.save(member);
 
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
         return savedMember;
-    }
-
-    public String login(LoginDto request) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
-        );
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        CustomUserDetailsService.CustomUserDetails principal =
-                (CustomUserDetailsService.CustomUserDetails) authentication.getPrincipal();
-
-        return principal.getUsername();
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -97,10 +73,15 @@ public class MemberService {
         return findMember;
     }
 
+    /**
+     * 작성자: 한재영
+     * @param userName
+     * @return
+     */
     public Member findVerifiedMember(String userName)
     {
         Optional<Member> optionalMember = memberRepository.findByFullName(userName);
-        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member findMember = optionalMember.orElseThrow(() -> new RuntimeException());
         return findMember;
     }
 
@@ -111,9 +92,4 @@ public class MemberService {
         }
     }
 
-    private List<GrantedAuthority> createAuthorities(String... roles) {
-        return Arrays.stream(roles)
-                .map(role -> new SimpleGrantedAuthority(role))
-                .collect(Collectors.toList());
-    }
 }

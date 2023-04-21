@@ -55,6 +55,7 @@ public class GlobalExceptionAdvice {
     public ErrorResponse handleException(Exception e)
     {
         // 예외처리를 위한 로직 필요
+        log.error(e.getMessage());
 
         final ErrorResponse response = ErrorResponse.of(HttpStatus.INTERNAL_SERVER_ERROR);
         return response;
