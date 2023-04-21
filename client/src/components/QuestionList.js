@@ -27,7 +27,8 @@ const QuestionList = ({ question }) => {
           </Tags>
           <Author>
             <img
-              src={`${question.author.userimage}`}
+              // src={`${question.author.userimage}`}
+              src="/"
               alt="작성자 프로필 사진"
             />
             <a href="/">{question.author.username}</a>
