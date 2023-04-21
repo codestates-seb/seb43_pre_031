@@ -1,16 +1,4 @@
 import './App.css';
-<<<<<<< HEAD
-import User from './pages/User';
-import { Routes, Route } from 'react-router-dom';
-
-function App() {
-  return (
-    <div>
-      <Routes>
-        <Route path="/user/*" element={<User />} />
-      </Routes>
-    </div>
-=======
 import Main from './pages/Main';
 // import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -133,7 +121,6 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
->>>>>>> 3d15b38ebc86b521c3b5f042de03b356aba24dd7
   );
 }
 

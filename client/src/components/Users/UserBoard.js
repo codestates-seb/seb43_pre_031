@@ -7,8 +7,10 @@ export const UserBoard = () => {
     <section className="user-wrapper">
       <div className="user-imgBox"></div>
       <div className="user-info">
-        <h1>{userObj.username}</h1>
-        <div>{title}</div>
+        {/* <h1>{userObj.username}</h1>
+        <div>{title}</div> */}
+        <h1>username</h1>
+        <div>title</div>
         <ul>
           <li>
             <div>
