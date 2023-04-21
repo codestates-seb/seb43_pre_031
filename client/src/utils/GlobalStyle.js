@@ -6,7 +6,14 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
   }
-  html { font-size: 10px; }
+  html { 
+    font-size: 10px; 
+  }
+
+  body{
+    font-size: 1.3rem;
+  }
+  
   a {color: ${(props) =>
     props.theme.color.blue600}; text-decoration: none; outline: none}
   a:hover, a:active { color:${(props) => props.theme.color.blue400}}
