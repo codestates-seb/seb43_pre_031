@@ -3,38 +3,7 @@ import CreateIcon from '@mui/icons-material/Create';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ReorderIcon from '@mui/icons-material/Reorder';
 
-const Container = styled.aside`
-  margin-left: 3rem;
-  margin-top: 6rem;
-  width: 50rem;
-  ul {
-    background-color: #fdf7e2;
-    margin-top: 2.5rem;
-    box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
-      0 2px 8px hsla(0, 0%, 0%, 0.05);
-    color: ${(props) => props.theme.color.black700};
-    h1 {
-      background-color: #fbf3d5;
-      width: 100%;
-      border: 1px solid ${(props) => props.theme.color.yellow200};
-      padding: 1.5rem;
-    }
-    li {
-      list-style: none;
-      padding: 1.3rem;
-      display: flex;
-      align-items: flex-start;
-      font-size: 1.3rem;
-
-      svg {
-        margin-right: 0.5rem;
-      }
-    }
-  }
-`;
-
 const Aside = () => {
-  if (window.location.pathname === '/users/login') return null;
   return (
     <Container>
       <ul>
@@ -82,3 +51,33 @@ const Aside = () => {
 };
 
 export default Aside;
+
+const Container = styled.aside`
+  margin-left: 3rem;
+  margin-top: 6rem;
+  width: 50rem;
+  ul {
+    background-color: #fdf7e2;
+    margin-top: 2.5rem;
+    box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+      0 2px 8px hsla(0, 0%, 0%, 0.05);
+    color: ${(props) => props.theme.color.black700};
+    h1 {
+      background-color: #fbf3d5;
+      width: 100%;
+      border: 1px solid ${(props) => props.theme.color.yellow200};
+      padding: 1.5rem;
+    }
+    li {
+      list-style: none;
+      padding: 1.3rem;
+      display: flex;
+      align-items: flex-start;
+      font-size: 1.3rem;
+
+      svg {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+`;
