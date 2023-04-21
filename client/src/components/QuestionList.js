@@ -7,9 +7,9 @@ const QuestionList = ({ question }) => {
     <Container>
       <List>
         <div>
-          <span>{question.vote} votes</span>
-          <span>{question.answer_count} answers</span>
-          <span>{question.viewed} views</span>
+          <span>0 votes</span>
+          <span>0 answers</span>
+          <span>0 views</span>
         </div>
         <Content>
           <Title
@@ -27,10 +27,10 @@ const QuestionList = ({ question }) => {
           </Tags>
           <Author>
             <img
-              src={`${question.author.userimage}`}
+              src={`https://randomuser.me/api/portraits/thumb/men/55.jpg`}
               alt="작성자 프로필 사진"
             />
-            <a href="/">{question.author.username}</a>
+            <a href="/">{question.member}</a>
           </Author>
         </Content>
       </List>
