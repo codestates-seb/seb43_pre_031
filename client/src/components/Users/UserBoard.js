@@ -1,11 +1,14 @@
 import { Link } from 'react-router-dom';
 
 export const UserBoard = () => {
+  // const { username } = { userObj };
+
   return (
     <section className="user-wrapper">
       <div className="user-imgBox"></div>
       <div className="user-info">
-        <h1>user</h1>
+        <h1>{userObj.username}</h1>
+        <div>{title}</div>
         <ul>
           <li>
             <div>

@@ -1,5 +1,9 @@
-.temp-test {
-  width: 40%;
+.content-page-wrapper {
+  background-color: aquamarine;
+}
+.content-page {
+  background-color: bisque;
+  width: 55%;
   margin: 0 auto;
   margin-top: 3rem;
 }
