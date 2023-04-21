@@ -20,6 +20,7 @@ import FindPW from './pages/FindPW';
 import ContainAll from './pages/templates/ContainAll';
 import NavFooter from './pages/templates/NavFooter';
 import OnlyFooter from './pages/templates/OnlyFooter';
+import { API } from './utils/API';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -35,8 +36,8 @@ function App() {
     if (!loggedInfo) return;
     userId = storage.get('userID');
     console.log(`localstorage userId : ${userId}`);
+    console.log(`localstorage login : ${loggedInfo}`);
   })();
-  console.log(`userId : ${userId}`);
 
   // 로그인 성공 시 로그인한 회원정보를 받아오기
   const [isLogin, setIsLogin] = useState(false);
@@ -44,7 +45,7 @@ function App() {
 
   const getQuestions = () => {
     axios
-      .get('http://localhost:4000/questions')
+      .get(`${API}/questions`)
       .then((res) => {
         setQuestions(res.data);
       })
