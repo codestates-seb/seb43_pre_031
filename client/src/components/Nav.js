@@ -4,13 +4,14 @@ import PublicIcon from '@mui/icons-material/Public';
 import StarsIcon from '@mui/icons-material/Stars';
 
 const Container = styled.div`
+  border-right: 1px solid #bbc0c4;
   position: fixed;
-  margin-top: 8rem;
-  /* background-color: whitesmoke; */
+  padding-top: 8rem;
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
-  width: 10%;
+  width: 20rem;
+  min-height: 100vh;
   span {
     color: ${(props) => props.theme.color.black700};
     text-transform: uppercase;
@@ -38,6 +39,7 @@ const Container = styled.div`
 `;
 
 const Nav = () => {
+  if (window.location.pathname === '/users/login') return null;
   return (
     <Container>
       <Link to="/">Home</Link>
@@ -46,11 +48,11 @@ const Nav = () => {
         <PublicIcon />
         Questions
       </Link>
-      <Link to="/tags">Tags</Link>
-      <Link to="/users">Users</Link>
-      <Link to="/companies">Companies</Link>
+      <Link to="/">Tags</Link>
+      <Link to="/">Users</Link>
+      <Link to="/">Companies</Link>
       <span>Collectives</span>
-      <Link to="/collectives">
+      <Link to="/">
         <StarsIcon />
         Explore Collectives
       </Link>
