@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const ProfileBody = () => {
+  // const { aboutme } = { userObj} ;
+
   return (
     <UserProfile>
       <h2>About</h2>

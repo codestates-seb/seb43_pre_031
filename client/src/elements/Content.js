@@ -40,8 +40,11 @@ const Content = (props) => {
           </p>
           {user && (
             <UserFlexWrapper>
-              <img src={user.userimage} alt="유저 이미지"></img>
-              <span className="edited">{user.username}</span>
+              <img
+                src="https://randomuser.me/api/portraits/thumb/men/55.jpg"
+                alt="유저 이미지"
+              ></img>
+              <span className="edited">{user}</span>
             </UserFlexWrapper>
           )}
         </UserCard>

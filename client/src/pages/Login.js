@@ -5,8 +5,9 @@ import Button from '../elements/Button';
 import { API } from '../utils/API';
 import { Link, useNavigate } from 'react-router-dom';
 import storage from '../lib/storage';
+// import Cookies from '../lib/Cookies';
 
-export default function Login({ setUserInfo, setIsLogin }) {
+export default function Login({ setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({});
 
   // 로그인 정보 보내기
@@ -37,38 +38,43 @@ export default function Login({ setUserInfo, setIsLogin }) {
       return;
     } else {
       setErrorMessage('');
-      console.log('유효한 이메일 주소입니다');
+      // console.log('유효한 이메일 주소입니다');
     }
 
-    console.log('유효성 검사 통과');
+    // console.log('유효성 검사 통과');
 
     // 유효성 검사 통과 후에 유저의 로그인 정보를 서버로 보내기
     // => post 완료. 그럼 서버 단에서 이걸 받아서 회원정보랑 비교를 해주시겠지?
     // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
-        .post(`${API}/members`, { loginInfo })
+        .post(`${API}/login`, { ...loginInfo })
         .then((res) => {
           setIsLogin(true);
-          setUserInfo(res.data);
           // 로컬스토리지에 유저 ID 와 로그인 상태 저장
+          // console.log(`res.data.id ${res.data.id}`);
           storage.set('userID', res.data.id);
           storage.set('login', true);
 
-          // JWT : AccessToken 을 받아와서 변수에 저장 후
-          // API 요청시마다 헤더에 담아서 보내기
-          // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-          // 자동로그인 : refreshToken 값 설정
-          // 로그인 만료되기 전에 연장 필요한가?
-          console.log(loginInfo);
+          console.log(`response.data ->`);
           console.log(res.data);
-          console.log('로그인 성공!');
+          //reponse에서 토큰값을 꺼낸다.
+          // const accessToken = res.data.token;
+          // console.log(accessToken);
+
+          // => 헤더에 쿠키에 아예 넣어서 전달해주시면... 내가 셋 쿠키를 할 필요는 없나?
+          //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
+          // setCookie('is_login', `${accessToken}`);
+          // console.log(res);
+          // return res.data;
+          // console.log('로그인 성공!');
         })
         // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우
         .catch((err) => {
-          if (err.response.status === 401) {
-            setErrorMessage('The email or password is incorrect.');
-          }
+          console.log(err);
+          // if (err.response.status === 401) {
+          //   setErrorMessage('The email or password is incorrect.');
+          // }
         })
     );
   };

@@ -4,11 +4,10 @@ import styled from 'styled-components';
 // import axios from 'axios';
 import storage from '../lib/storage';
 
-export default function Logout({ setUserInfo, setIsLogin }) {
+export default function Logout({ setIsLogin }) {
   const logoutHandler = (e) => {
     e.preventDefault();
     setIsLogin(false);
-    setUserInfo(null);
     // return axios
     //   .post('http://localhost:4000/logout')
     //   .then((res) => {
