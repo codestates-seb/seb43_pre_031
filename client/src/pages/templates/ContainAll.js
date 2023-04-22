@@ -23,5 +23,5 @@ const Container = styled.div`
   display: flex;
   position: relative;
   margin: 0 auto;
-  background-color: orange;
+  background-color: #f1f2f3;
 `;
