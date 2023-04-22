@@ -47,7 +47,7 @@ function App() {
     axios
       .get(`${API}/questions`)
       .then((res) => {
-        setQuestions(res.data);
+        setQuestions(res.data.data);
       })
       .catch((error) => console.log(error));
   };
