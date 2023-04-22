@@ -7,9 +7,9 @@ const QuestionList = ({ question }) => {
     <Container>
       <List>
         <div>
-          <span>{question.vote} votes</span>
-          <span>{question.answer_count} answers</span>
-          <span>{question.viewed} views</span>
+          <span>0 votes</span>
+          <span>0 answers</span>
+          <span>0 views</span>
         </div>
         <Content>
           <Title
@@ -27,10 +27,10 @@ const QuestionList = ({ question }) => {
           </Tags>
           <Author>
             <img
-              src={`${question.author.userimage}`}
+              src={`https://randomuser.me/api/portraits/thumb/men/55.jpg`}
               alt="작성자 프로필 사진"
             />
-            <a href="/">{question.author.username}</a>
+            <a href="/">{question.member}</a>
           </Author>
         </Content>
       </List>
@@ -40,9 +40,7 @@ const QuestionList = ({ question }) => {
 
 export default QuestionList;
 
-const Container = styled.ul`
-  /* width: 100%; */
-`;
+const Container = styled.ul``;
 
 const List = styled.li`
   padding: 2rem;
@@ -82,20 +80,23 @@ const Description = styled.p``;
 
 const Tags = styled.div`
   margin: 1.5rem 0;
-  span {
-    background-color: ${(props) => props.theme.color.blue100};
-    color: ${(props) => props.theme.color.blue800};
-    padding: 0.5rem 0.7rem;
-    margin-right: 0.8rem;
-    border-radius: 3px;
-    cursor: pointer;
-    &:hover {
-      background-color: ${(props) => props.theme.color.blue200};
-    }
-  }
 `;
 
-const Tag = styled.span``;
+const Tag = styled.span`
+  background-color: ${(props) => props.theme.color.blue100};
+  color: ${(props) => props.theme.color.blue800};
+  margin-right: 0.8rem;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0.5rem 0.7rem;
+  display: inline-block;
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  &:hover {
+    background-color: ${(props) => props.theme.color.blue200};
+  }
+`;
 
 const Author = styled.div`
   justify-content: flex-end;

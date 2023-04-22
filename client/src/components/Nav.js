@@ -5,13 +5,14 @@ import StarsIcon from '@mui/icons-material/Stars';
 
 const Container = styled.div`
   border-right: 1px solid #bbc0c4;
+  min-height: 100vh;
+  background-color: white;
   position: fixed;
   padding-top: 8rem;
   display: flex;
   flex-direction: column;
   font-size: 1.5rem;
-  width: 20rem;
-  min-height: 100vh;
+  width: 18rem;
   span {
     color: ${(props) => props.theme.color.black700};
     text-transform: uppercase;
@@ -39,7 +40,6 @@ const Container = styled.div`
 `;
 
 const Nav = () => {
-  if (window.location.pathname === '/users/login') return null;
   return (
     <Container>
       <Link to="/">Home</Link>

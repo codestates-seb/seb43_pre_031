@@ -162,8 +162,12 @@ const DetailQuestion = () => {
 };
 
 const Container = styled.div`
+  width: 100%;
+  /* height: 200vh; */
+  min-height: 100%;
   padding: 2rem;
   margin-top: 6rem;
+  margin-left: 18rem;
   h2 {
     font-size: 2.2rem;
     font-weight: 500;

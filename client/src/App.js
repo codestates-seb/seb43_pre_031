@@ -1,6 +1,5 @@
 import './App.css';
 import Main from './pages/Main';
-// import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from './components/Header';
 // import Nav from './components/Nav';
@@ -49,7 +48,7 @@ function App() {
       .then((res) => {
         setQuestions(res.data.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(`getQuestions error : ${error}`));
   };
 
   useEffect(() => {

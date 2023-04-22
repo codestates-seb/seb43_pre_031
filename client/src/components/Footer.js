@@ -1,46 +1,6 @@
 import styled from 'styled-components';
 
-const Container = styled.footer`
-  position: absolute;
-  background-color: ${(props) => props.theme.color.black800};
-  height: 30rem;
-  width: 100%;
-  color: white;
-  padding: 3rem 0;
-
-  .content {
-    width: 60%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 0 auto;
-    img {
-      width: 6rem;
-      height: 6rem;
-    }
-    div {
-      display: flex;
-      flex-direction: column;
-      margin-left: 5rem;
-      h3 {
-        text-transform: uppercase;
-        margin-bottom: 1.5rem;
-        color: ${(props) => props.theme.color.black200};
-        font-weight: 700;
-        font-size: 1.3rem;
-      }
-      span {
-        margin-bottom: 0.6rem;
-        font-size: 1.2rem;
-        color: ${(props) => props.theme.color.black350};
-      }
-    }
-  }
-`;
-
 const Footer = () => {
-  if (window.location.pathname === '/users/login') return null;
   return (
     <Container>
       <div className="content">
@@ -87,3 +47,42 @@ const Footer = () => {
 };
 
 export default Footer;
+
+const Container = styled.footer`
+  position: absolute;
+  bottom: 0;
+  background-color: ${(props) => props.theme.color.black800};
+  height: 30rem;
+  width: 100%;
+  color: white;
+  padding: 3rem 0;
+  .content {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 auto;
+    img {
+      width: 6rem;
+      height: 6rem;
+    }
+    div {
+      display: flex;
+      flex-direction: column;
+      margin-left: 5rem;
+      h3 {
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        color: ${(props) => props.theme.color.black200};
+        font-weight: 700;
+        font-size: 1.3rem;
+      }
+      span {
+        margin-bottom: 0.6rem;
+        font-size: 1.2rem;
+        color: ${(props) => props.theme.color.black350};
+      }
+    }
+  }
+`;
