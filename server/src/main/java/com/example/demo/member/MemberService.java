@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @Transactional
 @Service
-public class MemberService {
+public class MemberService{
     private final MemberRepository memberRepository;
     private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
@@ -36,6 +36,15 @@ public class MemberService {
 
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
+
+        Member savedMember = memberRepository.save(member);
+
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
+        return savedMember;
+    }
+
+    public Member createMemberForOAuth(Member member) {
+        verifyExistsEmail(member.getEmail());
 
         Member savedMember = memberRepository.save(member);
 
