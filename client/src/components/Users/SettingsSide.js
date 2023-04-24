@@ -22,10 +22,7 @@ export const SettingsSide = () => {
 };
 
 const Aside = styled.div`
-
-  margin: 1.6rem 0 0 0
-  }
-
+  margin: 1.6rem 0 0 0;
   h2 {
     font-size: 1.3rem;
     color: ${(props) => props.theme.color.black1000};
@@ -46,9 +43,9 @@ const StyledButton = styled.button`
   border-radius: 2rem;
   &:hover {
     background: ${(props) => props.theme.color.black050};
-
-button.is-selected {
-  background: ${(props) => props.theme.color.orange400};
-  color: white;
-}
+  }
+  button.is-selected {
+    background: ${(props) => props.theme.color.orange400};
+    color: white;
+  }
 `;
