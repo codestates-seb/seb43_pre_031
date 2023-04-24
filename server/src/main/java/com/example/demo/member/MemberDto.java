@@ -31,12 +31,18 @@ public class MemberDto {
         @NotBlank(message = "이름은 공백이 아니어야 합니다.")
         private String fullName;
 
-        @NotBlank(message = "비밀번호는 공백이 아니어야 합니다.")
-        private String password;
+//        @NotBlank(message = "비밀번호는 공백이 아니어야 합니다.")
+//        private String password;
+//
+//        private Boolean isMarketing;
+//
+//        private Member.MemberStatus memberStatus;
 
-        private Boolean isMarketing;
+        private String location;
 
-        private Member.MemberStatus memberStatus;
+        private String title;
+
+        private String aboutMe;
 
         public void setMemberId(long memberId) {
             this.memberId = memberId;
@@ -49,6 +55,9 @@ public class MemberDto {
         private long memberId;
         private String fullName;
         private String email;
+        private String location;
+        private String title;
+        private String aboutMe;
         private Boolean isMarketing;
         private Member.MemberStatus memberStatus;
 

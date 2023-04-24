@@ -1,4 +1,4 @@
-package com.example.demo.utils;
+package com.example.demo.member.utils;
 
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -10,6 +10,14 @@ public class UriCreator {
                 .newInstance()
                 .path(defaultUrl + "/{resource-id}")
                 .buildAndExpand(resourceId)
+                .toUri();
+    }
+
+    public static URI createUri(String defaultUrl, String additionalUrl) {
+        return UriComponentsBuilder
+                .newInstance()
+                .path(defaultUrl + "/{additionalUrl}")
+                .buildAndExpand(additionalUrl)
                 .toUri();
     }
 }

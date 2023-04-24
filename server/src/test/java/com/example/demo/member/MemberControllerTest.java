@@ -95,7 +95,7 @@ public class MemberControllerTest {
     public void patchMemberTest() throws Exception {
         long memberId = 1L;
         MemberDto.Patch patch = new MemberDto.Patch(
-                memberId, "홍길동", "01234", true, Member.MemberStatus.MEMBER_ACTIVE
+                memberId, "홍길동", "Seoul", "Hi", "Hello"
         );
         String content = gson.toJson(patch);
 
@@ -103,7 +103,10 @@ public class MemberControllerTest {
                 new MemberDto.Response(1L,
                         "홍길동",
                         "hgd@gmail.com",
-                        true,
+                        "Seoul",
+                        "Hi",
+                        "Hello",
+                        false,
                         Member.MemberStatus.MEMBER_ACTIVE);
 
         given(mapper.memberPatchToMember(Mockito.any(MemberDto.Patch.class))).willReturn(new Member());
@@ -125,9 +128,11 @@ public class MemberControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("memberId").value(patch.getMemberId()))
                 .andExpect(jsonPath("fullName").value(patch.getFullName()))
-//                .andExpect(jsonPath("password").value(patch.getPassword()))
-                .andExpect(jsonPath("isMarketing").value(patch.getIsMarketing()))
-                .andExpect(jsonPath("memberStatus").value(patch.getMemberStatus().getStatus()))
+                .andExpect(jsonPath("location").value(patch.getLocation()))
+                .andExpect(jsonPath("title").value(patch.getTitle()))
+                .andExpect(jsonPath("aboutMe").value(patch.getAboutMe()))
+//                .andExpect(jsonPath("isMarketing").value(patch.getIsMarketing()))
+//                .andExpect(jsonPath("memberStatus").value(patch.getMemberStatus().getStatus()))
                 .andDo(document("patch-member",
                         getRequestPreProcessor(),
                         getResponsePreProcessor(),
@@ -138,9 +143,11 @@ public class MemberControllerTest {
                                 List.of(
                                         fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자").ignored(),
                                         fieldWithPath("fullName").type(JsonFieldType.STRING).description("이름").optional(),
-                                        fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호").optional(),
-                                        fieldWithPath("isMarketing").type(JsonFieldType.BOOLEAN).description("마케팅 수신 동의 여부").optional(),
-                                        fieldWithPath("memberStatus").type(JsonFieldType.STRING).description("회원 상태: MEMBER_ACTIVE / MEMBER_SLEEP / MEMBER_QUIT").optional()
+                                        fieldWithPath("location").type(JsonFieldType.STRING).description("Location").optional(),
+                                        fieldWithPath("title").type(JsonFieldType.STRING).description("Title").optional(),
+                                        fieldWithPath("aboutMe").type(JsonFieldType.STRING).description("About Me").optional()
+//                                        fieldWithPath("isMarketing").type(JsonFieldType.BOOLEAN).description("마케팅 수신 동의 여부").optional(),
+//                                        fieldWithPath("memberStatus").type(JsonFieldType.STRING).description("회원 상태: MEMBER_ACTIVE / MEMBER_SLEEP / MEMBER_QUIT").optional()
                                 )
                         ),
                         responseFields(
@@ -148,6 +155,9 @@ public class MemberControllerTest {
                                         fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("fullName").type(JsonFieldType.STRING).description("이름"),
                                         fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
+                                        fieldWithPath("location").type(JsonFieldType.STRING).description("Location"),
+                                        fieldWithPath("title").type(JsonFieldType.STRING).description("Title"),
+                                        fieldWithPath("aboutMe").type(JsonFieldType.STRING).description("About Me"),
                                         fieldWithPath("isMarketing").type(JsonFieldType.BOOLEAN).description("마케팅 수신 동의 여부"),
                                         fieldWithPath("memberStatus").type(JsonFieldType.STRING).description("회원 상태: 활동중 / 휴면 상태 / 탈퇴 상태")
                                 )
@@ -164,8 +174,11 @@ public class MemberControllerTest {
                 new MemberDto.Response(1L,
                         "홍길동",
                         "hgd@gmail.com",
+                        "Seoul",
+                        "Hi",
+                        "Codestates",
                         false,
-                        Member.MemberStatus.MEMBER_ACTIVE);
+                        Member.MemberStatus.MEMBER_QUIT);
 
         given(memberService.findMember(Mockito.anyLong())).willReturn(new Member());;
         given(mapper.memberToMemberResponse(Mockito.any(Member.class))).willReturn(response);
@@ -190,6 +203,9 @@ public class MemberControllerTest {
                                         fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
                                         fieldWithPath("fullName").type(JsonFieldType.STRING).description("이름"),
                                         fieldWithPath("email").type(JsonFieldType.STRING).description("이메일"),
+                                        fieldWithPath("location").type(JsonFieldType.STRING).description("Location"),
+                                        fieldWithPath("title").type(JsonFieldType.STRING).description("Title"),
+                                        fieldWithPath("aboutMe").type(JsonFieldType.STRING).description("About Me"),
                                         fieldWithPath("isMarketing").type(JsonFieldType.BOOLEAN).description("마케팅 수신 동의 여부"),
                                         fieldWithPath("memberStatus").type(JsonFieldType.STRING).description("회원 상태: 활동중 / 휴면 상태 / 탈퇴 상태")
                                 )

@@ -5,7 +5,6 @@ import com.example.demo.question.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.security.Principal;
@@ -30,11 +29,18 @@ public class Member implements Principal {
 
     @Column(length = 100, nullable = false)
     private String password;
-    @Column
-    private Boolean isMarketing = false;
+
+    @Column(length = 100)
+    private String location;
+
+    @Column(length = 100)
+    private String title;
+
+    @Column(length = 255)
+    private String aboutMe;
 
     @Column
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Boolean isMarketing = false;
 
     @Enumerated(value = EnumType.STRING)
     @Column(length = 20, nullable = false)
