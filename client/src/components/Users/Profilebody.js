@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProfileBody = () => {
+const ProfileBody = () => {
   // const { aboutme } = { userObj} ;
 
   return (
@@ -78,3 +78,5 @@ const UserProfile = styled.div`
     }
   }
 `;
+
+export default ProfileBody;

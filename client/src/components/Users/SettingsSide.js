@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const SettingsSide = () => {
+const SettingsSide = () => {
   return (
     <>
       <Aside>
         <h2>PERSONAL INFORMATION</h2>
-        <Link to="/settings">
+        <Link to="/user/settings">
           <StyledButton>Edit profile</StyledButton>
         </Link>
-        <Link to="/delete">
+        <Link to="/user/settings/delete">
           <StyledButton>Delete profile</StyledButton>
         </Link>
         <h2>SITE SETTINGS</h2>
-        <Link to="/preferences">
+        <Link to="/user/settings/preferences">
           <StyledButton>Preferences</StyledButton>
         </Link>
       </Aside>
@@ -22,6 +22,9 @@ export const SettingsSide = () => {
 };
 
 const Aside = styled.div`
+@media screen and (max-width: 980px) {
+  display: none;
+}
 
   margin: 1.6rem 0 0 0
   }
@@ -52,3 +55,5 @@ button.is-selected {
   color: white;
 }
 `;
+
+export default SettingsSide;

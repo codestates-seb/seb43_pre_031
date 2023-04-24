@@ -1,11 +1,10 @@
 .content-page-wrapper {
   display: flex;
-  width: 80%;
+  width: 70%;
   margin: 0 auto;
 }
 .content-page {
   margin-left: 20rem;
-  min-height: 150vh;
-  border-left: 1px solid #BBC0C4;
-  
+  position: relative;
+  width: 100%;
 }

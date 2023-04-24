@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import { SettingsSide } from './SettingsSide.js';
+import SettingsSide from './SettingsSide.js';
 // import { Link } from 'react-router-dom';
 
-export const Preferences = () => {
+const Preferences = () => {
   return (
     <Center>
       <div>
@@ -12,20 +12,25 @@ export const Preferences = () => {
         <h2>Preferences</h2>
         <hr></hr>
         <p>Interface</p>
-        <div className="right">
-          <span>Theme</span>
-          <SavesButton>
-            <input type="radio"></input>
-            <div className="theme-lightimgBox"></div>
-            <div className="theme-darkimgBox"></div>
-          </SavesButton>
-        </div>
+        <Test>
+          <div className="right">
+            <span>Theme</span>
+
+            <div className="theme-lightimgBox">
+              <input type="radio"></input>
+            </div>
+
+            <div className="theme-darkimgBox">
+              <input type="radio"></input>
+            </div>
+          </div>
+        </Test>
       </SettingContent>
     </Center>
   );
 };
 
-export const SettingContent = styled.div`
+const SettingContent = styled.div`
   /* width: 782.25px; */
   width: 100%;
   margin: 1.2rem;
@@ -37,7 +42,6 @@ export const SettingContent = styled.div`
   }
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 
   margin: 0 0 0 3rem;
   hr {
@@ -94,9 +98,9 @@ const Center = styled.div`
   justify-content: space-between;
 `;
 
-const SavesButton = styled.div`
-   {
-    flex-direction: column;
-    justify-content: space-between;
-  }
+const Test = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
+
+export default Preferences;

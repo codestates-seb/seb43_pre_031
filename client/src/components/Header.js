@@ -110,6 +110,13 @@ const Header = () => {
         />
         {/* <button className="signup">Sign up</button> */}
       </div>
+      {/* 로그아웃 버튼 임시 추가 - 현진 */}
+      <Button
+        text="Logout"
+        onClick={() => {
+          navigate('/users/logout');
+        }}
+      />
     </Container>
   );
 };

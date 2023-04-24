@@ -1,8 +1,14 @@
 import styled from 'styled-components';
-import { SettingsSide } from './SettingsSide.js';
+import SettingsSide from './SettingsSide.js';
 // import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
-export const DeleteProfile = () => {
+const UserDelete = () => {
+  const [boxChecked, setBoxChecked] = useState(false);
+  const CheckedHandler = () => {
+    setBoxChecked(!boxChecked);
+  };
+
   return (
     <Center>
       <SettingsSide />
@@ -34,30 +40,47 @@ export const DeleteProfile = () => {
           each site separately and request deletion of those individual
           profiles.
         </p>
+        <form>
+          <ChectDiv>
+            <label>
+              <div>
+                <input
+                  type="checkbox"
+                  name="delete-agree"
+                  checked={boxChecked}
+                  onChange={CheckedHandler}
+                />
+              </div>
+              <div>
+                I have read the information stated above and understand the
+                implications of having my profile deleted. I wish to proceed
+                with the deletion of my profile.
+              </div>
+            </label>
+          </ChectDiv>
 
-        <div>
-          <input type="checkbox"></input>I have read the information stated
-          above and understand the implications of having my profile deleted. I
-          wish to proceed with the deletion of my profile.
-        </div>
-
-        <button>Delete Profile</button>
+          {boxChecked ? (
+            <DeleteBtn>Delete Profile</DeleteBtn>
+          ) : (
+            <DeleteBtn className="disabled">Delete Profile</DeleteBtn>
+          )}
+        </form>
       </SettingContent>
     </Center>
   );
 };
 
-export const SettingContent = styled.div`
-  /* width: 782.25px; */
-  width: 100%;
-  margin: 1.2rem;
-  @media screen and (max-width: 9.8rem) {
-    margin: 0;
-    .right {
-      width: 50%;
+const ChectDiv = styled.div`
+  display: flex;
+  > label {
+    display: flex;
+    > div {
+      margin: 4px;
     }
   }
+`;
 
+const SettingContent = styled.div`
   font-size: 1.6rem;
   margin: 0 0 0 3rem;
   input {
@@ -78,25 +101,31 @@ export const SettingContent = styled.div`
   p {
     margin: 2rem 0 2rem 0;
   }
-  button {
-    padding: 1rem;
-    border: none;
-    border-top: 1px solid ${(props) => props.theme.color.red200};
-    margin: 3rem 1rem 0 0;
-    border-radius: ${(props) => props.theme.common.borderRadius};
-    background-color: ${(props) => props.theme.color.red500};
-    outline: ${(props) => props.theme.color.red500} solid 1px;
-    color: white;
-    cursor: pointer;
+`;
 
-    &:hover {
-      background-color: ${(props) => props.theme.color.red600};
-    }
+const DeleteBtn = styled.button`
+  padding: 1rem;
+  border: none;
+  border-top: 1px solid ${(props) => props.theme.color.red200};
+  margin: 3rem 1rem 0 0;
+  border-radius: ${(props) => props.theme.common.borderRadius};
+  background-color: ${(props) => props.theme.color.red500};
+  outline: ${(props) => props.theme.color.red500} solid 1px;
+  color: white;
+  cursor: pointer;
 
-    &:active {
-      outline: ${(props) => props.theme.color.red100} solid 0.4rem;
-    }
+  &:hover {
+    background-color: ${(props) => props.theme.color.red600};
+  }
+  &.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    text-decoration: none;
+  }
 
+  &:active {
+    outline: ${(props) => props.theme.color.red100} solid 0.4rem;
+  }
 `;
 
 const Center = styled.div`
@@ -109,3 +138,5 @@ const Center = styled.div`
     height: 1rem;
   }
 `;
+
+export default UserDelete;

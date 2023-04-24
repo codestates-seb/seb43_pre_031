@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ProfileSide = () => {
+const ProfileSide = () => {
   return (
     <SideContent>
       <h2>Stats</h2>
@@ -37,7 +37,7 @@ export const ProfileSide = () => {
   );
 };
 
-export const SideContent = styled.div`
+const SideContent = styled.div`
   width: 35rem;
   margin: 1.2rem 1.2rem 1.2rem 0;
   @media screen and (max-width: 980px) {
@@ -123,3 +123,5 @@ export const SideContent = styled.div`
     }
   }
 `;
+
+export default ProfileSide;

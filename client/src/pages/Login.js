@@ -2,16 +2,19 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Button from '../elements/Button';
+import { API } from '../utils/API';
+import { Link, useNavigate } from 'react-router-dom';
+import storage from '../lib/storage';
 
 export default function Login({ setUserInfo, setIsLogin }) {
-  const [loginInfo, setLoginInfo] = useState({
-    email: '',
-    password: '',
-  });
+  const [loginInfo, setLoginInfo] = useState({});
 
   // 로그인 정보 보내기
   const [errorMessage, setErrorMessage] = useState('');
+  const [errorPwMessage, setPwErrorMessage] = useState('');
   const handleInputValue = (key) => (e) => {
+    setErrorMessage('');
+    setPwErrorMessage('');
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
 
@@ -37,15 +40,29 @@ export default function Login({ setUserInfo, setIsLogin }) {
       console.log('유효한 이메일 주소입니다');
     }
 
+    console.log('유효성 검사 통과');
+
     // 유효성 검사 통과 후에 유저의 로그인 정보를 서버로 보내기
+    // => post 완료. 그럼 서버 단에서 이걸 받아서 회원정보랑 비교를 해주시겠지?
     // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
-        .post('http://localhost:4000/userinfo', { loginInfo })
+        .post(`${API}/members`, { loginInfo })
         .then((res) => {
           setIsLogin(true);
           setUserInfo(res.data);
+          // 로컬스토리지에 유저 ID 와 로그인 상태 저장
+          storage.set('userID', res.data.id);
+          storage.set('login', true);
+
+          // JWT : AccessToken 을 받아와서 변수에 저장 후
+          // API 요청시마다 헤더에 담아서 보내기
+          // axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+          // 자동로그인 : refreshToken 값 설정
+          // 로그인 만료되기 전에 연장 필요한가?
+          console.log(loginInfo);
           console.log(res.data);
+          console.log('로그인 성공!');
         })
         // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우
         .catch((err) => {
@@ -55,8 +72,9 @@ export default function Login({ setUserInfo, setIsLogin }) {
         })
     );
   };
+  const navigate = useNavigate();
   return (
-    <>
+    <MainContainer>
       <Main>
         <SocialContainer>
           <LogoBox
@@ -119,13 +137,20 @@ export default function Login({ setUserInfo, setIsLogin }) {
             <PwContainer>
               <PwBox>
                 <Label htmlFor="password">Password</Label>
-                <Span>Forgot password?</Span>
+                <FPSpan
+                  onClick={() => {
+                    navigate('/users/account-recovery');
+                  }}
+                >
+                  Forgot password?
+                </FPSpan>
               </PwBox>
               <Input
                 type="password"
                 id="password"
                 onChange={handleInputValue('password')}
               />
+              {errorPwMessage ? <ErrorMsg>{errorPwMessage}</ErrorMsg> : ''}
             </PwContainer>
             <Button
               width="100%"
@@ -136,7 +161,8 @@ export default function Login({ setUserInfo, setIsLogin }) {
         </FormContainer>
         <LinkContainer>
           <div>
-            Don’t have an account? <a href="/">Sign up</a>
+            Don’t have an account?
+            <Link to="/users/signup">Sign up</Link>
           </div>
           <div>
             Are you an employer?{' '}
@@ -155,11 +181,16 @@ export default function Login({ setUserInfo, setIsLogin }) {
           </div>
         </LinkContainer>
       </Main>
-    </>
+    </MainContainer>
   );
 }
 
 // Styled-components
+const MainContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const Main = styled.main`
   margin: 2rem;
   padding: 24px;
@@ -240,9 +271,14 @@ const Input = styled.input`
     outline: ${(props) => props.theme.color.blue100} solid 0.4rem;
   }
 `;
-const Span = styled.span`
+const FPSpan = styled.span`
   font-size: 1rem;
   color: ${(props) => props.theme.color.blue600};
+  &:hover {
+    color: ${(props) => props.theme.color.blue500};
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 const ErrorMsg = styled.div`
   color: red;

@@ -1,11 +1,12 @@
+// import styled from 'styled-components';
+import Usersmain from '../components/Users/Usersmain';
 import styled from 'styled-components';
-import { Main } from '../components/Users/Main';
 
 const User = () => {
   return (
     <>
       <UserWrapper>
-        <Main />
+        <Usersmain />
       </UserWrapper>
     </>
   );
@@ -13,7 +14,7 @@ const User = () => {
 
 export default User;
 
-export const UserWrapper = styled.div`
+const UserWrapper = styled.div`
   margin: 50px auto 0 auto;
   width: 100%;
   max-width: 1264px;

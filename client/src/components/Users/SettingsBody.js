@@ -1,32 +1,29 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-// import { useState, useEffect } from 'react';
+import { useState } from 'react';
 // import axios from 'axios';
 // import { API } from '../utils/API';
 
-export const SettingsBody = () => {
-  // const [username, setUsername] = useState('');
-  // const [location, setLocation] = useState('');
-  // const [mptitle, setMptitle] = useState('');
-  // const [aboutme, setAboutme] = useState('');
+const SettingsBody = () => {
+  const [username, setUsername] = useState('');
+  const [location, setLocation] = useState('');
+  const [mptitle, setMptitle] = useState('');
+  const [aboutme, setAboutme] = useState('');
 
-  // const onChange = (event) => {
-  //   const {
-  //     target: { name, value },
-  //   } = event;
-  //   if (name === 'username') {
-  //     setUsername(value);
-  //   } else if (name === 'location') {
-  //     setLocation(value);
-  //   } else if (name === 'mptitle') {
-  //     setMptitle(value);
-  //   } else if (name === 'aboutme') {
-  //     setAboutme(value);
-  //   }
-  // };
-  // const onSubmit = (event) => {
-  //   event.preventDefault();
-  // };
+  const onChange = (event) => {
+    const {
+      target: { name, value },
+    } = event;
+    if (name === 'username') {
+      setUsername(value);
+    } else if (name === 'location') {
+      setLocation(value);
+    } else if (name === 'mptitle') {
+      setMptitle(value);
+    } else if (name === 'aboutme') {
+      setAboutme(value);
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -40,40 +37,38 @@ export const SettingsBody = () => {
           <span>Profile image</span>
           <input type="file" accept="image/*" />
           <div className="user-imgBox"></div>
-          <form onSubmit={onSubmit}>
-            <span>Display name</span>
-            <input
-              name="username"
-              type="text"
-              maxLength={30}
-              value={username}
-              onChange={onChange}
-            ></input>
-            <span>Location</span>
-            <input
-              name="location"
-              type="text"
-              maxLength={100}
-              value={location}
-              onChange={onChange}
-            ></input>
-            <span>Title</span>
-            <input
-              name="mptitle"
-              type="text"
-              maxLength={225}
-              value={mptitle}
-              onChange={onChange}
-              placeholder="No title has been set"
-            ></input>
-            <span>About me</span>
-            <input
-              name="aboutme"
-              type="text"
-              value={aboutme}
-              onChange={onChange}
-            ></input>
-          </form>
+          <span>Display name</span>
+          <input
+            name="username"
+            type="text"
+            value={username}
+            onChange={onChange}
+            maxLength={30}
+          ></input>
+          <span>Location</span>
+          <input
+            name="location"
+            type="text"
+            maxLength={100}
+            value={location}
+            onChange={onChange}
+          ></input>
+          <span>Title</span>
+          <input
+            name="mptitle"
+            type="text"
+            maxLength={225}
+            placeholder="No title has been set"
+            value={mptitle}
+            onChange={onChange}
+          ></input>
+          <span>About me</span>
+          <input
+            name="aboutme"
+            type="text"
+            value={aboutme}
+            onChange={onChange}
+          ></input>
         </div>
         <p>Links</p>
         <div className="right-link">
@@ -91,9 +86,11 @@ export const SettingsBody = () => {
           <span>Full name</span>
           <input></input>
         </div>
-        <form onSubmit={onSubmit}>
-          <input type="submit">Save profile</input>
-          <button name="cancel" onClick={() => navigate(`/profile`)}>
+        <form>
+          <button name="submit" onClick={() => navigate(`/user`)}>
+            Save profile
+          </button>
+          <button name="cancel" onClick={() => navigate(`/user`)}>
             Cancel
           </button>
         </form>
@@ -102,7 +99,7 @@ export const SettingsBody = () => {
   );
 };
 
-export const SettingContent = styled.div`
+const SettingContent = styled.div`
   /* width: 782.25px; */
   width: 100%;
   margin: 1.2rem;
@@ -112,12 +109,19 @@ export const SettingContent = styled.div`
       width: 50%;
     }
   }
+  display: flex;
+  flex-direction: column;
+
   margin: 0 0 0 3rem;
   input {
     width: 40rem;
-    height: 2.5rem;
+    height: 3rem;
     margin-bottom: 1.5rem;
     margin: 0 0 1.5rem 1rem;
+    .aboutme {
+      width: 500rem;
+
+    }
   }
   span {
     font-size: 1.5rem;
@@ -137,6 +141,8 @@ export const SettingContent = styled.div`
     font-size: 2rem;
     margin: 3rem 0 1rem 0;
   }
+    
+  
   text {
     font-size: 1.2rem;
     color: ${(props) => props.theme.color.black600};
@@ -193,3 +199,5 @@ export const SettingContent = styled.div`
   }
 }
 `;
+
+export default SettingsBody;

@@ -21,8 +21,8 @@ const QuestionList = ({ question }) => {
           </Title>
           <Description>{question.content}</Description>
           <Tags>
-            {question.tags.map((tag) => (
-              <Tag key={tag.tid}>{tag.name}</Tag>
+            {question.tags.map((tag, idx) => (
+              <Tag key={idx}>{tag}</Tag>
             ))}
           </Tags>
           <Author>
@@ -40,7 +40,9 @@ const QuestionList = ({ question }) => {
 
 export default QuestionList;
 
-const Container = styled.ul``;
+const Container = styled.ul`
+  /* width: 100%; */
+`;
 
 const List = styled.li`
   padding: 2rem;
