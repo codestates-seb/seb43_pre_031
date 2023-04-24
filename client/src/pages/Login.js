@@ -5,7 +5,7 @@ import Button from '../elements/Button';
 import { API } from '../utils/API';
 import { Link, useNavigate } from 'react-router-dom';
 import storage from '../lib/storage';
-// import Cookies from '../lib/Cookies';
+import { setCookie } from '../lib/Cookies';
 
 export default function Login({ setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({});
@@ -21,7 +21,7 @@ export default function Login({ setIsLogin }) {
 
   const loginRequestHandler = () => {
     const { email, password } = loginInfo;
-
+    console.log('loginRequestHandler');
     // 유효성검사 - 에러메시지 출력 조건
     // 1. 이메일이나 패스워드 중 하나라도 입력이 누락되었을 경우 입력요청 에러메시지 출력
     if (!email || !password) {
@@ -48,33 +48,32 @@ export default function Login({ setIsLogin }) {
     // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
-        .post(`${API}/login`, { ...loginInfo })
+        .post(`${API}/members/login`, { ...loginInfo })
         .then((res) => {
           setIsLogin(true);
+          console.log(res);
           // 로컬스토리지에 유저 ID 와 로그인 상태 저장
-          // console.log(`res.data.id ${res.data.id}`);
-          storage.set('userID', res.data.id);
+          const userID = res.data.memberId;
+          storage.set('userID', userID);
           storage.set('login', true);
 
-          console.log(`response.data ->`);
-          console.log(res.data);
-          //reponse에서 토큰값을 꺼낸다.
-          // const accessToken = res.data.token;
-          // console.log(accessToken);
+          //reponse에서 토큰값을 꺼내서 변수에 저장
+          const accessToken = res.data.accessToken;
+          const refreshToken = res.data.refreshToken;
 
-          // => 헤더에 쿠키에 아예 넣어서 전달해주시면... 내가 셋 쿠키를 할 필요는 없나?
-          //setcookie함수의 첫번째 인자는 쿠키이름, 두번째 인자는 넣을 값이다.
-          // setCookie('is_login', `${accessToken}`);
-          // console.log(res);
-          // return res.data;
-          // console.log('로그인 성공!');
+          // '쿠키 이름' 에 토큰 값을 저장하기
+          setCookie('AccessToken', `${accessToken}`);
+          setCookie('RefreshToken', `${refreshToken}`);
+          // axios 동작 시 헤더에 기본으로 붙도록 설정하기
+          axios.defaults.headers.common['x-access-token'] = accessToken;
+          console.log(`userID : ${userID} 로그인 성공`);
         })
-        // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우
+        // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우 //
         .catch((err) => {
           console.log(err);
-          // if (err.response.status === 401) {
-          //   setErrorMessage('The email or password is incorrect.');
-          // }
+          if (err.response.status === 401) {
+            setErrorMessage('The email or password is incorrect.');
+          }
         })
     );
   };

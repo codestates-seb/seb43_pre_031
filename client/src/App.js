@@ -38,7 +38,7 @@ function App() {
     console.log(`localstorage login : ${loggedInfo}`);
   })();
 
-  // 로그인 성공 시 로그인한 회원정보를 받아오기
+  // 로그인 성공 시 로그인 여부 받아오기
   const [isLogin, setIsLogin] = useState(false);
   const [questions, setQuestions] = useState([]);
 
