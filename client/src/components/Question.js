@@ -26,7 +26,7 @@ const Question = (props) => {
           <h1>{title}</h1>
           <div>
             <Button
-              text="AskQuestion"
+              text="Ask Question"
               onClick={() => navigate(`/question/ask`)}
             />
           </div>
@@ -84,6 +84,7 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 1.6rem;
+  padding-top: 0.5rem;
 `;
 
 const ExtraInfoArea = styled.div`

@@ -318,6 +318,7 @@ export default function Signup() {
 
 // Styled-components
 const SUConatainer = styled.div`
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;

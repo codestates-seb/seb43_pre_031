@@ -193,6 +193,7 @@ export default function Login({ setIsLogin }) {
 
 // Styled-components
 const MainContainer = styled.div`
+  margin-top: 6rem;
   display: flex;
   justify-content: center;
   align-items: center;

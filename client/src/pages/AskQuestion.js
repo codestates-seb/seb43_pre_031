@@ -139,6 +139,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 1.6rem;
   padding: 2rem;
+  margin-top: 6rem;
 
   h1 {
     font-size: 2.4rem;

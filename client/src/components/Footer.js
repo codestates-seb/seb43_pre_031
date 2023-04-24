@@ -49,13 +49,13 @@ const Footer = () => {
 export default Footer;
 
 const Container = styled.footer`
-  /* position: absolute; */
+  position: absolute;
+  bottom: 0;
   background-color: ${(props) => props.theme.color.black800};
   height: 30rem;
   width: 100%;
   color: white;
   padding: 3rem 0;
-
   .content {
     width: 60%;
     height: 100%;

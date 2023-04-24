@@ -55,7 +55,7 @@ export default Aside;
 const Container = styled.aside`
   margin-left: 3rem;
   margin-top: 6rem;
-  width: 50rem;
+  width: 30%;
   ul {
     background-color: #fdf7e2;
     margin-top: 2.5rem;

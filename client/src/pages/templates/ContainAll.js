@@ -9,9 +9,11 @@ import { Outlet } from 'react-router-dom';
 const ContainAll = () => {
   return (
     <Container>
-      <Nav />
-      <Outlet />
-      <Aside />
+      <div>
+        <Nav />
+        <Outlet />
+        <Aside />
+      </div>
       <Footer />
     </Container>
   );
@@ -20,8 +22,13 @@ const ContainAll = () => {
 export default ContainAll;
 
 const Container = styled.div`
-  display: flex;
+  width: 100vw;
+  min-height: 100%;
+  padding-bottom: 30rem;
   position: relative;
-  margin: 0 auto;
-  background-color: #f1f2f3;
+  & > div {
+    display: flex;
+    margin: 0 auto;
+    width: 75%;
+  }
 `;
