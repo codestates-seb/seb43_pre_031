@@ -15,6 +15,7 @@ const EditAllPosts = ({ answer }) => {
   const [title, setTitle] = useState('');
   const [questionContent, setQuestionContent] = useState(''); //질문 내용
   const [content, setContent] = useState(''); //답변 내용
+  const [user, setUser] = useState('');
   const [tags, setTags] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false); //필드가 비었는지 확인
 
@@ -46,8 +47,8 @@ const EditAllPosts = ({ answer }) => {
         .patch(`${API}/questions/${id}`, {
           title: title,
           content: questionContent,
-          modified_at: '2023-04-21',
-          member: '홍길동1',
+          // modified_at: '2023-04-21',
+          member: user,
           tags: tags,
         })
         .then((response) => {
@@ -60,13 +61,16 @@ const EditAllPosts = ({ answer }) => {
   useEffect(() => {
     if (answer) {
       axios.get(`${API}/answers/${id}`).then((response) => {
+        console.log(response.data);
         setContent(response.data.content);
       });
     } else {
       axios.get(`${API}/questions/${id}`).then((response) => {
+        console.log(response.data);
         setTitle(response.data.title);
         setQuestionContent(response.data.content);
         setTags(response.data.tags);
+        setUser(response.data.member);
       });
     }
   }, []);
