@@ -98,7 +98,7 @@ function App() {
         />
         <Route
           path="/users/logout"
-          element={<Logout setIsLogin={setIsLogin} />}
+          element={<Logout setIsLogin={setIsLogin} userId={userId} />}
         />
         <Route path="/users/signup" element={<Signup />} />
         <Route path="/users/account-recovery" element={<FindPW />} />
