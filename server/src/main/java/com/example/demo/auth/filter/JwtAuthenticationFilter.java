@@ -4,7 +4,11 @@ import com.example.demo.auth.dto.LoginDto;
 import com.example.demo.auth.jwt.JwtTokenizer;
 import com.example.demo.member.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import lombok.Getter;
 import lombok.SneakyThrows;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -39,6 +43,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return authenticationManager.authenticate(authenticationToken);
     }
 
+    @SneakyThrows
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws ServletException, IOException {
@@ -46,12 +51,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
+        Long memberId = member.getMemberId();
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
-        response.getWriter().println("accessToken : " + "Bearer " + accessToken);
-        response.getWriter().println("refreshToken : " + refreshToken);
+
+        TokenResponse tokenResponse = new TokenResponse(memberId, "Bearer " + accessToken, refreshToken);
+        Gson gson = new Gson();
+        response.getWriter().println(gson.toJson(tokenResponse));
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
@@ -80,5 +88,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
 
         return refreshToken;
+    }
+
+    @Getter
+    private static class TokenResponse
+    {
+        private Long memberId;
+        private String accessToken;
+        private String refreshToken;
+        public TokenResponse(Long memberId,String accessToken,String refreshToken)
+        {
+            this.memberId = memberId;
+            this.accessToken = accessToken;
+            this.refreshToken = refreshToken;
+        }
     }
 }
