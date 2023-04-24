@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '../elements/Button';
 import axios from 'axios';
 import { API } from '../utils/API';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Signup() {
   // 회원 정보 보내기 (Create-post)
@@ -22,6 +22,7 @@ export default function Signup() {
     setSignupInfo({ ...signupInfo, [key]: e.target.value });
   };
   const [captcha, setCaptcha] = useState(false);
+  const navigate = useNavigate();
 
   const signupRequestHandler = () => {
     const { fullName, email, password, isMarketing } = signupInfo;
@@ -90,16 +91,22 @@ export default function Signup() {
         .then((res) => {
           console.log(res);
           console.log('회원가입 성공');
-          // * (백엔드) 회원가입 성공 후 /users/login 페이지로 redirect
+          navigate('/users/login');
+          // 회원가입 성공 후 /users/login 페이지로 redirect
         })
         // * (백엔드) email 이 DB 의 회원정보와 중복되는 경우 -> send recovery email 페이지로 이동 => 지금은 500에러
         .catch((err) => {
           console.log(err);
-          // if (err.response.status === 401) {
-          //   setErrorMessage(
-          //     'Forgot your account’s password? Enter your email address and we’ll send you a recovery link.'
-          //   );
-          // }
+          // 임시 설정
+          if (err.response.status === 500) {
+            navigate('/users/account-recovery');
+          }
+          //
+          if (err.response.status === 401) {
+            setErrorMessage(
+              'Forgot your account’s password? Enter your email address and we’ll send you a recovery link.'
+            );
+          }
         })
     );
   };
