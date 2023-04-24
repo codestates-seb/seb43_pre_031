@@ -25,7 +25,7 @@ export default function Signup() {
 
   const signupRequestHandler = () => {
     const { fullName, email, password, isMarketing } = signupInfo;
-    console.log(`isMarketing : ${isMarketing}`);
+    console.log(`isMarketing:${isMarketing}`);
     // 유효성검사 - 에러메시지 출력 조건
     // 1. captcha 체크가 되지 않으면 captcha 옆이나 아래에 에러메세지 출력
     if (!captcha) {
@@ -92,7 +92,7 @@ export default function Signup() {
           console.log('회원가입 성공');
           // * (백엔드) 회원가입 성공 후 /users/login 페이지로 redirect
         })
-        // * (백엔드) email 이 DB 의 회원정보와 중복되는 경우 -> send recovery email 페이지로 이동
+        // * (백엔드) email 이 DB 의 회원정보와 중복되는 경우 -> send recovery email 페이지로 이동 => 지금은 500에러
         .catch((err) => {
           console.log(err);
           // if (err.response.status === 401) {
