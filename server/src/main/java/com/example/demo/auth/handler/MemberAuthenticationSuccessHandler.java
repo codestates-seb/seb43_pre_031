@@ -20,20 +20,10 @@ import java.io.IOException;
 @Slf4j
 public class MemberAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
-    private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
-    public MemberAuthenticationSuccessHandler(JwtTokenizer jwtTokenizer,
-                                              CustomAuthorityUtils authorityUtils) {
-        this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
-    }
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication authentication) throws ServletException, IOException {
+                                        Authentication authentication) throws IOException {
         log.info("인증에 성공하였습니다.");
 
-        SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(request, response);
-        if(savedRequest == null) response.sendRedirect("/questions");
-        else super.onAuthenticationSuccess(request,response,authentication);
     }
 }
