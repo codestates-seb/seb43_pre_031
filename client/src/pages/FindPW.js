@@ -66,6 +66,7 @@ const MainContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
 `;
 const Main = styled.main`
   margin: 2rem;

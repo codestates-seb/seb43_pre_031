@@ -3,15 +3,30 @@
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import { Outlet } from 'react-router-dom';
+import styled from 'styled-components';
 
 const NavFooter = () => {
   return (
-    <div>
-      <Nav />
-      <Outlet />
+    <Container>
+      <div>
+        <Nav />
+        <Outlet />
+      </div>
       <Footer />
-    </div>
+    </Container>
   );
 };
 
 export default NavFooter;
+
+const Container = styled.div`
+  width: 100vw;
+  min-height: 100%;
+  padding-bottom: 30rem;
+  position: relative;
+  & > div {
+    display: flex;
+    margin: 0 auto;
+    width: 75%;
+  }
+`;

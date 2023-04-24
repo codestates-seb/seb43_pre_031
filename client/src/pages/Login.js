@@ -167,8 +167,7 @@ export default function Login({ setIsLogin }) {
         </FormContainer>
         <LinkContainer>
           <div>
-            Don’t have an account?
-            <Link to="/users/signup">Sign up</Link>
+            Don’t have an account? <Link to="/users/signup">Sign up</Link>
           </div>
           <div>
             Are you an employer?{' '}

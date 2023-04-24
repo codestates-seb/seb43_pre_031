@@ -14,13 +14,15 @@ const User = () => {
 export default User;
 
 export const UserWrapper = styled.div`
-  margin: 50px auto 0 auto;
   width: 100%;
+  height: 100vh;
+  margin-top: 8rem;
+  padding-left: 12rem;
   max-width: 1264px;
   display: flex;
+  justify-content: center;
   main {
     width: 100%;
-    padding: 2.4rem;
     .responsive {
       display: flex;
       @media screen and (max-width: 980px) {

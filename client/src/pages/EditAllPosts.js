@@ -116,11 +116,11 @@ const EditAllPosts = ({ answer }) => {
 };
 
 const Container = styled.div`
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
+  padding-left: 20rem;
+  margin: 8rem 0;
   .buttons {
     display: flex;
     gap: 1rem;

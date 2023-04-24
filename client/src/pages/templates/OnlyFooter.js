@@ -1,13 +1,18 @@
 import { Outlet } from 'react-router-dom';
+import styled from 'styled-components';
 import Footer from '../../components/Footer';
 
 const OnlyFooter = () => {
   return (
-    <div>
+    <Container>
       <Outlet />
       <Footer />
-    </div>
+    </Container>
   );
 };
 
 export default OnlyFooter;
+
+const Container = styled.div`
+  position: relative;
+`;

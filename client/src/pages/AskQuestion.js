@@ -140,6 +140,7 @@ const Container = styled.div`
   gap: 1.6rem;
   padding: 2rem;
   margin-top: 6rem;
+  padding-bottom: 40rem;
 
   h1 {
     font-size: 2.4rem;
