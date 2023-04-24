@@ -5,7 +5,9 @@ import Footer from '../../components/Footer';
 const OnlyFooter = () => {
   return (
     <Container>
-      <Outlet />
+      <div>
+        <Outlet />
+      </div>
       <Footer />
     </Container>
   );
@@ -14,5 +16,10 @@ const OnlyFooter = () => {
 export default OnlyFooter;
 
 const Container = styled.div`
+  width: 100%;
   position: relative;
+  & > div {
+    margin: 0 auto;
+    width: 70%;
+  }
 `;
