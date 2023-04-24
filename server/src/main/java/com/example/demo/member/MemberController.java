@@ -2,6 +2,7 @@ package com.example.demo.member;
 
 import com.example.demo.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -27,14 +28,19 @@ public class MemberController {
     }
 
     @PostMapping
-    public ResponseEntity postMember(HttpServletResponse response,
-                                     @Valid @RequestBody MemberDto.Post requestBody) {
+    public void postMember(HttpServletResponse response,
+                           @Valid @RequestBody MemberDto.Post requestBody) {
         Member member = mapper.memberPostToMember(requestBody);
 
         Member createdMember = memberService.createMember(member);
 
-        URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
-        return ResponseEntity.created(location).build();
+        String externalUrl = "http://15.164.129.253:8080/users/login";
+        response.setStatus(HttpStatus.MOVED_PERMANENTLY.value());
+        response.setHeader("Location", externalUrl);
+
+//        URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
+//        return ResponseEntity.created(location).build();
+
     }
 
     /**

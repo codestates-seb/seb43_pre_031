@@ -50,9 +50,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
-        Cookie cookie = new Cookie("Access-token","Bearer " + accessToken);
-        cookie.setMaxAge(600);
-        response.addCookie(cookie);
+        response.getWriter().println("access-token : " + accessToken);
+        response.getWriter().println("refresh-token : " + refreshToken);
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
