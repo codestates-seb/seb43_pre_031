@@ -73,8 +73,12 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getFullName()).ifPresent(fullName -> findMember.setFullName(fullName));
-        Optional.ofNullable(member.getIsMarketing()).ifPresent(isMarketing -> findMember.setIsMarketing(isMarketing));
-        Optional.ofNullable(member.getMemberStatus()).ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
+        Optional.ofNullable(member.getLocation()).ifPresent(location -> findMember.setLocation(location));
+        Optional.ofNullable(member.getTitle()).ifPresent(title -> findMember.setTitle(title));
+        Optional.ofNullable(member.getAboutMe()).ifPresent(aboutMe -> findMember.setAboutMe(aboutMe));
+
+//        Optional.ofNullable(member.getIsMarketing()).ifPresent(isMarketing -> findMember.setIsMarketing(isMarketing));
+//        Optional.ofNullable(member.getMemberStatus()).ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
 
 //        String encryptedPassword = passwordEncoder.encode(member.getPassword());
 //        member.setPassword(encryptedPassword);

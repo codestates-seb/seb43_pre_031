@@ -27,6 +27,15 @@ public class Member implements Principal {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @Column(length = 100)
+    private String location;
+
+    @Column(length = 100)
+    private String title;
+
+    @Column(length = 255)
+    private String aboutMe;
+
     @Column
     private Boolean isMarketing = false;
 
