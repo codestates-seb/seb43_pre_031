@@ -56,7 +56,7 @@ export default function Login({ setIsLogin }) {
           storage.set('userID', res.data.id);
           storage.set('login', true);
 
-          console.log(`response.data ->`);
+          console.log(`response ->`);
           console.log(res);
           //reponse에서 토큰값을 꺼낸다.
           // const accessToken = res.data.token;
