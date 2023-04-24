@@ -3,25 +3,27 @@ import Button from '../elements/Button';
 import styled from 'styled-components';
 // import axios from 'axios';
 import storage from '../lib/storage';
+import { useNavigate } from 'react-router-dom';
+// import { API } from '../utils/API';
 
 export default function Logout({ setIsLogin }) {
-  const logoutHandler = (e) => {
+  const navigate = useNavigate();
+
+  const logoutHandler = async (e) => {
     e.preventDefault();
     setIsLogin(false);
-    // return axios
-    //   .post('http://localhost:4000/logout')
-    //   .then((res) => {
-    //     setUserInfo(null);
-    //     setIsLogin(false);
-    //     console.log('로그아웃 성공!)
-    // 로컬 스토리지의 정보 모두 삭제
-    storage.clear();
-    // 질문페이지로 돌아가기
-
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
+    try {
+      // const res = await axios.post(`${API}/members/logout, ${userId}`);
+      setIsLogin(false);
+      // console.log(res);
+      console.log('로그아웃 성공!');
+      // 로컬 스토리지의 정보 모두 삭제
+      storage.clear();
+      // 질문페이지로 돌아가기
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+    }
   };
   // Cancel 버튼 클릭시 이전페이지로 돌아가기
   function back(e) {
