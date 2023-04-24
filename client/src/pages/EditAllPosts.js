@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import ToastEditor from '../components/Editor';
+import Editor from '../components/Editor';
 import axios from 'axios';
 import Input from '../elements/Input';
 import Notice from '../elements/Notice';
@@ -14,10 +14,19 @@ const EditAllPosts = ({ answer }) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [questionContent, setQuestionContent] = useState(''); //질문 내용
-  const [content, setContent] = useState(''); //답변 내용
+  const [content, setContent] = useState({}); //답변 내용
   const [user, setUser] = useState('');
   const [tags, setTags] = useState([]);
+  const [qid, setQid] = useState('');
   const [isEmpty, setIsEmpty] = useState(false); //필드가 비었는지 확인
+
+  // const tips = [
+  //   'Correct minor typos or mistakes',
+  //   'Clarify meaning without changing it',
+  //   'Add related resources or links',
+  //   'Always respect the author’s intent',
+  //   'Don’t use edits to reply to the author',
+  // ];
 
   const editTitle = (e) => {
     setTitle(e.target.value);
@@ -63,6 +72,7 @@ const EditAllPosts = ({ answer }) => {
       axios.get(`${API}/answers/${id}`).then((response) => {
         console.log(response.data);
         setContent(response.data.content);
+        setQid(response.data.question_id);
       });
     } else {
       axios.get(`${API}/questions/${id}`).then((response) => {
@@ -96,18 +106,16 @@ const EditAllPosts = ({ answer }) => {
             value={title}
             onChange={editTitle}
           />
-          <ToastEditor
-            value={questionContent}
-            onEditorChange={setQuestionContent}
-          />
+          <Editor value={questionContent} onEditorChange={setQuestionContent} />
           <TagInput tags={tags} setTags={setTags} />
         </FormWrapper>
       ) : (
         <FormWrapper>
-          {/* onClick={()=>navigate(`question/${pid}`)} */}
-          <p>해당 답변이 달린 게시글로 가는 링크(title)</p>
+          <StyledLink to={`../../question/${qid}`}>
+            해당 질문으로 이동
+          </StyledLink>
           <h1>Answer</h1>
-          <ToastEditor value={content} onEditorChange={setContent} />
+          <Editor value={content} onEditorChange={setContent} />
         </FormWrapper>
       )}
       {isEmpty && <Warning>body is missing.</Warning>}
@@ -115,6 +123,16 @@ const EditAllPosts = ({ answer }) => {
         <Button text="Edit Changes" onClick={saveChanges} />
         <Button text="Cancel" onClick={() => navigate(-1)} />
       </div>
+      {/* <Notice>
+        <div>How to edit</div>
+        <ul>
+          {tips.map((i, idx) => (
+            <li className="tip" key={idx}>
+              {i}
+            </li>
+          ))}
+        </ul>
+      </Notice> */}
     </Container>
   );
 };
@@ -128,6 +146,10 @@ const Container = styled.div`
   .buttons {
     display: flex;
     gap: 1rem;
+  }
+  .tip {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
   }
 `;
 const FormWrapper = styled.form`
@@ -144,6 +166,10 @@ const FormWrapper = styled.form`
     color: ${(props) => props.theme.color.blue700};
     cursor: pointer;
   }
+`;
+
+const StyledLink = styled(Link)`
+  font-size: 1.6rem;
 `;
 
 const Warning = styled.p`
