@@ -21,7 +21,6 @@ const DetailQuestion = () => {
   //질문 & 답변 불러오기(GET) ========================================================================
   const getContents = async () => {
     await axios.get(`${API}/questions/${id}`).then((response) => {
-      console.log(response.data);
       setQuestion(response.data);
       setAnswers(response.data.answers);
     });
@@ -29,7 +28,7 @@ const DetailQuestion = () => {
 
   //답변 추가(POST) ===============================================================================
   const postAnswer = () => {
-    const email = 'a@a';
+    const email = 'abc@abc.com';
     // const date = 'Apr 17, 2023 at 22:36';
 
     if (myAnswer === '') {
@@ -80,7 +79,6 @@ const DetailQuestion = () => {
 
   useEffect(() => {
     getContents();
-    console.log(answers);
   }, [call]);
 
   return (
