@@ -3,6 +3,71 @@ import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '../elements/Button';
 
+const Header = () => {
+  const navigate = useNavigate();
+  const isLogin = localStorage.getItem('login');
+
+  if (isLogin) {
+    return (
+      <Container>
+        <Logo src="/assets/logo.png" alt="logo" onClick={() => navigate('/')} />
+        <Link to="/about">About</Link>
+        <Link to="/products">Products</Link>
+        <Link to="/teams">For Teams</Link>
+        <div className="right">
+          <Search>
+            <SearchIcon />
+            <input type="text" placeholder="Search..." />
+          </Search>
+          <ProfileImg
+            onClick={() => {
+              navigate('/user');
+            }}
+          />
+        </div>
+        <Button
+          text="Logout"
+          onClick={() => {
+            navigate('/users/logout');
+          }}
+        />
+      </Container>
+    );
+  } else {
+    return (
+      <Container>
+        <Logo src="/assets/logo.png" alt="logo" onClick={() => navigate('/')} />
+        <Link to="/about">About</Link>
+        <Link to="/products">Products</Link>
+        <Link to="/teams">For Teams</Link>
+        <div className="right">
+          <Search>
+            <SearchIcon />
+            <input type="text" placeholder="Search..." />
+          </Search>
+          <button
+            className="login"
+            onClick={() => {
+              navigate('/users/login');
+            }}
+          >
+            Log in
+          </button>
+          <Button
+            text="Sign up"
+            onClick={() => {
+              navigate('/users/signup');
+            }}
+          />
+          {/* <button className="signup">Sign up</button> */}
+        </div>
+      </Container>
+    );
+  }
+};
+
+export default Header;
+
 const Container = styled.div`
   z-index: 1;
   position: fixed;
@@ -81,44 +146,12 @@ const Search = styled.div`
   }
 `;
 
-const Header = () => {
-  const navigate = useNavigate();
-  return (
-    <Container>
-      <Logo src="/assets/logo.png" alt="logo" onClick={() => navigate('/')} />
-      <Link to="/about">About</Link>
-      <Link to="/products">Products</Link>
-      <Link to="/teams">For Teams</Link>
-      <div className="right">
-        <Search>
-          <SearchIcon />
-          <input type="text" placeholder="Search..." />
-        </Search>
-        <button
-          className="login"
-          onClick={() => {
-            navigate('/users/login');
-          }}
-        >
-          Log in
-        </button>
-        <Button
-          text="Sign up"
-          onClick={() => {
-            navigate('/users/signup');
-          }}
-        />
-        {/* <button className="signup">Sign up</button> */}
-      </div>
-      {/* 로그아웃 버튼 임시 추가 - 현진 */}
-      <Button
-        text="Logout"
-        onClick={() => {
-          navigate('/users/logout');
-        }}
-      />
-    </Container>
-  );
-};
-
-export default Header;
+const ProfileImg = styled.img`
+  margin: 0 1rem;
+  width: 4rem;
+  height: 4rem;
+  background-image: url(https://www.gravatar.com/avatar/4155f0d14a5ae70fc6670903206da4e8?s=256&d=identicon&r=PG&f=y&so-version=2);
+  background-size: contain;
+  border-radius: 50%;
+  cursor: pointer;
+`;
