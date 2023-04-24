@@ -8,14 +8,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -53,16 +52,20 @@ public class MemberService {
         return savedMember;
     }
 
-    public String login(LoginDto request) {
+    public Member login(LoginDto.Post request, HttpSession session) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        CustomUserDetailsService.CustomUserDetails principal =
-                (CustomUserDetailsService.CustomUserDetails) authentication.getPrincipal();
 
-        return principal.getUsername();
+        Optional<Member> optionalMember = memberRepository.findByEmail(request.getEmail());
+        Member findMember = optionalMember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 사용자입니다."));
+
+        return findMember;
+
+//        CustomUserDetailsService.CustomUserDetails principal =
+//                (CustomUserDetailsService.CustomUserDetails) authentication.getPrincipal();
+//        return principal.getUsername();
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
@@ -73,8 +76,8 @@ public class MemberService {
         Optional.ofNullable(member.getIsMarketing()).ifPresent(isMarketing -> findMember.setIsMarketing(isMarketing));
         Optional.ofNullable(member.getMemberStatus()).ifPresent(memberStatus -> findMember.setMemberStatus(memberStatus));
 
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encryptedPassword);
+//        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+//        member.setPassword(encryptedPassword);
 
         return memberRepository.save(findMember);
     }
@@ -82,6 +85,10 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findMember(long memberId) {
         return findVerifiedMember(memberId);
+    }
+
+    public List<Member> findMembersByMemberStatus(Member.MemberStatus status) {
+        return memberRepository.findAllByMemberStatus(status);
     }
 
     public void deleteMember(long memberId) {
@@ -93,7 +100,7 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
-        Member findMember = optionalMember.orElseThrow(() -> new RuntimeException());
+        Member findMember = optionalMember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 사용자입니다."));
         return findMember;
     }
 
