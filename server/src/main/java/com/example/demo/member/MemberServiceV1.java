@@ -51,7 +51,7 @@ public class MemberServiceV1 {
         return savedMember;
     }
 
-    public String login(LoginDto request) {
+    public String login(LoginDto.Post request) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );

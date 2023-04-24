@@ -1,7 +1,9 @@
 package com.example.demo.member;
 
+import com.example.demo.helper.event.MemberRegistrationApplicationEvent;
 import com.example.demo.member.auth.CustomUserDetailsService;
-import com.example.demo.member.auth.utils.CustomAuthorityUtils;
+import com.example.demo.auth.utils.CustomAuthorityUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,12 +12,14 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,18 +32,19 @@ public class MemberService {
     private final ApplicationEventPublisher publisher;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
-    private final AuthenticationManager authenticationManager;
+    //private final AuthenticationManager authenticationManager;
 
     public MemberService(MemberRepository memberRepository,
                          ApplicationEventPublisher publisher,
                          PasswordEncoder passwordEncoder,
-                         CustomAuthorityUtils authorityUtils,
-                         AuthenticationManager authenticationManager) {
+                         CustomAuthorityUtils authorityUtils
+                         //AuthenticationManager authenticationManager
+    ) {
         this.memberRepository = memberRepository;
         this.publisher = publisher;
         this.passwordEncoder = passwordEncoder;
         this.authorityUtils = authorityUtils;
-        this.authenticationManager = authenticationManager;
+        //this.authenticationManager = authenticationManager;
     }
 
     public Member createMember(Member member) {
@@ -57,7 +62,7 @@ public class MemberService {
         return savedMember;
     }
 
-    public Member login(LoginDto.Post request, HttpSession session) {
+/*    public Member login(LoginDto.Post request, HttpSession session) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword())
         );
@@ -66,12 +71,12 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findByEmail(request.getEmail());
         Member findMember = optionalMember.orElseThrow(() -> new UsernameNotFoundException("등록되지 않은 사용자입니다."));
 
-        return findMember;
+        return findMember;*/
 
 //        CustomUserDetailsService.CustomUserDetails principal =
 //                (CustomUserDetailsService.CustomUserDetails) authentication.getPrincipal();
 //        return principal.getUsername();
-    }
+//    }
 
     @Transactional(propagation = Propagation.REQUIRED)
     public Member updateMember(Member member) {

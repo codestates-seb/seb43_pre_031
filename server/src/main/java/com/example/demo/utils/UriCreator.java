@@ -1,4 +1,4 @@
-package com.example.demo.member.utils;
+package com.example.demo.utils;
 
 import org.springframework.web.util.UriComponentsBuilder;
 

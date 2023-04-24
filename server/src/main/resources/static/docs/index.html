@@ -494,7 +494,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members?_csrf=e00a0630-afe0-491e-8437-040db1a11c9f' -i -X POST \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members?_csrf=59e8b740-a14a-43d1-8033-1bb3cd3036c6' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
@@ -508,7 +508,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /members?_csrf=e00a0630-afe0-491e-8437-040db1a11c9f HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /members?_csrf=59e8b740-a14a-43d1-8033-1bb3cd3036c6 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
 Content-Length: 112
@@ -563,7 +563,7 @@ Host: localhost:8080
 <div class="title">http-response</div>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
-Location: /members/1</code></pre>
+Location: /members/login</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
@@ -591,33 +591,33 @@ Location: /members/1</code></pre>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=cd63ef33-f7af-44f2-a653-ec283ec197ce' -i -X PATCH \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=8790a3c6-e8de-4d6b-b334-debb296c4328' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
   "memberId" : 1,
   "fullName" : "홍길동",
-  "password" : "01234",
-  "isMarketing" : true,
-  "memberStatus" : "MEMBER_ACTIVE"
+  "location" : "Seoul",
+  "title" : "Hi",
+  "aboutMe" : "Hello"
 }'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /members/1?_csrf=cd63ef33-f7af-44f2-a653-ec283ec197ce HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /members/1?_csrf=8790a3c6-e8de-4d6b-b334-debb296c4328 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 138
+Content-Length: 119
 Host: localhost:8080
 
 {
   "memberId" : 1,
   "fullName" : "홍길동",
-  "password" : "01234",
-  "isMarketing" : true,
-  "memberStatus" : "MEMBER_ACTIVE"
+  "location" : "Seoul",
+  "title" : "Hi",
+  "aboutMe" : "Hello"
 }</code></pre>
 </div>
 </div>
@@ -661,19 +661,19 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock">이름</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>location</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMarketing</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">마케팅 수신 동의 여부</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Title</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberStatus</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aboutMe</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">회원 상태: MEMBER_ACTIVE / MEMBER_SLEEP / MEMBER_QUIT</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">About Me</p></td>
 </tr>
 </tbody>
 </table>
@@ -682,13 +682,16 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 139
+Content-Length: 208
 
 {
   "memberId" : 1,
   "fullName" : "홍길동",
   "email" : "hgd@gmail.com",
-  "isMarketing" : true,
+  "location" : "Seoul",
+  "title" : "Hi",
+  "aboutMe" : "Hello",
+  "isMarketing" : false,
   "memberStatus" : "활동중"
 }</code></pre>
 </div>
@@ -724,6 +727,21 @@ Content-Length: 139
 <td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>location</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Title</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aboutMe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">About Me</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMarketing</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마케팅 수신 동의 여부</p></td>
@@ -741,14 +759,14 @@ Content-Length: 139
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=d191d01a-11bf-4d3e-917e-727d2c317ec7' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=39c6482e-add6-46d1-8630-6cabf29182c4' -i -X GET \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1?_csrf=d191d01a-11bf-4d3e-917e-727d2c317ec7 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1?_csrf=39c6482e-add6-46d1-8630-6cabf29182c4 HTTP/1.1
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -777,14 +795,17 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 140
+Content-Length: 217
 
 {
   "memberId" : 1,
   "fullName" : "홍길동",
   "email" : "hgd@gmail.com",
+  "location" : "Seoul",
+  "title" : "Hi",
+  "aboutMe" : "Codestates",
   "isMarketing" : false,
-  "memberStatus" : "활동중"
+  "memberStatus" : "탈퇴 상태"
 }</code></pre>
 </div>
 </div>
@@ -819,6 +840,21 @@ Content-Length: 140
 <td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>location</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Location</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Title</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>aboutMe</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">About Me</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMarketing</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마케팅 수신 동의 여부</p></td>
@@ -836,13 +872,13 @@ Content-Length: 140
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=4f33f988-4647-469e-a9a9-c4c10eb6ccab' -i -X DELETE</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=51502b5d-c4eb-4032-9d12-9ead98c66f8c' -i -X DELETE</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/1?_csrf=4f33f988-4647-469e-a9a9-c4c10eb6ccab HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/1?_csrf=51502b5d-c4eb-4032-9d12-9ead98c66f8c HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1212,8 +1248,8 @@ Content-Length: 1273
     "member_id" : 1,
     "memberName" : "test",
     "content" : "content",
-    "created_at" : "2023-04-24T15:39:42.4371832",
-    "modified_at" : "2023-04-24T15:39:42.4371832",
+    "created_at" : "2023-04-24T16:36:27.5784637",
+    "modified_at" : "2023-04-24T16:36:27.5784637",
     "status" : "ANSWER_VALID"
   }, {
     "id" : 2,
@@ -1221,8 +1257,8 @@ Content-Length: 1273
     "member_id" : 2,
     "memberName" : "test",
     "content" : "content",
-    "created_at" : "2023-04-24T15:39:42.4371832",
-    "modified_at" : "2023-04-24T15:39:42.4371832",
+    "created_at" : "2023-04-24T16:36:27.5784637",
+    "modified_at" : "2023-04-24T16:36:27.5784637",
     "status" : "ANSWER_VALID"
   }, {
     "id" : 3,
@@ -1230,8 +1266,8 @@ Content-Length: 1273
     "member_id" : 3,
     "memberName" : "test",
     "content" : "content",
-    "created_at" : "2023-04-24T15:39:42.4371832",
-    "modified_at" : "2023-04-24T15:39:42.4371832",
+    "created_at" : "2023-04-24T16:36:27.5784637",
+    "modified_at" : "2023-04-24T16:36:27.5784637",
     "status" : "ANSWER_VALID"
   }, {
     "id" : 4,
@@ -1239,8 +1275,8 @@ Content-Length: 1273
     "member_id" : 4,
     "memberName" : "test",
     "content" : "content",
-    "created_at" : "2023-04-24T15:39:42.4371832",
-    "modified_at" : "2023-04-24T15:39:42.4371832",
+    "created_at" : "2023-04-24T16:36:27.5784637",
+    "modified_at" : "2023-04-24T16:36:27.5784637",
     "status" : "ANSWER_VALID"
   } ]
 }</code></pre>
@@ -1738,8 +1774,8 @@ Content-Length: 250
   "member_id" : 1,
   "memberName" : "홍길동",
   "content" : "patch content",
-  "created_at" : "2023-04-24T15:39:39.0890031",
-  "modified_at" : "2023-04-24T15:39:39.0890031",
+  "created_at" : "2023-04-24T16:36:24.3495679",
+  "modified_at" : "2023-04-24T16:36:24.3495679",
   "status" : "ANSWER_VALID"
 }</code></pre>
 </div>
@@ -1843,7 +1879,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 242
+Content-Length: 244
 
 {
   "id" : 1,
@@ -1851,8 +1887,8 @@ Content-Length: 242
   "member_id" : 1,
   "memberName" : "홍길동",
   "content" : "content",
-  "created_at" : "2023-04-24T15:39:39.115004",
-  "modified_at" : "2023-04-24T15:39:39.115004",
+  "created_at" : "2023-04-24T16:36:24.3865686",
+  "modified_at" : "2023-04-24T16:36:24.3865686",
   "status" : "ANSWER_VALID"
 }</code></pre>
 </div>
@@ -1946,8 +1982,8 @@ Content-Length: 657
     "member_id" : 1,
     "memberName" : "홍길동1",
     "content" : "content1",
-    "created_at" : "2023-04-24T15:39:38.7920054",
-    "modified_at" : "2023-04-24T15:39:38.7920054",
+    "created_at" : "2023-04-24T16:36:24.0085388",
+    "modified_at" : "2023-04-24T16:36:24.0085388",
     "status" : "ANSWER_VALID"
   }, {
     "id" : 2,
@@ -1955,8 +1991,8 @@ Content-Length: 657
     "member_id" : 2,
     "memberName" : "홍길동2",
     "content" : "content2",
-    "created_at" : "2023-04-24T15:39:38.7920054",
-    "modified_at" : "2023-04-24T15:39:38.7920054",
+    "created_at" : "2023-04-24T16:36:24.0085388",
+    "modified_at" : "2023-04-24T16:36:24.0085388",
     "status" : "ANSWER_VALID"
   } ],
   "pageInfo" : {
@@ -2105,7 +2141,7 @@ Host: localhost:8080</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-04-24 10:20:41 +0900
+Last updated 2023-04-24 16:09:15 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
