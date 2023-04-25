@@ -1,11 +1,12 @@
+// import styled from 'styled-components';
+import Usersmain from '../components/Users/Usersmain';
 import styled from 'styled-components';
-import { Main } from '../components/Users/Main';
 
 const User = () => {
   return (
     <>
       <UserWrapper>
-        <Main />
+        <Usersmain />
       </UserWrapper>
     </>
   );

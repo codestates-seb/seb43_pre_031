@@ -1,7 +1,7 @@
-import { SettingsSide } from './SettingsSide.js';
-import { SettingsBody } from './SettingsBody.js';
+import SettingsSide from './SettingsSide.js';
+import SettingsBody from './SettingsBody.js';
 
-export const Settings = () => {
+const Settings = () => {
   return (
     <div className="responsive">
       <SettingsSide />
@@ -9,3 +9,5 @@ export const Settings = () => {
     </div>
   );
 };
+
+export default Settings;
