@@ -29,8 +29,8 @@ public class AnswerService {
     }
 
     public Answer createAnswer(AnswerDto.Post post, String email) {
-        Question question = questionRepository.findById(post.getQuestion_id()).orElseThrow(() -> new RuntimeException("질문이 존재하지 않습니다."));
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("회원이 존재하지 않습니다."));
+        Question question = questionRepository.findById(post.getQuestion_id()).orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         Answer answer = new Answer();
         answer.setContent(post.getContent());
