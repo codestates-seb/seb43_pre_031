@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Navmenu = () => {
   return (
     <NavWrapper>
-      <Link to="/user">
+      <Link to="/user/profile">
         <StyledButton>Profile</StyledButton>
       </Link>
       <Link to="/user/activity">

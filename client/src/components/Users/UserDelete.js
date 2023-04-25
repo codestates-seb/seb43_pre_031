@@ -4,33 +4,69 @@ import SettingsSide from './SettingsSide.js';
 import { useState } from 'react';
 import axios from 'axios';
 import { API } from '../../utils/API';
+import { getCookie } from '../../lib/Cookies';
+import storage from '../../lib/storage';
+import { useNavigate } from 'react-router-dom';
+
+const token = getCookie('AccessToken');
+const userID = storage.get('userID');
+
+const navigate = useNavigate();
 
 const UserDelete = () => {
-  const id = 1;
   const [boxChecked, setBoxChecked] = useState(false);
   const CheckedHandler = () => {
     setBoxChecked(!boxChecked);
   };
-  const handleClickBtnDelete = async (id) => {
+  const handleClickBtnDelete = async () => {
     // const reqParams = {
     //   id: 1,
     //   memberStatus: 'MEMBER_ACTIVE',
     // };
-
-    axios
-      .delete(`${API}/members/${id}`)
-      .then(function (response) {
-        // handle success
-        console.log(response);
+    axios(
+      `${API}/members/${userID}`,
+      //요청할 api 주소, api명세를 보고 작성(path)
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+          // ngrok 으로 데이터 받을 때 browser warning 스킵
+          // 'ngrok-skip-browser-warning': '69420',
+        },
+      }
+    )
+      // getMemberInfo(reqParams) //요청할 api주소를 적는다.
+      .then((res) => {
+        //res에 데이터 들어옴
+        // 응답 데이터 LOG
+        console.log(res);
+        //로컬스토리지에 있는 유저ID, 로그인상태, 쿠키(JWT 토큰값)
+        //200 응답을 받고 확인될때 삭제를 해주는 로직 필요(too much)
+        navigate('/users/login');
+        // 페이지 초기 값 설정
       })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
+      .catch((ex) => {
+        //오류가 발생했을때 오류를 콘솔에 찍는 것
+        console.log(ex);
+        alert('서버가 정상적이지 않음. \n 다시 시도해 주세요.');
       });
   };
+  //useeffect 처음에 1번만 실행하고 실행 안함 안에 username을 넣으면 바꿀때마다 실행됨
+  //   axios
+  //     .delete(`${API}/members/${userID}`)
+  //     .then(function (response) {
+  //       // handle success
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       // handle error
+  //       console.log(error);
+  //     })
+  //     .then(function () {
+  //       // always executed
+  //     });
+  // };
   //   axios(`${API}/members/1`, {
   //     method: 'DELETE', //데이터 삭제 요청
   //     headers: {
@@ -110,7 +146,7 @@ const UserDelete = () => {
           ) : (
             <DeleteBtn
               className="disabled"
-              onClick={() => handleClickBtnDelete(id)}
+              onClick={() => handleClickBtnDelete()}
             >
               Delete Profile
             </DeleteBtn>
