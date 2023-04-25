@@ -57,6 +57,7 @@ const List = styled.li`
   & > div:first-child {
     margin-right: 1.5rem;
     text-align: right;
+    min-width: 7rem;
     span {
       margin-bottom: 0.5rem;
     }
@@ -74,7 +75,9 @@ const Content = styled.div`
   }
 `;
 
-const Title = styled.h3``;
+const Title = styled.h3`
+  margin-bottom: 0.5rem;
+`;
 
 const Description = styled.p``;
 

@@ -47,13 +47,19 @@ const Header = () => {
             <input type="text" placeholder="Search..." />
           </Search>
           <button
-            className="login"
+            className="loginBtn"
             onClick={() => {
               navigate('/users/login');
             }}
           >
             Log in
           </button>
+          {/* <Button
+            text="Log in"
+            onClick={() => {
+              navigate('/users/login');
+            }}
+          /> */}
           <Button
             text="Sign up"
             onClick={() => {
@@ -96,18 +102,29 @@ const Container = styled.div`
   .right {
     display: flex;
     align-items: center;
+    width: 50%;
+    button:first-child {
+    }
   }
   button {
-    width: 7rem;
-    padding: 1rem;
-    border: 1px solid ${(props) => props.theme.color.blue400};
-    border-radius: 3px;
+    min-width: 7rem;
     margin-left: 0.5rem;
     cursor: pointer;
   }
-  .login {
+  .loginBtn {
+    padding: 1rem;
+    border: none;
+    border-top: 1px solid white;
+    border-radius: ${(props) => props.theme.common.borderRadius};
     background-color: ${(props) => props.theme.color.blue100};
-    color: ${(props) => props.theme.color.blue400};
+    outline: ${(props) => props.theme.color.blue500} solid 1px;
+    color: ${(props) => props.theme.color.blue600};
+    &:hover {
+      background-color: ${(props) => props.theme.color.blue200};
+    }
+    &:active {
+      outline: ${(props) => props.theme.color.blue100} solid 0.4rem;
+    }
   }
 `;
 
@@ -118,7 +135,7 @@ const Logo = styled.img`
 `;
 
 const Search = styled.div`
-  width: 70rem;
+  width: 100%;
   border: 1px solid ${(props) => props.theme.color.black350};
   background-color: white;
   border-radius: 5px;
@@ -131,7 +148,7 @@ const Search = styled.div`
     border: none;
     background-color: transparent;
     font-size: 1.5rem;
-    width: auto;
+    width: 100%;
     &:focus {
       outline: none;
     }
