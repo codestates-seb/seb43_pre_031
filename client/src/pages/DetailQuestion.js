@@ -28,29 +28,28 @@ const DetailQuestion = () => {
       ])
       .then(
         axios.spread((res1, res2) => {
+          console.log(res2.data);
           setQuestion(res1.data);
-          setAnswers(res2.data);
+          setAnswers(res2.data.data);
         })
       );
   };
 
   //답변 추가(POST) ===============================================================================
   const postAnswer = () => {
-    const user = {
-      username: 'idx123',
-      userimage: 'https://randomuser.me/api/portraits/thumb/women/3.jpg',
-    };
-    const date = 'Apr 17, 2023 at 22:36';
+    const email = 'a@a';
+    // const date = 'Apr 17, 2023 at 22:36';
 
-    if (myAnswer === '' || undefined) {
+    if (myAnswer === '') {
       setIsEmpty(true);
       return;
     }
     axios
       .post(`${API}/answers`, {
+        question_id: id,
         content: myAnswer,
-        user: user,
-        answered: date,
+        email: email,
+        // answered: date,
       })
       .then((response) => {
         console.log(response);
@@ -89,6 +88,7 @@ const DetailQuestion = () => {
 
   useEffect(() => {
     getContents();
+    console.log(answers);
   }, [call]);
 
   return (
@@ -97,15 +97,16 @@ const DetailQuestion = () => {
         title={question.title}
         asked={question.asked}
         modified={question.modified}
-        viewed={question.viewed}
         content={question.content}
-        vote={question.vote}
-        user={question.author}
+        // viewed={question.viewed}
+        // vote={question.vote}
+        user={question.member}
         tags={question.tags}
         deleteQuestion={() => deleteQuestion(question.id)}
         editQuestion={() => moveForEdit(question.id, 'question')}
       />
-      <h2>{question.answer_count} Answers</h2>
+      {/* <h2>{question.answer_count} Answers</h2> */}
+      <h2>0 Answers</h2>
       <div>
         {answers &&
           answers.map((i) => (
@@ -113,8 +114,8 @@ const DetailQuestion = () => {
               key={i.id}
               type="answer"
               content={i.content}
-              date={i.answered}
-              user={i.user}
+              date={i.created_at}
+              user={i.memberName}
               deleteContent={() => deleteAnswer(i.id)}
               editContent={() => moveForEdit(i.id, 'answer')}
             />
@@ -161,8 +162,12 @@ const DetailQuestion = () => {
 };
 
 const Container = styled.div`
+  width: 100%;
+  /* height: 200vh; */
+  min-height: 100%;
   padding: 2rem;
   margin-top: 6rem;
+  margin-left: 18rem;
   h2 {
     font-size: 2.2rem;
     font-weight: 500;

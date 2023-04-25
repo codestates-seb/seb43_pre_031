@@ -86,7 +86,7 @@ export default function Signup() {
 
     return (
       axios
-        .post(`${API}/members`, { signupInfo })
+        .post(`${API}/members`, { ...signupInfo })
         .then((res) => {
           console.log(res.data);
           console.log('회원가입 성공');
@@ -318,6 +318,7 @@ export default function Signup() {
 
 // Styled-components
 const SUConatainer = styled.div`
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;

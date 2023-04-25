@@ -3,17 +3,32 @@
 import Nav from '../../components/Nav';
 import Footer from '../../components/Footer';
 import Aside from '../../components/Aside';
+import styled from 'styled-components';
 import { Outlet } from 'react-router-dom';
 
 const ContainAll = () => {
   return (
-    <div>
-      <Nav />
-      <Outlet />
-      <Aside />
+    <Container>
+      <div>
+        <Nav />
+        <Outlet />
+        <Aside />
+      </div>
       <Footer />
-    </div>
+    </Container>
   );
 };
 
 export default ContainAll;
+
+const Container = styled.div`
+  width: 100vw;
+  min-height: 100%;
+  padding-bottom: 30rem;
+  position: relative;
+  & > div {
+    display: flex;
+    margin: 0 auto;
+    width: 75%;
+  }
+`;

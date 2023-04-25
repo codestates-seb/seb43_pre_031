@@ -49,11 +49,11 @@ const StyledButton = styled.button`
   border-radius: 2rem;
   &:hover {
     background: ${(props) => props.theme.color.black050};
-
-button.is-selected {
-  background: ${(props) => props.theme.color.orange400};
-  color: white;
-}
+  }
+  button.is-selected {
+    background: ${(props) => props.theme.color.orange400};
+    color: white;
+  }
 `;
 
 export default SettingsSide;

@@ -19,24 +19,41 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter
     private Long id;
     @Setter
     private String title;
     @Setter
     private String content;
-
-    //status 추가 필요
+    @Setter
+    private String askedAt;
+    @Setter
+    private String modifiedAt;
+    @Setter
+    private String tags;
+    @Setter
+    private int votes;
 
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers = new ArrayList<>();
+
+    //status 추가 필요
+
+//    @OneToOne(mappedBy = "question", cascade = CascadeType.PERSIST)
+//    private Vote vote;
+//
+//    public void setVote(Vote vote)
+//    {
+//        this.vote = vote;
+//    }
+
     public void setMember(Member member) {
         this.member = member;
     }
-
-    @OneToMany(mappedBy = "question")
-    private List<Answer> answers = new ArrayList<>();
 
     public Question(String title, String content)
     {
@@ -46,5 +63,22 @@ public class Question {
 
     public void addAnswer(Answer answer) {
         answers.add(answer);
+    }
+
+    public Question(String title, String content, String askedAt, String tags)
+    {
+        this.title = title;
+        this.content = content;
+        this.askedAt = askedAt;
+        this.tags = tags;
+    }
+
+    public Question(long id, String title, String content, String modifiedAt, String tags)
+    {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.modifiedAt = modifiedAt;
+        this.tags = tags;
     }
 }

@@ -40,8 +40,11 @@ const Content = (props) => {
           </p>
           {user && (
             <UserFlexWrapper>
-              <img src={user.userimage} alt="유저 이미지"></img>
-              <span className="edited">{user.username}</span>
+              <img
+                src="https://randomuser.me/api/portraits/thumb/men/55.jpg"
+                alt="유저 이미지"
+              ></img>
+              <span className="edited">{user}</span>
             </UserFlexWrapper>
           )}
         </UserCard>
@@ -70,12 +73,19 @@ const TagsWrapper = styled.div`
 `;
 
 const Tag = styled.span`
-  padding: 0.4rem 0.6rem;
-  color: ${(props) => props.theme.color.blue700};
-  background-color: ${(props) => props.theme.color.powder200};
-  border-radius: ${(props) => props.theme.common.borderRadius};
-  margin-right: 0.6rem;
-  font-size: 1.2rem;
+  background-color: ${(props) => props.theme.color.blue100};
+  color: ${(props) => props.theme.color.blue800};
+  margin-right: 0.8rem;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 0.5rem 0.7rem;
+  display: inline-block;
+  text-align: center;
+  width: 3rem;
+  height: 3rem;
+  &:hover {
+    background-color: ${(props) => props.theme.color.blue200};
+  }
 `;
 
 const UserCard = styled.div`

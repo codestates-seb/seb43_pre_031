@@ -1,13 +1,13 @@
 package com.example.demo.question;
 
-import com.example.demo.member.Member;
+import com.example.demo.exception.BusinessLogicException;
+import com.example.demo.exception.ExceptionCode;
 import com.example.demo.member.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,12 +35,15 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public Question updateQuestion(Question question)
+    public Question updateQuestion(Question question, Long id)
     {
-        Question findQuestion = findVerifiedQuestion(question.getId());
+        Question findQuestion = findVerifiedQuestion(id);
 
         Optional.ofNullable(question.getTitle()).ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getContent()).ifPresent(content -> findQuestion.setContent(content));
+        Optional.ofNullable(question.getAskedAt()).ifPresent(asked_at -> findQuestion.setAskedAt(asked_at));
+        Optional.ofNullable(question.getModifiedAt()).ifPresent(modified_at -> findQuestion.setModifiedAt(modified_at));
+        Optional.ofNullable(question.getTags()).ifPresent(tags -> findQuestion.setTags(tags));
 
         return questionRepository.save(findQuestion);
     }
@@ -53,7 +56,7 @@ public class QuestionService {
 
     public Page<Question> findQuestions(int page, int size)
     {
-        PageRequest pageRequest = PageRequest.of(page,size, Sort.by("id").descending());
+        PageRequest pageRequest = PageRequest.of(page,size, Sort.by("askedAt").descending());
         return questionRepository.findAll(pageRequest);
     }
 
@@ -64,11 +67,21 @@ public class QuestionService {
         questionRepository.deleteById(id);
     }
 
+    public Question updateQuestionVote(String upAndDown, long questionId)
+    {
+        Question findQuestion = findVerifiedQuestion(questionId);
+
+        if(upAndDown.equals("up")) findQuestion.setVotes(findQuestion.getVotes()+1);
+        else findQuestion.setVotes(findQuestion.getVotes()-1);
+
+        return questionRepository.save(findQuestion);
+    }
+
     public Question findVerifiedQuestion(long id)
     {
         Optional<Question> optional = questionRepository.findById(id);
 
-        Question question = optional.orElseThrow(()-> new RuntimeException("존재하지 않는 질문"));
+        Question question = optional.orElseThrow(()-> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
 
         return question;
     }
@@ -77,4 +90,5 @@ public class QuestionService {
     {
         memberService.findVerifiedMember(question.getMember().getMemberId());
     }
+
 }

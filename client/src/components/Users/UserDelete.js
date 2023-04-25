@@ -2,12 +2,58 @@ import styled from 'styled-components';
 import SettingsSide from './SettingsSide.js';
 // import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import axios from 'axios';
+import { API } from '../../utils/API';
 
 const UserDelete = () => {
+  const id = 1;
   const [boxChecked, setBoxChecked] = useState(false);
   const CheckedHandler = () => {
     setBoxChecked(!boxChecked);
   };
+  const handleClickBtnDelete = async (id) => {
+    // const reqParams = {
+    //   id: 1,
+    //   memberStatus: 'MEMBER_ACTIVE',
+    // };
+
+    axios
+      .delete(`${API}/members/${id}`)
+      .then(function (response) {
+        // handle success
+        console.log(response);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  };
+  //   axios(`${API}/members/1`, {
+  //     method: 'DELETE', //데이터 삭제 요청
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Accept: 'application/json',
+  //     },
+  //     data: JSON.stringify(reqParams),
+  //   })
+  //     // await patchMemberInfo(reqParams)
+  //     .then((res) => {
+  //       // 응답을 받은 경우
+
+  //       // 응답 데이터 LOG
+  //       console.log(res.data);
+
+  //       alert('삭제 성공');
+  //     })
+  //     .catch((ex) => {
+  //       // 응답을 받지 못하거나 오류 발생 한 경우 (RES CODE 200이 아닌 경우)
+  //       console.log(ex);
+  //       alert('삭제 실패');
+  //     });
+  // };
 
   return (
     <Center>
@@ -62,7 +108,12 @@ const UserDelete = () => {
           {boxChecked ? (
             <DeleteBtn>Delete Profile</DeleteBtn>
           ) : (
-            <DeleteBtn className="disabled">Delete Profile</DeleteBtn>
+            <DeleteBtn
+              className="disabled"
+              onClick={() => handleClickBtnDelete(id)}
+            >
+              Delete Profile
+            </DeleteBtn>
           )}
         </form>
       </SettingContent>

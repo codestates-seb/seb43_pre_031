@@ -46,6 +46,8 @@ const EditAllPosts = ({ answer }) => {
         .patch(`${API}/questions/${id}`, {
           title: title,
           content: questionContent,
+          modified_at: '2023-04-21',
+          member: '홍길동1',
           tags: tags,
         })
         .then((response) => {
@@ -114,11 +116,11 @@ const EditAllPosts = ({ answer }) => {
 };
 
 const Container = styled.div`
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
-
+  padding-left: 20rem;
+  margin: 8rem 0;
   .buttons {
     display: flex;
     gap: 1rem;

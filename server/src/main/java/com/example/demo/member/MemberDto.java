@@ -20,8 +20,6 @@ public class MemberDto {
         @NotBlank(message = "비밀번호는 공백이 아니어야 합니다.")
         private String password;
 
-        private Boolean isCaptcha;
-
         private Boolean isMarketing;
     }
 
@@ -35,8 +33,6 @@ public class MemberDto {
 
         @NotBlank(message = "비밀번호는 공백이 아니어야 합니다.")
         private String password;
-
-        private Boolean isCaptcha;
 
         private Boolean isMarketing;
 
@@ -53,7 +49,6 @@ public class MemberDto {
         private long memberId;
         private String fullName;
         private String email;
-        private Boolean isCaptcha;
         private Boolean isMarketing;
         private Member.MemberStatus memberStatus;
 

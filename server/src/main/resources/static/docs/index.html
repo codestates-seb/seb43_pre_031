@@ -494,14 +494,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members' -i -X POST \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members?_csrf=bdb112a3-4394-4790-aa17-4af9fd184766' -i -X POST \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
   "fullName" : "홍길동",
   "email" : "hgd@gmail.com",
   "password" : "12345",
-  "isCaptcha" : false,
   "isMarketing" : true
 }'</code></pre>
 </div>
@@ -509,17 +508,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /members HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">POST /members?_csrf=bdb112a3-4394-4790-aa17-4af9fd184766 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 136
+Content-Length: 112
 Host: localhost:8080
 
 {
   "fullName" : "홍길동",
   "email" : "hgd@gmail.com",
   "password" : "12345",
-  "isCaptcha" : false,
   "isMarketing" : true
 }</code></pre>
 </div>
@@ -553,11 +551,6 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isCaptcha</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">캡챠 동의 여부</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMarketing</code></p></td>
@@ -598,14 +591,13 @@ Location: /members/1</code></pre>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1' -i -X PATCH \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=3628f58a-bbac-4244-b243-a9fc8a4c0aaa' -i -X PATCH \
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
   "memberId" : 1,
   "fullName" : "홍길동",
   "password" : "01234",
-  "isCaptcha" : false,
   "isMarketing" : true,
   "memberStatus" : "MEMBER_ACTIVE"
 }'</code></pre>
@@ -614,17 +606,16 @@ Location: /members/1</code></pre>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /members/1 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /members/1?_csrf=3628f58a-bbac-4244-b243-a9fc8a4c0aaa HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 162
+Content-Length: 138
 Host: localhost:8080
 
 {
   "memberId" : 1,
   "fullName" : "홍길동",
   "password" : "01234",
-  "isCaptcha" : false,
   "isMarketing" : true,
   "memberStatus" : "MEMBER_ACTIVE"
 }</code></pre>
@@ -675,11 +666,6 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isCaptcha</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">캡챠 동의 여부</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMarketing</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마케팅 수신 동의 여부</p></td>
@@ -696,13 +682,12 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 163
+Content-Length: 139
 
 {
   "memberId" : 1,
   "fullName" : "홍길동",
   "email" : "hgd@gmail.com",
-  "isCaptcha" : false,
   "isMarketing" : true,
   "memberStatus" : "활동중"
 }</code></pre>
@@ -739,11 +724,6 @@ Content-Length: 163
 <td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isCaptcha</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">캡챠 동의 여부</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMarketing</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마케팅 수신 동의 여부</p></td>
@@ -761,14 +741,14 @@ Content-Length: 163
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=d497ac89-e2c9-4b91-9f73-6b39844fec75' -i -X GET \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /members/1?_csrf=d497ac89-e2c9-4b91-9f73-6b39844fec75 HTTP/1.1
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -797,14 +777,13 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 163
+Content-Length: 140
 
 {
   "memberId" : 1,
   "fullName" : "홍길동",
   "email" : "hgd@gmail.com",
-  "isCaptcha" : false,
-  "isMarketing" : true,
+  "isMarketing" : false,
   "memberStatus" : "활동중"
 }</code></pre>
 </div>
@@ -840,11 +819,6 @@ Content-Length: 163
 <td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>isCaptcha</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">캡챠 동의 여부</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>isMarketing</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마케팅 수신 동의 여부</p></td>
@@ -862,13 +836,13 @@ Content-Length: 163
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1' -i -X DELETE</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/members/1?_csrf=245ab236-5836-482b-bf43-2caf39441454' -i -X DELETE</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/1 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">DELETE /members/1?_csrf=245ab236-5836-482b-bf43-2caf39441454 HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -912,9 +886,11 @@ Host: localhost:8080</code></pre>
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
-  "memberId" : 1,
   "title" : "title",
-  "content" : "content"
+  "content" : "content",
+  "asked_at" : "등록일",
+  "member" : "Name",
+  "tags" : [ "a", "b", "c" ]
 }'</code></pre>
 </div>
 </div>
@@ -924,13 +900,15 @@ Host: localhost:8080</code></pre>
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /questions HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 70
+Content-Length: 133
 Host: localhost:8080
 
 {
-  "memberId" : 1,
   "title" : "title",
-  "content" : "content"
+  "content" : "content",
+  "asked_at" : "등록일",
+  "member" : "Name",
+  "tags" : [ "a", "b", "c" ]
 }</code></pre>
 </div>
 </div>
@@ -950,11 +928,6 @@ Host: localhost:8080
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">질문 제목</p></td>
@@ -963,6 +936,21 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">질문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>asked_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 등록일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그</p></td>
 </tr>
 </tbody>
 </table>
@@ -1002,9 +990,11 @@ Location: /questions/1</code></pre>
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
-  "id" : 1,
   "title" : "test",
-  "content" : "content"
+  "content" : "content",
+  "modified_at" : "수정일",
+  "member" : "userName",
+  "tags" : [ "a", "b", "c" ]
 }'</code></pre>
 </div>
 </div>
@@ -1014,13 +1004,15 @@ Location: /questions/1</code></pre>
 <pre class="prettyprint highlight nowrap"><code data-lang="http">PATCH /questions/1 HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 63
+Content-Length: 139
 Host: localhost:8080
 
 {
-  "id" : 1,
   "title" : "test",
-  "content" : "content"
+  "content" : "content",
+  "modified_at" : "수정일",
+  "member" : "userName",
+  "tags" : [ "a", "b", "c" ]
 }</code></pre>
 </div>
 </div>
@@ -1059,11 +1051,6 @@ Host: localhost:8080
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">질문 식별자</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>title</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">질문 제목</p></td>
@@ -1073,6 +1060,21 @@ Host: localhost:8080
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">질문 내용</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>modified_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 수정일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 태그</p></td>
+</tr>
 </tbody>
 </table>
 <div class="listingblock">
@@ -1080,12 +1082,17 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 60
+Content-Length: 204
 
 {
   "id" : 1,
   "title" : "test",
-  "content" : "test"
+  "content" : "test",
+  "asked_at" : "2023-04-19 16:11:11",
+  "modified_at" : "2023-04-20 11:22:33",
+  "memberId" : 1,
+  "member" : "김코딩",
+  "tags" : [ ]
 }</code></pre>
 </div>
 </div>
@@ -1118,6 +1125,31 @@ Content-Length: 60
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">질문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>asked_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 등록일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>modified_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 수정일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그</p></td>
 </tr>
 </tbody>
 </table>
@@ -1163,12 +1195,17 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 60
+Content-Length: 218
 
 {
   "id" : 1,
   "title" : "test",
-  "content" : "test"
+  "content" : "test",
+  "asked_at" : "2023-04-19 16:11:11",
+  "modified_at" : "2023-04-20 11:22:33",
+  "memberId" : 1,
+  "member" : "김코딩",
+  "tags" : [ "a", "b", "c" ]
 }</code></pre>
 </div>
 </div>
@@ -1202,6 +1239,31 @@ Content-Length: 60
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">질문 내용</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>asked_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 등록일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>modified_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 수정일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -1210,14 +1272,14 @@ Content-Length: 60
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/questions?page=2&amp;size=2' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/questions?page=1&amp;size=5' -i -X GET \
     -H 'Accept: application/json'</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /questions?page=2&amp;size=2 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /questions?page=1&amp;size=5 HTTP/1.1
 Accept: application/json
 Host: localhost:8080</code></pre>
 </div>
@@ -1227,29 +1289,54 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 475
+Content-Length: 1315
 
 {
   "data" : [ {
     "id" : 5,
     "title" : "test",
-    "content" : "test"
+    "content" : "test",
+    "asked_at" : "2023-04-19 16:11:11",
+    "modified_at" : "2023-04-20 11:22:33",
+    "memberId" : 1,
+    "member" : "김코딩",
+    "tags" : [ "a", "b", "c" ]
   }, {
     "id" : 4,
     "title" : "test",
-    "content" : "test"
+    "content" : "test",
+    "asked_at" : "2023-04-19 16:11:11",
+    "modified_at" : "2023-04-20 11:22:33",
+    "memberId" : 1,
+    "member" : "김코딩",
+    "tags" : [ "a", "b", "c" ]
   }, {
     "id" : 3,
     "title" : "test",
-    "content" : "test"
+    "content" : "test",
+    "asked_at" : "2023-04-19 16:11:11",
+    "modified_at" : "2023-04-20 11:22:33",
+    "memberId" : 1,
+    "member" : "김코딩",
+    "tags" : [ "a", "b", "c" ]
   }, {
     "id" : 2,
     "title" : "test",
-    "content" : "test"
+    "content" : "test",
+    "asked_at" : "2023-04-19 16:11:11",
+    "modified_at" : "2023-04-20 11:22:33",
+    "memberId" : 1,
+    "member" : "김코딩",
+    "tags" : [ "a", "b", "c" ]
   }, {
     "id" : 1,
     "title" : "test",
-    "content" : "test"
+    "content" : "test",
+    "asked_at" : "2023-04-19 16:11:11",
+    "modified_at" : "2023-04-20 11:22:33",
+    "memberId" : 1,
+    "member" : "김코딩",
+    "tags" : [ "a", "b", "c" ]
   } ],
   "pageInfo" : {
     "page" : 1,
@@ -1278,7 +1365,7 @@ Content-Length: 475
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">페이지네이션 데이터</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">결과 데이터</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].id</code></p></td>
@@ -1294,6 +1381,31 @@ Content-Length: 475
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].content</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">질문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].asked_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 등록일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].modified_at</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 수정일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].member</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].tags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo</code></p></td>
@@ -1380,6 +1492,8 @@ Host: localhost:8080</code></pre>
     -H 'Content-Type: application/json;charset=UTF-8' \
     -H 'Accept: application/json' \
     -d '{
+  "question_id" : 1,
+  "email" : "a@a",
   "content" : "post content"
 }'</code></pre>
 </div>
@@ -1390,10 +1504,12 @@ Host: localhost:8080</code></pre>
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /answers HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Accept: application/json
-Content-Length: 34
+Content-Length: 76
 Host: localhost:8080
 
 {
+  "question_id" : 1,
+  "email" : "a@a",
   "content" : "post content"
 }</code></pre>
 </div>
@@ -1413,6 +1529,16 @@ Host: localhost:8080
 </tr>
 </thead>
 <tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>question_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변자 이메일</p></td>
+</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1522,13 +1648,16 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 177
+Content-Length: 246
 
 {
   "id" : 1,
+  "question_id" : 1,
+  "member_id" : 1,
+  "memberName" : "홍길동",
   "content" : "patch content",
-  "created_at" : "2023-04-18T18:41:37.5859735",
-  "modified_at" : "2023-04-18T18:41:37.5859735",
+  "created_at" : "2023-04-21T13:36:32.91537",
+  "modified_at" : "2023-04-21T13:36:32.91537",
   "status" : "ANSWER_VALID"
 }</code></pre>
 </div>
@@ -1552,6 +1681,21 @@ Content-Length: 177
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">답변 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>question_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변자 이름</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
@@ -1617,13 +1761,16 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 171
+Content-Length: 240
 
 {
   "id" : 1,
+  "question_id" : 1,
+  "member_id" : 1,
+  "memberName" : "홍길동",
   "content" : "content",
-  "created_at" : "2023-04-18T18:41:37.6099751",
-  "modified_at" : "2023-04-18T18:41:37.6099751",
+  "created_at" : "2023-04-21T13:36:32.94137",
+  "modified_at" : "2023-04-21T13:36:32.94137",
   "status" : "ANSWER_VALID"
 }</code></pre>
 </div>
@@ -1647,6 +1794,21 @@ Content-Length: 171
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">답변 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>question_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>memberName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변자 이름</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>content</code></p></td>
@@ -1693,20 +1855,26 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 497
+Content-Length: 657
 
 {
   "data" : [ {
     "id" : 1,
+    "question_id" : 1,
+    "member_id" : 1,
+    "memberName" : "홍길동1",
     "content" : "content1",
-    "created_at" : "2023-04-18T18:41:37.2699734",
-    "modified_at" : "2023-04-18T18:41:37.2699734",
+    "created_at" : "2023-04-21T13:36:32.6183696",
+    "modified_at" : "2023-04-21T13:36:32.6183696",
     "status" : "ANSWER_VALID"
   }, {
     "id" : 2,
+    "question_id" : 2,
+    "member_id" : 2,
+    "memberName" : "홍길동2",
     "content" : "content2",
-    "created_at" : "2023-04-18T18:41:37.2699734",
-    "modified_at" : "2023-04-18T18:41:37.2699734",
+    "created_at" : "2023-04-21T13:36:32.6183696",
+    "modified_at" : "2023-04-21T13:36:32.6183696",
     "status" : "ANSWER_VALID"
   } ],
   "pageInfo" : {
@@ -1742,6 +1910,21 @@ Content-Length: 497
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">답변 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].question_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].member_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변자 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].memberName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">답변자 이름</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[].content</code></p></td>
@@ -1833,11 +2016,6 @@ Host: localhost:8080</code></pre>
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content</code></pre>
 </div>
 </div>
-<div class="exampleblock">
-<div class="content">
-
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -1845,7 +2023,7 @@ Host: localhost:8080</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-04-18 13:05:22 +0900
+Last updated 2023-04-21 12:02:43 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

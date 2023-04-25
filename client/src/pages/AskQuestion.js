@@ -38,20 +38,12 @@ const AskQuestion = () => {
           title: title,
           content: content,
           tags: tags,
-          vote: 0,
-          asked: '1 min ago',
-          viewed: 1,
-          modified: 'never',
-          edited: 'never',
-          answer_count: 0,
-          author: {
-            username: 'idx123',
-            userimage: 'https://randomuser.me/api/portraits/thumb/men/5.jpg',
-          },
+          asked_at: '2023-04-21',
+          member: '홍길동1',
         })
         .then((response) => {
           console.log(response);
-          navigate(-1);
+          navigate('/');
         });
     } else {
       setIsEmpty(true);
@@ -147,6 +139,8 @@ const Container = styled.div`
   flex-direction: column;
   gap: 1.6rem;
   padding: 2rem;
+  margin-top: 6rem;
+  padding-bottom: 40rem;
 
   h1 {
     font-size: 2.4rem;
