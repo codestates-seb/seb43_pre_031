@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
-        TokenResponse tokenResponse = new TokenResponse(memberId, "Bearer " + accessToken, refreshToken);
+        TokenResponse tokenResponse = new TokenResponse(memberId, accessToken, refreshToken);
         Gson gson = new Gson();
         response.getWriter().println(gson.toJson(tokenResponse));
 

@@ -38,7 +38,6 @@ public class AnswerController {
         this.answerService = answerService;
         this.mapper = mapper;
     }
-
     @PostMapping
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody,
                                     @AuthenticationPrincipal String email)
