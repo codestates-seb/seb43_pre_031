@@ -43,7 +43,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         return authenticationManager.authenticate(authenticationToken);
     }
 
-    @SneakyThrows
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                             FilterChain chain, Authentication authResult) throws ServletException, IOException {
@@ -55,7 +54,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
-
 
         TokenResponse tokenResponse = new TokenResponse(memberId, "Bearer " + accessToken, refreshToken);
         Gson gson = new Gson();
