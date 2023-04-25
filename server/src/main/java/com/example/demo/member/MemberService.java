@@ -1,5 +1,7 @@
 package com.example.demo.member;
 
+import com.example.demo.exception.BusinessLogicException;
+import com.example.demo.exception.ExceptionCode;
 import com.example.demo.helper.event.MemberRegistrationApplicationEvent;
 import com.example.demo.member.auth.CustomUserDetailsService;
 import com.example.demo.auth.utils.CustomAuthorityUtils;
@@ -123,14 +125,14 @@ public class MemberService {
     public Member findVerifiedMember(String userName)
     {
         Optional<Member> optionalMember = memberRepository.findByFullName(userName);
-        Member findMember = optionalMember.orElseThrow(() -> new RuntimeException());
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }
 
     private void verifyExistsEmail(String email) {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
         if (optionalMember.isPresent()) {
-            throw new RuntimeException();
+            throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }
     }
 

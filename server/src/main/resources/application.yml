@@ -15,6 +15,6 @@ mail:
 
 jwt:
   key: jwt123412341234123412341234123412341234123412341234
-  access-token-expiration-minutes: 300000
+  access-token-expiration-minutes: 3000
   refresh-token-expiration-minutes: 420000
 
