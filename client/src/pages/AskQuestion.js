@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Editor from '../components/Editor';
@@ -29,6 +29,15 @@ const AskQuestion = () => {
   const [content, setContent] = useState('');
   const [tags, setTags] = useState([]);
   const [isEmpty, setIsEmpty] = useState(false); //필드가 비었는지 확인
+  //오늘 일자를 담을 상태변수
+  const [today, setToday] = useState('');
+  const getCurrentDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    setToday(`${year}-${month}-${day}`);
+  };
 
   const postQuestion = () => {
     if (title !== '' && content !== '' && tags.length !== 0) {
@@ -38,12 +47,13 @@ const AskQuestion = () => {
           title: title,
           content: content,
           tags: tags,
-          asked_at: '2023-04-25',
+          asked_at: today,
           member: '홍길동1',
         })
         .then((response) => {
           console.log(response);
           navigate('/');
+          window.location.reload();
         });
     } else {
       setIsEmpty(true);
@@ -56,6 +66,10 @@ const AskQuestion = () => {
     setContent(() => '');
     setTags([]);
   };
+
+  useEffect(() => {
+    getCurrentDate();
+  }, []);
 
   return (
     <Container>
