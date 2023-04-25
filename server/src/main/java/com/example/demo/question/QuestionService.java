@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -87,6 +88,13 @@ public class QuestionService {
         else findQuestion.setVotes(findQuestion.getVotes()-1);
 
         return questionRepository.save(findQuestion);
+    }
+
+    public Page<Question> searchQuestions(String keyword, int page, int size) {
+//        List<Question> questions = questionRepository.findByTitleContaining(keyword);
+        PageRequest pageRequest = PageRequest.of(page,size, Sort.by("askedAt").descending());
+
+        return questionRepository.findByTitleContaining(pageRequest, keyword);
     }
 
     public Question findVerifiedQuestion(long id)

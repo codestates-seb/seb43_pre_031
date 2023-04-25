@@ -307,6 +307,61 @@ public class QuestionControllerTest {
     }
 
     @Test
+    public void searchQuestionsTest() throws Exception {
+        List<Question> questions = new ArrayList<>();
+        for(Long i = 1L; i<=5L; i++) questions.add(new Question(i,"test","test", "test", "test"));
+        List<QuestionDto.Response> responses = new ArrayList<>();
+        for(Long i = 5L; i>=1L; i--) responses.add(new QuestionDto.Response(i,"test", "test","2023-04-19 16:11:11","2023-04-20 11:22:33",1L,"김코딩",List.of("a","b","c")));
+
+        String keyword = "test", page = "1", size = "5";
+        MultiValueMap<String,String> queryParams = new LinkedMultiValueMap<>();
+        queryParams.add("keyword", keyword);
+        queryParams.add("page", page);
+        queryParams.add("size", size);
+
+        given(questionService.searchQuestions(Mockito.anyString(), Mockito.anyInt(),Mockito.anyInt())).willReturn(new PageImpl<>(questions));
+        given(mapper.questionsToQuestionResponseDtos(Mockito.anyList())).willReturn(responses);
+
+        ResultActions actions = mockMvc.perform(
+                MockMvcRequestBuilders.get("/questions/search")
+                        .params(queryParams)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+
+        actions
+                .andExpect(status().isOk())
+                .andDo(
+                        document(
+                                "get-questions",
+                                getRequestPreProcessor(),
+                                getResponsePreProcessor(),
+                                requestParameters(List.of(
+                                        parameterWithName("keyword").description("검색어"),
+                                        parameterWithName("page").description("page 번호"),
+                                        parameterWithName("size").description("page size")
+                                )),
+                                responseFields(
+                                        List.of(
+                                                fieldWithPath("data").type(JsonFieldType.ARRAY).description("결과 데이터"),
+                                                fieldWithPath("data[].id").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                                fieldWithPath("data[].title").type(JsonFieldType.STRING).description("질문 제목"),
+                                                fieldWithPath("data[].content").type(JsonFieldType.STRING).description("질문 내용"),
+                                                fieldWithPath("data[].asked_at").type(JsonFieldType.STRING).description("질문 등록일"),
+                                                fieldWithPath("data[].modified_at").type(JsonFieldType.STRING).description("질문 수정일"),
+                                                fieldWithPath("data[].memberId").type(JsonFieldType.NUMBER).description("질문 작성자 id"),
+                                                fieldWithPath("data[].member").type(JsonFieldType.STRING).description("질문 작성자 이름"),
+                                                fieldWithPath("data[].tags").type(JsonFieldType.ARRAY).description("태그"),
+                                                fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
+                                                fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("페이지 번호"),
+                                                fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("페이지 크기"),
+                                                fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("전체 질문 수"),
+                                                fieldWithPath("pageInfo.totalPages").type(JsonFieldType.NUMBER).description("전체 페이지 수")
+                                        ))
+                        )
+                );
+    }
+
+    @Test
     //@WithMockUser
     public void deleteQuestionTest() throws Exception
     {
