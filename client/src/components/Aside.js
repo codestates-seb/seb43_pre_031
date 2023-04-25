@@ -53,9 +53,9 @@ const Aside = () => {
 export default Aside;
 
 const Container = styled.aside`
-  margin-left: 3rem;
+  /* margin-left: 3rem; */
   margin-top: 6rem;
-  width: 30%;
+  min-width: 20%;
   ul {
     background-color: #fdf7e2;
     margin-top: 2.5rem;
@@ -67,6 +67,7 @@ const Container = styled.aside`
       width: 100%;
       border: 1px solid ${(props) => props.theme.color.yellow200};
       padding: 1.5rem;
+      font-size: 1.4rem;
     }
     li {
       list-style: none;

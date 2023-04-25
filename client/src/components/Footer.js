@@ -52,7 +52,8 @@ const Container = styled.footer`
   position: absolute;
   bottom: 0;
   background-color: ${(props) => props.theme.color.black800};
-  height: 30rem;
+  min-height: 30rem;
+  height: auto;
   width: 100%;
   color: white;
   padding: 3rem 0;
