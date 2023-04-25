@@ -38,7 +38,7 @@ const AskQuestion = () => {
           title: title,
           content: content,
           tags: tags,
-          // asked_at: '2023-04-21',
+          asked_at: '2023-04-25',
           member: '홍길동1',
         })
         .then((response) => {
