@@ -2,10 +2,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '../elements/Button';
+import storage from '../lib/storage';
 
 const Header = () => {
   const navigate = useNavigate();
-  const isLogin = localStorage.getItem('login');
+  const isLogin = storage.get('login');
 
   if (isLogin) {
     return (
@@ -73,6 +74,7 @@ const Container = styled.div`
   position: fixed;
   top: 0;
   width: 100vw;
+  max-width: 100%;
   height: 6rem;
   background-color: ${(props) => props.theme.color.lightGray};
   display: flex;
