@@ -1,12 +1,13 @@
 import Navmenu from './Navmenu';
 import Profile from './Profile';
 import UserBoard from './UserBoard';
+import Activity from './Activity';
+import Saves from './Saves';
+import Settings from './Settings';
 import UserDelete from './UserDelete';
 import Preferences from './Preferences';
-import Settings from './Settings';
-import Saves from './Saves';
-import Activity from './Activity';
-import { Route, Routes } from 'react-router-dom';
+
+import { Routes, Route } from 'react-router-dom';
 
 const Usersmain = () => {
   // const [userObj, setUserObj] = useState(null);
@@ -24,7 +25,7 @@ const Usersmain = () => {
         <UserBoard />
         <Navmenu />
         <Routes>
-          <Route path="/user/" element={<Profile />} />
+          <Route path="/user/profile" element={<Profile />} />
           <Route path="/user/activity" element={<Activity />} />
           <Route path="/user/saves" element={<Saves />} />
           <Route path="/user/settings" element={<Settings />} />

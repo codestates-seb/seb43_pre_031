@@ -8,7 +8,7 @@ import { API } from '../../utils/API';
 
 const SettingsBody = () => {
   // 유저 아이디 ->>> 추후 수정 필요
-  const [userId, setUserId] = useState('1');
+  const [userId, setUserId] = useState('');
   const [check, setCheck] = useState(false);
   const [fullname, setFullname] = useState('');
   const [location, setLocation] = useState('');
@@ -25,7 +25,7 @@ const SettingsBody = () => {
   // 페이지 초기화
   useEffect(() => {
     // 유저 아이디 가져오는 부분 ->>> 추후 수정 필요
-    setUserId(storage.get('userID'));
+    setUserId(storage.get('loginID'));
 
     // const reqParams = {
     //   memberId: userId,
