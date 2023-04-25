@@ -20,24 +20,15 @@ const DetailQuestion = () => {
 
   //질문 & 답변 불러오기(GET) ========================================================================
   const getContents = async () => {
-    await axios
-      .all([
-        axios.get(`${API}/questions/${id}`),
-        axios.get(`${API}/answers`),
-        //question의 id(20230415111301)를 쿼리로 받아서 해당 질문에 달린 답변들을 가져오도록 해야함
-      ])
-      .then(
-        axios.spread((res1, res2) => {
-          console.log(res2.data);
-          setQuestion(res1.data);
-          setAnswers(res2.data.data);
-        })
-      );
+    await axios.get(`${API}/questions/${id}`).then((response) => {
+      setQuestion(response.data);
+      setAnswers(response.data.answers);
+    });
   };
 
   //답변 추가(POST) ===============================================================================
   const postAnswer = () => {
-    const email = 'a@a';
+    const email = 'abc@abc.com';
     // const date = 'Apr 17, 2023 at 22:36';
 
     if (myAnswer === '') {
@@ -88,15 +79,14 @@ const DetailQuestion = () => {
 
   useEffect(() => {
     getContents();
-    console.log(answers);
   }, [call]);
 
   return (
     <Container>
       <Question
         title={question.title}
-        asked={question.asked}
-        modified={question.modified}
+        asked={question.asked_at}
+        modified={question.modified_at}
         content={question.content}
         // viewed={question.viewed}
         // vote={question.vote}
@@ -105,8 +95,7 @@ const DetailQuestion = () => {
         deleteQuestion={() => deleteQuestion(question.id)}
         editQuestion={() => moveForEdit(question.id, 'question')}
       />
-      {/* <h2>{question.answer_count} Answers</h2> */}
-      <h2>0 Answers</h2>
+      <h2>{answers.length} Answers</h2>
       <div>
         {answers &&
           answers.map((i) => (

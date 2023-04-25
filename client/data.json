@@ -20,6 +20,27 @@
       "name": "안유진",
       "email": "yujin@gmail.com",
       "password": 1111
+    },
+    {
+      "fullName": "test",
+      "email": "test1@t.t",
+      "password": "tttt1111",
+      "isMarketing": "",
+      "id": 3
+    },
+    {
+      "fullName": "test",
+      "email": "test1@t.t",
+      "password": "tttt1111",
+      "isMarketing": "",
+      "id": 4
+    },
+    {
+      "fullName": "test",
+      "email": "test1@t.t",
+      "password": "tttt1111",
+      "isMarketing": "",
+      "id": 5
     }
   ],
   "questions": [
