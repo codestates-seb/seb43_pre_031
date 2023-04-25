@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Viewer from '../components/Viewer';
+import UserCard from './UserCard';
 
 //질문, 답변 컨텐츠와 조작 버튼들, 프로필을 담는 컴포넌트
 const Content = (props) => {
@@ -15,7 +16,7 @@ const Content = (props) => {
   } = props; //타입, 컨텐츠, 질문 등록일(혹은 답변일), 유저 객체를 인자로 받음
 
   return (
-    <div className="content-wrapper">
+    <ContentWrapper>
       <div>{content && <Viewer content={content} />}</div>
       {type === 'question' && tags && (
         <TagsWrapper>
@@ -34,25 +35,14 @@ const Content = (props) => {
             Delete
           </span>
         </FlexWrapper>
-        <UserCard>
-          <p className="fontcolor">
-            {type === 'answer' ? `answered ${date}` : `asked ${date}`}
-          </p>
-          {user && (
-            <UserFlexWrapper>
-              <img
-                src="https://randomuser.me/api/portraits/thumb/men/55.jpg"
-                alt="유저 이미지"
-              ></img>
-              <span className="edited">{user}</span>
-            </UserFlexWrapper>
-          )}
-        </UserCard>
+        <UserCard datatype={type} date={date} username={user} />
       </Controller>
-    </div>
+    </ContentWrapper>
   );
 };
-
+const ContentWrapper = styled.div`
+  width: 100%;
+`;
 const Controller = styled.div`
   display: flex;
   justify-content: space-between;
@@ -73,35 +63,17 @@ const TagsWrapper = styled.div`
 `;
 
 const Tag = styled.span`
-  background-color: ${(props) => props.theme.color.blue100};
+  background-color: ${(props) => props.theme.color.powder100};
   color: ${(props) => props.theme.color.blue800};
   margin-right: 0.8rem;
   border-radius: 3px;
   cursor: pointer;
-  padding: 0.5rem 0.7rem;
+  padding: 0.5rem;
   display: inline-block;
   text-align: center;
-  width: 3rem;
-  height: 3rem;
+
   &:hover {
-    background-color: ${(props) => props.theme.color.blue200};
-  }
-`;
-
-const UserCard = styled.div`
-  width: 20rem;
-  height: 6.7rem;
-  padding: 0.6rem;
-  background-color: ${(props) => props.theme.color.powder200};
-  border-radius: ${(props) => props.theme.common.borderRadius};
-
-  p {
-    font-size: 1.3rem;
-  }
-  img {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: ${(props) => props.theme.common.borderRadius};
+    background-color: ${(props) => props.theme.color.powder200};
   }
 `;
 
@@ -111,15 +83,6 @@ const FlexWrapper = styled.div`
 
   span {
     font-size: 1.3rem;
-  }
-`;
-
-const UserFlexWrapper = styled(FlexWrapper)`
-  margin-top: 0.2rem;
-  align-items: center;
-
-  .edited {
-    color: ${(props) => props.theme.color.blue700};
   }
 `;
 

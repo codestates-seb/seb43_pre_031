@@ -38,7 +38,7 @@ const AskQuestion = () => {
           title: title,
           content: content,
           tags: tags,
-          asked_at: '2023-04-21',
+          // asked_at: '2023-04-21',
           member: '홍길동1',
         })
         .then((response) => {
@@ -135,15 +135,18 @@ const AskQuestion = () => {
 };
 
 const Container = styled.div`
+  width: 85%;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
   padding: 2rem;
+  margin: 0 auto;
   margin-top: 6rem;
   padding-bottom: 40rem;
 
   h1 {
     font-size: 2.4rem;
+    margin: 2rem 0;
   }
   p {
     font-size: 1.4rem;
