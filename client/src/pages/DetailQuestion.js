@@ -8,6 +8,7 @@ import Editor from '../components/Editor';
 import Button from '../elements/Button';
 import Notice from '../elements/Notice';
 import { API } from '../utils/API';
+import { getCookie } from '../lib/Cookies';
 
 const DetailQuestion = () => {
   let { id } = useParams();
@@ -17,6 +18,8 @@ const DetailQuestion = () => {
   const [myAnswer, setMyAnswer] = useState('');
   const [call, setCall] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
+
+  const token = getCookie('AccessToken');
 
   //질문 & 답변 불러오기(GET) ========================================================================
   const getContents = async () => {
@@ -28,7 +31,7 @@ const DetailQuestion = () => {
 
   //답변 추가(POST) ===============================================================================
   const postAnswer = () => {
-    const email = 'abc@abc.com';
+    // const email = 'abcd@abc.com';
     // const date = 'Apr 17, 2023 at 22:36';
 
     if (myAnswer === '') {
@@ -36,12 +39,20 @@ const DetailQuestion = () => {
       return;
     }
     axios
-      .post(`${API}/answers`, {
-        question_id: id,
-        content: myAnswer,
-        email: email,
-        // answered: date,
-      })
+      .post(
+        `${API}/answers`,
+        {
+          question_id: id,
+          content: myAnswer,
+          // email: email,
+          // answered: date,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((response) => {
         console.log(response);
         setAnswers([...answers, myAnswer]);
