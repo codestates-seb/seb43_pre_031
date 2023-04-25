@@ -99,4 +99,24 @@ public class QuestionController {
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity searchQuestions(@RequestParam(value = "keyword") String keyword,
+                                         @RequestParam(value = "page", required = false) Integer page,
+                                         @RequestParam(value = "size", required = false) Integer size) {
+        if(page == null) page = 1;
+        if(size == null) size = 10;
+
+        Page<Question> questionPage = questionService.searchQuestions(keyword, page-1, size);
+
+        List<Question> questions = questionPage.getContent();
+
+        for(Question question:questions) {
+            System.out.println(question.getTitle());
+            System.out.println(question.getContent());
+        }
+
+        List<QuestionDto.Response> responses = mapper.questionsToQuestionResponseDtos(questions);
+
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,questionPage), HttpStatus.OK);
+    }
 }
