@@ -91,8 +91,6 @@ const Tag = styled.span`
   padding: 0.5rem 0.7rem;
   display: inline-block;
   text-align: center;
-  width: 3rem;
-  height: 3rem;
   &:hover {
     background-color: ${(props) => props.theme.color.blue200};
   }

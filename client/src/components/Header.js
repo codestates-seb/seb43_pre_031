@@ -60,7 +60,6 @@ const Header = () => {
               navigate('/users/signup');
             }}
           />
-          {/* <button className="signup">Sign up</button> */}
         </div>
       </Container>
     );
@@ -110,10 +109,6 @@ const Container = styled.div`
     background-color: ${(props) => props.theme.color.blue100};
     color: ${(props) => props.theme.color.blue400};
   }
-  /* .signup {
-    background-color: ${(props) => props.theme.color.blue400};
-    color: white;
-  } */
 `;
 
 const Logo = styled.img`
@@ -136,7 +131,7 @@ const Search = styled.div`
     border: none;
     background-color: transparent;
     font-size: 1.5rem;
-    width: 100%;
+    width: auto;
     &:focus {
       outline: none;
     }
