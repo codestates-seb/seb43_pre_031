@@ -98,9 +98,9 @@ export default function Signup() {
         .catch((err) => {
           console.log(err);
           // 임시 설정
-          if (err.response.status === 500) {
-            navigate('/users/account-recovery');
-          }
+          // if (err.response.status === 500) {
+          //   navigate('/users/account-recovery');
+          // }
           //
           if (err.response.status === 401) {
             setErrorMessage(

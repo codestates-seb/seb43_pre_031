@@ -2,9 +2,12 @@
   "members": [
     {
       "id": 0,
-      "name": "이현진",
+      "fullName": "이현진",
       "email": "nagi5924@gmail.com",
-      "password": 1111
+      "password": 1111,
+      "location": "seoul",
+      "title": "title",
+      "aboutme": "lll"
     },
     {
       "id": 1,
@@ -17,30 +20,9 @@
     },
     {
       "id": 2,
-      "name": "안유진",
+      "fullName": "안유진",
       "email": "yujin@gmail.com",
       "password": 1111
-    },
-    {
-      "fullName": "test",
-      "email": "test1@t.t",
-      "password": "tttt1111",
-      "isMarketing": "",
-      "id": 3
-    },
-    {
-      "fullName": "test",
-      "email": "test1@t.t",
-      "password": "tttt1111",
-      "isMarketing": "",
-      "id": 4
-    },
-    {
-      "fullName": "test",
-      "email": "test1@t.t",
-      "password": "tttt1111",
-      "isMarketing": "",
-      "id": 5
     }
   ],
   "questions": [

@@ -4,40 +4,42 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import storage from '../../lib/storage';
 import { API } from '../../utils/API';
+import { getCookie } from '../../lib/Cookies';
 // import { patchMemberInfo, getMemberInfo } from '../../utils/API';
 
 const SettingsBody = () => {
   // 유저 아이디 ->>> 추후 수정 필요
-  const [userId, setUserId] = useState('');
   const [check, setCheck] = useState(false);
   const [fullname, setFullname] = useState('');
   const [location, setLocation] = useState('');
   const [title, setTitle] = useState('');
   const [aboutme, setAboutme] = useState('');
+  const token = getCookie('AccessToken');
+  const userID = storage.get('userID');
   const reqParams = {
-    memberId: userId,
+    memberId: userID,
     fullName: fullname,
     location: location,
     title: title,
-    aboutme: aboutme,
+    aboutMe: aboutme,
     memberStatus: 'MEMBER_ACTIVE',
   };
   // 페이지 초기화
   useEffect(() => {
     // 유저 아이디 가져오는 부분 ->>> 추후 수정 필요
-    setUserId(storage.get('loginID'));
 
     // const reqParams = {
     //   memberId: userId,
     // };
 
     axios(
-      `${API}/members/1`,
+      `${API}/members/${userID}`,
       //요청할 api 주소, api명세를 보고 작성(path)
       {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
           // ngrok 으로 데이터 받을 때 browser warning 스킵
           // 'ngrok-skip-browser-warning': '69420',
         },
@@ -53,7 +55,7 @@ const SettingsBody = () => {
         setFullname(res.data.fullName);
         setLocation(res.data.location);
         setTitle(res.data.title);
-        setAboutme(res.data.aboutme);
+        setAboutme(res.data.aboutMe);
       })
       .catch((ex) => {
         //오류가 발생했을때 오류를 콘솔에 찍는 것
@@ -82,11 +84,12 @@ const SettingsBody = () => {
   const handleClickBtnSubmit = async (e) => {
     e.preventDefault();
 
-    axios(`${API}/members/1`, {
+    axios(`${API}/members/${userID}`, {
       method: 'PATCH', //데이터 수정 요청
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       data: JSON.stringify(reqParams),
     })
@@ -98,6 +101,7 @@ const SettingsBody = () => {
         console.log(res.data);
 
         alert('저장 성공');
+        window.location.reload();
       })
       .catch((ex) => {
         // 응답을 받지 못하거나 오류 발생 한 경우 (RES CODE 200이 아닌 경우)
