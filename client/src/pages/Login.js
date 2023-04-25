@@ -67,16 +67,8 @@ export default function Login({ setIsLogin }) {
           // '쿠키 이름' 에 토큰 값을 저장하기
           setCookie('AccessToken', `${accessToken}`);
           setCookie('RefreshToken', `${refreshToken}`);
-          // axios 동작 시 헤더에 기본으로 붙도록 설정하기 => 안되나?
-          axios.defaults.headers.common['x-access-token'] = accessToken;
-          // 그럼 private 변수에 accessToken 을 저장해서 빼와야 하나? 쿠키에서 그때그때 빼와야 되나? 아님 겟 요청으로 헤더에 넣어서 보내기?
-          // axios({
-          //   method: 'get',
-          //   url: `${API}/members/login`,
-          //   headers: { Authorization: { accessToken } },
-          // }).then((response) => {
-          //   console.log(response);
-          // });
+
+          //
 
           console.log(`userID : ${userID} 로그인 성공`);
           // 로그인 성공 시 질문(홈) 페이지로 이동하기
