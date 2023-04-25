@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
-export const Navmenu = () => {
+const Navmenu = () => {
   return (
     <NavWrapper>
-      <Link to="/">
+      <Link to="/user">
         <StyledButton>Profile</StyledButton>
       </Link>
-      <Link to="/activity">
+      <Link to="/user/activity">
         <StyledButton>Activity</StyledButton>
       </Link>
-      <Link to="/saves">
+      <Link to="/user/saves">
         <StyledButton>Saves</StyledButton>
       </Link>
-      <Link to="/settings">
+      <Link to="/user/settings">
         <StyledButton>Settings</StyledButton>
       </Link>
     </NavWrapper>
@@ -44,3 +44,5 @@ const StyledButton = styled.button`
     color: white;
   }
 `;
+
+export default Navmenu;

@@ -1,7 +1,7 @@
-import { ProfileBody } from './Profilebody.js';
-import { ProfileSide } from './Profileside.js';
+import ProfileBody from './ProfileBody';
+import ProfileSide from './ProfileSide';
 
-export const Profile = () => {
+const Profile = () => {
   return (
     <div className="responsive">
       <ProfileSide />
@@ -9,3 +9,5 @@ export const Profile = () => {
     </div>
   );
 };
+
+export default Profile;
