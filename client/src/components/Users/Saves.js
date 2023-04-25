@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
-export const Saves = () => {
+const Saves = () => {
   return (
     <Row>
-      <Aside>
+      <div className="nav">
         <StyledButton>All saves</StyledButton>
         <StyledButton>For later</StyledButton>
-      </Aside>
+      </div>
       <Center>
         <text>All saves</text>
         <text>0 saved items</text>
@@ -17,11 +17,12 @@ export const Saves = () => {
     </Row>
   );
 };
+
 const Center = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  margin: 0 55rem 0 0;
+
   text {
     font-size: 2.1rem;
     margin: 1rem;
@@ -29,14 +30,17 @@ const Center = styled.div`
 `;
 
 const Row = styled.div`
+width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`;
-const Aside = styled.div`
-  margin: 0 0 0 0
-  }
 
+  .nav {
+    @media screen and (max-width: 980px) {
+      display: none;
+    }
+  }
+  }
 `;
 
 const StyledButton = styled.button`
@@ -58,12 +62,14 @@ button.is-selected {
   color: white;
 }`;
 
-export const SavesButton = styled.div`
+const SavesButton = styled.div`
+display: flex;
+  align-items: center;
+  width: 20rem;
           button {
             padding: 1rem;
   border: none;
   border-top: 1px solid ${(props) => props.theme.color.blue200};
-  margin: 0 0 0 0;
   border-radius: ${(props) => props.theme.common.borderRadius};
   background-color: ${(props) => props.theme.color.blue500};
   outline: ${(props) => props.theme.color.blue500} solid 1px;
@@ -79,3 +85,5 @@ export const SavesButton = styled.div`
     outline: ${(props) => props.theme.color.blue100} solid 0.4rem;
   }
 `;
+
+export default Saves;

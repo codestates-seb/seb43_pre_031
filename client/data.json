@@ -8,9 +8,12 @@
     },
     {
       "id": 1,
-      "name": "이영지",
-      "email": "youngji@gmail.com",
-      "password": 1111
+      "fullName": "0",
+      "location": "9",
+      "title": "8",
+      "aboutme": "7",
+      "memberId": null,
+      "memberStatus": "MEMBER_ACTIVE"
     },
     {
       "id": 2,
