@@ -95,8 +95,8 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
-//                .port(80)
-                .path("/receive-token.html")
+                .port(3000)
+                .path("/receive-token")
                 .queryParams(queryParams)
                 .build()
                 .toUri();

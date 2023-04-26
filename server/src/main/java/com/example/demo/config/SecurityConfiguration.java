@@ -72,10 +72,10 @@ public class SecurityConfiguration {
 
             .and()
                 .apply(new CustomFilterConfigurer())
+
             .and()
                 .authorizeHttpRequests()
-                .requestMatchers(CorsUtils::isPreFlightRequest)
-                .permitAll()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .antMatchers(HttpMethod.GET, "/questions/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/questions").permitAll()
                 .antMatchers(HttpMethod.PATCH, "/questions/**").hasAnyRole("USER", "ADMIN")
@@ -92,7 +92,13 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.PATCH, "/answers/**").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/answers").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/answers/**").hasAnyRole("USER", "ADMIN")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+                .and()
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer,authorityUtils,memberService))
+                )
+
+
         //.clientRegistrationRepository(clientRegistrationRepository())
 
         ;
@@ -120,6 +126,15 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
+//    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
+//        @Override
+//        public void configure(HttpSecurity builder) throws Exception {
+//            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+//
+//            builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class); // (2)
+//        }
+//    }
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
 
