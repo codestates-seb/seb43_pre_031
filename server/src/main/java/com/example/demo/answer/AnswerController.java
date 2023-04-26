@@ -40,8 +40,8 @@ public class AnswerController {
     }
 
     @PostMapping
-    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody)
-                                    //@AuthenticationPrincipal String email)
+    public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post requestBody,
+                                    @AuthenticationPrincipal String email)
     {
         Answer answer = answerService.createAnswer(requestBody, requestBody.getEmail());
         //Answer answer = answerService.createAnswer(email, mapper.answerPostDtoToAnswer(requestBody)););

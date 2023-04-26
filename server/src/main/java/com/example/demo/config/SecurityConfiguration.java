@@ -9,7 +9,6 @@ import com.example.demo.auth.handler.MemberAuthenticationFailureHandler;
 import com.example.demo.auth.handler.MemberAuthenticationSuccessHandler;
 import com.example.demo.auth.jwt.JwtTokenizer;
 import com.example.demo.auth.utils.CustomAuthorityUtils;
-import com.example.demo.member.MemberService;
 import com.example.demo.member.MemberServiceForOAuth;
 import com.example.demo.oauth2.OAuth2MemberSuccessHandler;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +35,7 @@ import java.util.Arrays;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
-//@Configuration
+@Configuration
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
@@ -60,50 +59,46 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().sameOrigin()
-                .and()
+            .and()
                 .csrf().disable()
                 .cors(withDefaults())
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+            .and()
                 .formLogin().disable()
                 .httpBasic().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
-                .and()
-                .apply(new CustomFilterConfigurer())
-                .and()
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(CorsUtils::isPreFlightRequest)
-                        .permitAll()
-                        .antMatchers(HttpMethod.POST, "/questions").permitAll()
-                        .antMatchers(HttpMethod.PATCH, "/questions/**").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/questions").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.GET, "/questions/**").hasAnyRole("USER", "ADMIN")
-                        .antMatchers(HttpMethod.DELETE, "/questions/**").hasRole("USER")
-                        .anyRequest().permitAll()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                    .loginPage("/oauth") // 로그인 페이지 URL
-                    .defaultSuccessUrl("/questions") // 로그인 성공시 이동할 URL // 이전페이지로 돌아가는 리다이렉션 어떻게?
-                    .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
-                )
-                ;
 
+            .and()
+                .apply(new CustomFilterConfigurer())
+            .and()
+                .authorizeHttpRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest)
+                .permitAll()
+                .antMatchers(HttpMethod.GET, "/questions/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/questions").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/questions/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/questions").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/questions/**").hasAnyRole("USER", "ADMIN")
+
+                .antMatchers(HttpMethod.GET, "/members/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/members/**").permitAll()
+                .antMatchers(HttpMethod.PATCH, "/members/**").hasRole("USER")
+                .antMatchers(HttpMethod.GET, "/members").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/members").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/members/**").hasRole("USER")
+
+                .antMatchers(HttpMethod.PATCH, "/answers/**").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST, "/answers").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/answers/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
+        //.clientRegistrationRepository(clientRegistrationRepository())
+
+        ;
         return http.build();
     }
 
-//    public OAuth2LoginAuthenticationFilter oAuthFilter() throws Exception
-//    {
-//        JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
-//
-//        .oauth2Login(oauth2 -> oauth2
-//            .loginPage("/oauth") // 로그인 페이지 URL
-//            .defaultSuccessUrl("/questions") // 로그인 성공시 이동할 URL // 이전페이지로 돌아가는 리다이렉션 어떻게?
-//            .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
-//    )
-//            .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class)
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -127,12 +122,7 @@ public class SecurityConfiguration {
     }
 
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
-//        @Override
-//        public void configure(HttpSecurity builder) throws Exception {
-//            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
-//
-//            builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class); // (2)
-//        }
+
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
@@ -147,9 +137,14 @@ public class SecurityConfiguration {
             builder
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
+            builder
+                    .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
 
+    /**
+     * yml 파일에 clientID, Secret이 포함된 경우 자동으로 설정된다??
+     */
     @Bean
     public ClientRegistrationRepository clientRegistrationRepository()
     {
