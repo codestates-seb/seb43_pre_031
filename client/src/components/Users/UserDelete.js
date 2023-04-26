@@ -13,7 +13,6 @@ const userID = storage.get('userID');
 const UserDelete = () => {
   // const navigate = useNavigate();
   const [boxChecked, setBoxChecked] = useState(false);
-  const navigate = useNavigate();
   const CheckedHandler = () => {
     setBoxChecked(!boxChecked);
   };
