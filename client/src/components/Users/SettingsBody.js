@@ -14,7 +14,7 @@ const SettingsBody = () => {
   const [location, setLocation] = useState('');
   const [title, setTitle] = useState('');
   const [aboutme, setAboutme] = useState('');
-  const token = getCookie('AccessToken');
+  const token = getCookie('accessToken');
   const userID = storage.get('userID');
   const reqParams = {
     memberId: userID,
@@ -122,7 +122,7 @@ const SettingsBody = () => {
         <p>Public information</p>
         <div className="right">
           <span>Profile image</span>
-          <input type="file" accept="image/*" />
+          {/* <input type="file" accept="image/*" /> */}
           <div className="user-imgBox"></div>
           <span>Display name</span>
           <input
@@ -201,14 +201,11 @@ const SettingContent = styled.div`
 
   margin: 0 0 0 3rem;
   input {
-    width: 40rem;
+    width: 60%;
     height: 3rem;
     margin-bottom: 1.5rem;
     margin: 0 0 1.5rem 1rem;
-    .aboutme {
-      width: 500rem;
 
-    }
   }
   span {
     font-size: 1.5rem;

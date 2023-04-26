@@ -8,7 +8,7 @@ import { getCookie } from '../../lib/Cookies';
 import storage from '../../lib/storage';
 import { useNavigate } from 'react-router-dom';
 
-const token = getCookie('AccessToken');
+const token = getCookie('accessToken');
 const userID = storage.get('userID');
 
 const UserDelete = () => {
