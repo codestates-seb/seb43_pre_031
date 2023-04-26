@@ -16,10 +16,7 @@ const DetailQuestion = () => {
   const [question, setQuestion] = useState({});
   const [answers, setAnswers] = useState([]);
   const [myAnswer, setMyAnswer] = useState('');
-  const [call, setCall] = useState(false);
   const [isEmpty, setIsEmpty] = useState(false);
-
-  const token = getCookie('AccessToken');
 
   //질문 & 답변 불러오기(GET) ========================================================================
   const getContents = async () => {
@@ -31,25 +28,21 @@ const DetailQuestion = () => {
 
   //답변 추가(POST) ===============================================================================
   const postAnswer = () => {
-    // const email = 'abcd@abc.com';
-    // const date = 'Apr 17, 2023 at 22:36';
-
     if (myAnswer === '') {
       setIsEmpty(true);
       return;
     }
+
     axios
       .post(
         `${API}/answers`,
         {
           question_id: id,
           content: myAnswer,
-          // email: email,
-          // answered: date,
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${getCookie('AccessToken')}`,
           },
         }
       )
@@ -57,14 +50,11 @@ const DetailQuestion = () => {
         console.log(response);
         setAnswers([...answers, myAnswer]);
         setMyAnswer('');
-        setCall(!call);
       });
   };
 
-  //수정 위해 이동(PUT) ===============================================================================
+  //수정 위해 이동 ===============================================================================
   const moveForEdit = (id, type) => {
-    //1. 수정 하려는 글에 대한 정보를 인자로 넘김 (api를 한번이라도 덜 호출)
-    //2. 페이지 이동 후 해당 글에 대한 api를 호출 (코드가 상대적으로 간략해짐) --> 일단 채택
     if (type === 'question') {
       navigate(`/question/editq/${id}`);
     } else {
@@ -74,23 +64,35 @@ const DetailQuestion = () => {
 
   //질문 삭제(DELETE) ===============================================================================
   const deleteQuestion = (id) => {
-    axios.delete(`${API}/questions/${id}`).then((response) => {
-      console.log(response);
-      navigate('/');
-    });
+    axios
+      .delete(`${API}/questions/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('AccessToken')}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        navigate('/');
+      });
   };
   //답변 삭제(DELETE) ===============================================================================
   const deleteAnswer = (id) => {
-    axios.delete(`${API}/answers/${id}`).then((response) => {
-      console.log(response);
-      setAnswers(answers.filter((i) => i.id !== id));
-      setCall(!call);
-    });
+    axios
+      .delete(`${API}/answers/${id}`, {
+        headers: {
+          Authorization: `Bearer ${getCookie('AccessToken')}`,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        setAnswers(answers.filter((i) => i.id !== id));
+      });
   };
 
   useEffect(() => {
     getContents();
-  }, [call]);
+    console.log(getCookie('AccessToken'));
+  }, []);
 
   return (
     <Container>
@@ -99,8 +101,6 @@ const DetailQuestion = () => {
         asked={question.asked_at}
         modified={question.modified_at}
         content={question.content}
-        // viewed={question.viewed}
-        // vote={question.vote}
         user={question.member}
         tags={question.tags}
         deleteQuestion={() => deleteQuestion(question.id)}

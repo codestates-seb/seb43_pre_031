@@ -6,7 +6,6 @@ import axios from 'axios';
 import { API } from '../../utils/API';
 import { getCookie } from '../../lib/Cookies';
 import storage from '../../lib/storage';
-import { useNavigate } from 'react-router-dom';
 
 const token = getCookie('accessToken');
 const userID = storage.get('userID');
@@ -22,6 +21,7 @@ const UserDelete = () => {
     //   id: 1,
     //   memberStatus: 'MEMBER_ACTIVE',
     // };
+    const navigate = useNavigate();
     axios(
       `${API}/members/${userID}`,
       //요청할 api 주소, api명세를 보고 작성(path)
@@ -42,7 +42,6 @@ const UserDelete = () => {
         console.log(res);
         //로컬스토리지에 있는 유저ID, 로그인상태, 쿠키(JWT 토큰값)
         //200 응답을 받고 확인될때 삭제를 해주는 로직 필요(too much)
-        navigate('/users/login');
         // 페이지 초기 값 설정
       })
       .catch((ex) => {
