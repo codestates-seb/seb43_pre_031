@@ -73,6 +73,9 @@ const DetailQuestion = () => {
       .then((response) => {
         console.log(response);
         navigate('/');
+      })
+      .catch(() => {
+        alert('질문 삭제 권한이 없습니다.');
       });
   };
   //답변 삭제(DELETE) ===============================================================================
@@ -86,6 +89,9 @@ const DetailQuestion = () => {
       .then((response) => {
         console.log(response);
         setAnswers(answers.filter((i) => i.id !== id));
+      })
+      .catch(() => {
+        alert('답변 삭제 권한이 없습니다.');
       });
   };
 

@@ -44,6 +44,9 @@ const EditAllPosts = ({ answer }) => {
         .then((response) => {
           console.log(response);
           navigate(-1);
+        })
+        .catch(() => {
+          alert('수정 권한이 없습니다.');
         });
     } else {
       if (title === '' || questionContent === '' || tags.length === 0) {
@@ -67,6 +70,10 @@ const EditAllPosts = ({ answer }) => {
         )
         .then((response) => {
           console.log(response);
+          navigate(-1);
+        })
+        .catch(() => {
+          alert('수정 권한이 없습니다.');
           navigate(-1);
         });
     }

@@ -53,6 +53,10 @@ const AskQuestion = () => {
         .then((response) => {
           console.log(response);
           navigate('/');
+        })
+        .catch(() => {
+          alert('작성 권한이 없습니다.');
+          navigate(-1);
         });
     } else {
       setIsEmpty(true);
