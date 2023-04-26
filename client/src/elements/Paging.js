@@ -6,7 +6,6 @@ const Paging = ({ page, count, setPage }) => {
     <Container>
       <Pagination
         activePage={page}
-        itemsCountPerPage={7}
         totalItemsCount={count}
         pageRangeDisplayed={5}
         prevPageText={'Prev'}
