@@ -6,6 +6,7 @@ import axios from 'axios';
 import { API } from '../../utils/API';
 import { getCookie } from '../../lib/Cookies';
 import storage from '../../lib/storage';
+// import { useNavigate } from 'react-router-dom';
 
 const token = getCookie('accessToken');
 const userID = storage.get('userID');
@@ -39,6 +40,7 @@ const UserDelete = () => {
         //res에 데이터 들어옴
         // 응답 데이터 LOG
         console.log(res);
+        // navigate('/users/login');
         //로컬스토리지에 있는 유저ID, 로그인상태, 쿠키(JWT 토큰값)
         //200 응답을 받고 확인될때 삭제를 해주는 로직 필요(too much)
         // 페이지 초기 값 설정
