@@ -37,7 +37,7 @@ const EditAllPosts = ({ answer }) => {
           },
           {
             headers: {
-              Authorization: `Bearer ${getCookie('AccessToken')}`,
+              Authorization: `Bearer ${getCookie('accessToken')}`,
             },
           }
         )
@@ -61,7 +61,7 @@ const EditAllPosts = ({ answer }) => {
           },
           {
             headers: {
-              Authorization: `Bearer ${getCookie('AccessToken')}`,
+              Authorization: `Bearer ${getCookie('accessToken')}`,
             },
           }
         )
@@ -90,7 +90,7 @@ const EditAllPosts = ({ answer }) => {
   useEffect(() => {
     setToday(getCurrentDate());
     getContentByType();
-    console.log(getCookie('AccessToken'));
+    console.log(getCookie('accessToken'));
   }, []);
 
   return (

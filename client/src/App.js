@@ -2,9 +2,6 @@ import './App.css';
 import Main from './pages/Main';
 import axios from 'axios';
 import Header from './components/Header';
-// import Nav from './components/Nav';
-// import Aside from './components/Aside';
-// import Footer from './components/Footer';
 import AskQuestion from './pages/AskQuestion';
 import DetailQuestion from './pages/DetailQuestion';
 import Login from './pages/Login';
@@ -39,7 +36,7 @@ function App() {
       if (!isAToken) return;
 
       let userId = storage.get('userID');
-      loginStatus = storage.set('login', `${isAToken}`);
+      loginStatus = storage.set('login', `${!!isAToken}`);
       setIsLogin(true);
       console.log(`localstorage userId : ${userId}`);
       console.log(`localstorage login : ${storage.get('login')}`);
