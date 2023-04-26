@@ -9,6 +9,7 @@ import { setCookie } from '../lib/Cookies';
 
 export default function Login({ setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({});
+  const navigate = useNavigate();
 
   // 로그인 정보 보내기
   const [errorMessage, setErrorMessage] = useState('');
@@ -38,20 +39,17 @@ export default function Login({ setIsLogin }) {
       return;
     } else {
       setErrorMessage('');
-      // console.log('유효한 이메일 주소입니다');
     }
 
-    // console.log('유효성 검사 통과');
-
     // 유효성 검사 통과 후에 유저의 로그인 정보를 서버로 보내기
-    // => post 완료. 그럼 서버 단에서 이걸 받아서 회원정보랑 비교를 해주시겠지?
-    // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
+    // email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
         .post(`${API}/members/login`, { ...loginInfo })
         .then((res) => {
+          // App.js 의 로그인 상태를 true 로 변경
           setIsLogin(true);
-          console.log(res);
+
           // 로컬스토리지에 유저 ID 와 로그인 상태 저장
           const userID = res.data.memberId;
           storage.set('userID', userID);
@@ -61,17 +59,16 @@ export default function Login({ setIsLogin }) {
           const accessToken = res.data.accessToken;
           // const refreshToken = res.data.refreshToken;
 
-          // '쿠키 이름' 에 토큰 값을 저장하기
+          // 쿠키에 토큰 값을 저장하기
           setCookie('AccessToken', `${accessToken}`);
           // setCookie('RefreshToken', `${refreshToken}`);
 
-          //
-
-          console.log(`userID : ${userID} 로그인 성공`);
           // 로그인 성공 시 질문(홈) 페이지로 이동하기
           navigate('/');
+
+          console.log(`userID : ${userID} 로그인 성공`);
         })
-        // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우 //
+        //email 이나 password가 DB 의 회원정보와 일치하지 않는 경우 에러 메시지 출력
         .catch((err) => {
           console.log(err);
           if (err.response.status === 401) {
@@ -81,9 +78,9 @@ export default function Login({ setIsLogin }) {
     );
   };
 
+  // 소셜 로그인 - 구글 로그인 페이지로 이동
   let googleOAuth =
     'http://ec2-15-164-129-253.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google';
-  const navigate = useNavigate();
 
   return (
     <MainContainer>
