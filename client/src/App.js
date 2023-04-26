@@ -16,26 +16,46 @@ import FindPW from './pages/FindPW';
 import ContainAll from './pages/templates/ContainAll';
 import NavFooter from './pages/templates/NavFooter';
 import OnlyFooter from './pages/templates/OnlyFooter';
+import ReceiveToken from './pages/ReceiveToken';
+import { API } from './utils/API';
+import { getCookie } from './lib/Cookies';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
 
 function App() {
-  // * 새로고침해도 로그인 정보가 유지되는 기능 *
-  // 로그인이 되어있는지 확인하기 위해 로컬스토리지에서 userID를 가져오기(로그인 시 로컬스토리지에 userID가 저장됨)
-  // 로그인 정보가 없다면 멈추기
-  // 로그인이 되어있다면 userId 를 서버로 보내서 회원정보를 받아오기!
-  let userId;
-  (function checkUserLogin() {
-    const loggedInfo = storage.get('login');
-    if (!loggedInfo) return;
-    userId = storage.get('userID');
-    console.log(`localstorage userId : ${userId}`);
-    console.log(`localstorage login : ${loggedInfo}`);
-  })();
-
   // 로그인 성공 시 로그인 여부 받아오기
   const [isLogin, setIsLogin] = useState(false);
+  const [questions, setQuestions] = useState([]);
+
+  // access token 여부로 로그인 여부 판단 및 로컬스토리지에 userID, 로그인 여부 저장하기
+  let loginStatus;
+  useEffect(
+    function checkUserLogin() {
+      const isAToken = getCookie('accessToken');
+      if (!isAToken) return;
+
+      let userId = storage.get('userID');
+      loginStatus = storage.set('login', `${isAToken}`);
+      setIsLogin(true);
+      console.log(`localstorage userId : ${userId}`);
+      console.log(`localstorage login : ${storage.get('login')}`);
+    },
+    [loginStatus]
+  );
+
+  const getQuestions = () => {
+    axios
+      .get(`${API}/questions`)
+      .then((res) => {
+        setQuestions(res.data.data);
+      })
+      .catch((error) => console.log(`getQuestions error : ${error}`));
+  };
+
+  useEffect(() => {
+    getQuestions();
+  }, []);
 
   console.log(`App.js - isLogin : ${isLogin}`);
 
@@ -49,10 +69,14 @@ function App() {
         />
         <Route
           path="/users/logout"
-          element={<Logout setIsLogin={setIsLogin} userId={userId} />}
+          element={<Logout setIsLogin={setIsLogin} />}
         />
         <Route path="/users/signup" element={<Signup />} />
         <Route path="/users/account-recovery" element={<FindPW />} />
+        <Route
+          path="/receive-token"
+          element={<ReceiveToken setIsLogin={setIsLogin} />}
+        />
 
         <Route path="/" element={<ContainAll />}>
           <Route path="/" element={<Main />} />
@@ -60,7 +84,7 @@ function App() {
         </Route>
 
         <Route path="/" element={<NavFooter />}>
-          <Route path="/user" element={<User />} />
+          <Route path="/*" element={<User />} />
           <Route path="/question/:id" element={<DetailQuestion />} />
           <Route path="/question/editq/:id" element={<EditAllPosts />} />
           <Route path="/question/edita/:id" element={<EditAllPosts answer />} />

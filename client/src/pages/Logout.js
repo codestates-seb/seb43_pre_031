@@ -1,10 +1,8 @@
-// users/logout
 import Button from '../elements/Button';
 import styled from 'styled-components';
-// import axios from 'axios';
 import storage from '../lib/storage';
 import { useNavigate } from 'react-router-dom';
-// import { API } from '../utils/API';
+import { removeCookie } from '../lib/Cookies';
 
 export default function Logout({ setIsLogin }) {
   const navigate = useNavigate();
@@ -13,9 +11,11 @@ export default function Logout({ setIsLogin }) {
     e.preventDefault();
     setIsLogin(false);
     try {
-      // const res = await axios.post(`${API}/members/logout, ${userId}`);
       setIsLogin(false);
-      // console.log(res);
+      // 로그아웃 시 쿠키에서 토큰 삭제하기
+      removeCookie('accessToken');
+      removeCookie('refreshToken');
+
       alert('로그아웃 되었습니다.');
       console.log('로그아웃 성공!');
       // 로컬 스토리지의 정보 모두 삭제

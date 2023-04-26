@@ -5,10 +5,11 @@ import Button from '../elements/Button';
 import { API } from '../utils/API';
 import { Link, useNavigate } from 'react-router-dom';
 import storage from '../lib/storage';
-import { setCookie, getCookie } from '../lib/Cookies';
+import { setCookie } from '../lib/Cookies';
 
 export default function Login({ setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({});
+  const navigate = useNavigate();
 
   // 로그인 정보 보내기
   const [errorMessage, setErrorMessage] = useState('');
@@ -18,9 +19,6 @@ export default function Login({ setIsLogin }) {
     setPwErrorMessage('');
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
-
-  const Atoken = getCookie(`AccessToken`);
-  console.log(Atoken);
 
   const loginRequestHandler = () => {
     const { email, password } = loginInfo;
@@ -41,20 +39,17 @@ export default function Login({ setIsLogin }) {
       return;
     } else {
       setErrorMessage('');
-      // console.log('유효한 이메일 주소입니다');
     }
 
-    // console.log('유효성 검사 통과');
-
     // 유효성 검사 통과 후에 유저의 로그인 정보를 서버로 보내기
-    // => post 완료. 그럼 서버 단에서 이걸 받아서 회원정보랑 비교를 해주시겠지?
-    // * email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
+    // email, password 가 DB 의 회원정보와 일치할 경우 데이터 response 받아오기
     return (
       axios
         .post(`${API}/members/login`, { ...loginInfo })
         .then((res) => {
+          // App.js 의 로그인 상태를 true 로 변경
           setIsLogin(true);
-          console.log(res);
+
           // 로컬스토리지에 유저 ID 와 로그인 상태 저장
           const userID = res.data.memberId;
           storage.set('userID', userID);
@@ -62,19 +57,18 @@ export default function Login({ setIsLogin }) {
 
           //reponse에서 토큰값을 꺼내서 변수에 저장
           const accessToken = res.data.accessToken;
-          const refreshToken = res.data.refreshToken;
+          // const refreshToken = res.data.refreshToken;
 
-          // '쿠키 이름' 에 토큰 값을 저장하기
+          // 쿠키에 토큰 값을 저장하기
           setCookie('AccessToken', `${accessToken}`);
-          setCookie('RefreshToken', `${refreshToken}`);
+          // setCookie('RefreshToken', `${refreshToken}`);
 
-          //
-
-          console.log(`userID : ${userID} 로그인 성공`);
           // 로그인 성공 시 질문(홈) 페이지로 이동하기
           navigate('/');
+
+          console.log(`userID : ${userID} 로그인 성공`);
         })
-        // * email 이나 password가 DB 의 회원정보와 일치하지 않는 경우 //
+        //email 이나 password가 DB 의 회원정보와 일치하지 않는 경우 에러 메시지 출력
         .catch((err) => {
           console.log(err);
           if (err.response.status === 401) {
@@ -83,7 +77,11 @@ export default function Login({ setIsLogin }) {
         })
     );
   };
-  const navigate = useNavigate();
+
+  // 소셜 로그인 - 구글 로그인 페이지로 이동
+  let googleOAuth =
+    'http://ec2-15-164-129-253.ap-northeast-2.compute.amazonaws.com:8080/oauth2/authorization/google';
+
   return (
     <MainContainer>
       <Main>
@@ -94,25 +92,27 @@ export default function Login({ setIsLogin }) {
           />
           <SCBtnContainer>
             <SCBtn>
-              <SCBtnIcon aria-hidden="true" viewBox="0 0 18 18">
-                <path
-                  fill="#4285F4"
-                  d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18Z"
-                ></path>
-                <path
-                  fill="#34A853"
-                  d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17Z"
-                ></path>
-                <path
-                  fill="#FBBC05"
-                  d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07Z"
-                ></path>
-                <path
-                  fill="#EA4335"
-                  d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3Z"
-                ></path>
-              </SCBtnIcon>
-              Log in with Google
+              <a href={googleOAuth}>
+                <SCBtnIcon aria-hidden="true" viewBox="0 0 18 18">
+                  <path
+                    fill="#4285F4"
+                    d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 0 0 2.38-5.88c0-.57-.05-.66-.15-1.18Z"
+                  ></path>
+                  <path
+                    fill="#34A853"
+                    d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 0 1-7.18-2.54H1.83v2.07A8 8 0 0 0 8.98 17Z"
+                  ></path>
+                  <path
+                    fill="#FBBC05"
+                    d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07Z"
+                  ></path>
+                  <path
+                    fill="#EA4335"
+                    d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3Z"
+                  ></path>
+                </SCBtnIcon>
+                Log in with Google
+              </a>
             </SCBtn>
             <SCBtn>
               <SCBtnIcon aria-hidden="true" viewBox="0 0 18 18">
@@ -260,6 +260,9 @@ const SCBtn = styled.button`
   }
   &:last-child {
     background-color: ${(props) => props.theme.color.blue900};
+  }
+  & > a {
+    cursor: pointer;
   }
 `;
 const SCBtnIcon = styled.svg`

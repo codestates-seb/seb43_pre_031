@@ -91,6 +91,7 @@ export default function Signup() {
         .then((res) => {
           console.log(res);
           console.log('회원가입 성공');
+          alert('회원가입에 성공했습니다.');
           navigate('/users/login');
           // 회원가입 성공 후 /users/login 페이지로 redirect
         })
@@ -98,6 +99,7 @@ export default function Signup() {
         .catch((err) => {
           console.log(err);
           // 임시 설정
+
           if (err.response.status === 409) {
             alert('중복된 메일 주소입니다. 비밀번호 찾기 페이지로 이동합니다.');
             navigate('/users/account-recovery');
