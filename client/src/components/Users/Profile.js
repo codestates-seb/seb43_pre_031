@@ -1,11 +1,11 @@
-import ProfileBody from './Profilebody';
-import ProfileSide from './Profileside';
+import Profilebody from './Profilebody';
+import Profileside from './Profileside';
 
 const Profile = () => {
   return (
     <div className="responsive">
-      <ProfileSide />
-      <ProfileBody />
+      <Profileside />
+      <Profilebody />
     </div>
   );
 };
