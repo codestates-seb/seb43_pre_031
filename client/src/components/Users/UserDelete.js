@@ -11,6 +11,7 @@ const token = getCookie('accessToken');
 const userID = storage.get('userID');
 
 const UserDelete = () => {
+  // const navigate = useNavigate();
   const [boxChecked, setBoxChecked] = useState(false);
   const navigate = useNavigate();
   const CheckedHandler = () => {
@@ -21,7 +22,6 @@ const UserDelete = () => {
     //   id: 1,
     //   memberStatus: 'MEMBER_ACTIVE',
     // };
-    const navigate = useNavigate();
     axios(
       `${API}/members/${userID}`,
       //요청할 api 주소, api명세를 보고 작성(path)

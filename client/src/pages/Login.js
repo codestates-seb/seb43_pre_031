@@ -60,7 +60,7 @@ export default function Login({ setIsLogin }) {
           // const refreshToken = res.data.refreshToken;
 
           // 쿠키에 토큰 값을 저장하기
-          setCookie('AccessToken', `${accessToken}`);
+          setCookie('accessToken', `${accessToken}`);
           // setCookie('RefreshToken', `${refreshToken}`);
 
           // 로그인 성공 시 질문(홈) 페이지로 이동하기
