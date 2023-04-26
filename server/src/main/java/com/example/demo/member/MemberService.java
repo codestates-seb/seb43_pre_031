@@ -117,7 +117,9 @@ public class MemberService {
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
 
-        memberRepository.delete(findMember);
+//        memberRepository.delete(findMember);
+        findMember.setMemberStatus(Member.MemberStatus.MEMBER_QUIT);
+        memberRepository.save(findMember);
     }
 
     @Transactional(readOnly = true)
