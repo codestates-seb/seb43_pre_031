@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API } from '../../utils/API';
 import { getCookie, removeCookie } from '../../lib/Cookies';
 import storage from '../../lib/storage';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const token = getCookie('accessToken');
 const userID = storage.get('userID');
@@ -27,7 +27,6 @@ const UserDelete = () => {
       })
       .then(function (response) {
         console.log(response);
-
         //로컬스토리지에 있는 유저ID, 로그인상태, 쿠키(JWT 토큰값)
         //200 응답을 받고 확인될때 삭제를 해주는 로직 필요(too much)\
         storage.remove('login');
