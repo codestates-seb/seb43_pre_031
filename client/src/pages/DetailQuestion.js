@@ -91,8 +91,8 @@ const DetailQuestion = () => {
 
   useEffect(() => {
     getContents();
-    console.log(getCookie('accessToken'));
-  }, [answers.length]);
+    console.log(getCookie('AccessToken'));
+  }, []);
 
   return (
     <Container>

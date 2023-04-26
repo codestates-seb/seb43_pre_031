@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const ProfileBody = () => {
   // const { aboutme } = { userObj} ;
@@ -9,7 +10,9 @@ const ProfileBody = () => {
       <div className="right">
         <p>
           Your about me section is currently blank. Would you like to add one?
-          <span> Edit profile</span>
+          <Link to="/user/settings">
+            <span>Edit profile</span>
+          </Link>
         </p>
       </div>
       <h2>Badges</h2>

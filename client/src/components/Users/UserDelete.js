@@ -7,10 +7,11 @@ import { API } from '../../utils/API';
 import { getCookie } from '../../lib/Cookies';
 import storage from '../../lib/storage';
 
-const token = getCookie('AccessToken');
+const token = getCookie('accessToken');
 const userID = storage.get('userID');
 
 const UserDelete = () => {
+  // const navigate = useNavigate();
   const [boxChecked, setBoxChecked] = useState(false);
   const CheckedHandler = () => {
     setBoxChecked(!boxChecked);
@@ -20,7 +21,6 @@ const UserDelete = () => {
     //   id: 1,
     //   memberStatus: 'MEMBER_ACTIVE',
     // };
-
     axios(
       `${API}/members/${userID}`,
       //요청할 api 주소, api명세를 보고 작성(path)
