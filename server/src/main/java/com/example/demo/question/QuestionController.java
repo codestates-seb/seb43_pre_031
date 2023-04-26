@@ -42,9 +42,9 @@ public class QuestionController {
                                        @AuthenticationPrincipal String email)
     {
         //System.out.println("---------------\n" + email + "\n---------------------\n");
-        Question question = mapper.questionPostDtoToQuestion(dto);
+        Question question = mapper.questionPostDtoToQuestion(dto, email);
 
-        Question savedQuestion = questionService.createQuestion(question, email);
+        Question savedQuestion = questionService.createQuestion(question);
 
         // URI 인스턴트로 만들어서 헤더에 정보추가하기
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, savedQuestion.getId());
@@ -54,11 +54,12 @@ public class QuestionController {
 
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@RequestBody QuestionDto.Patch dto,
-                                        @PathVariable("question-id") long questionId)
+                                        @PathVariable("question-id") long questionId,
+                                        @AuthenticationPrincipal String email)
     {
         //dto.setId(questionId);
 
-        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(dto),questionId);
+        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(dto),questionId, email);
 
         return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
     }
@@ -97,9 +98,10 @@ public class QuestionController {
 
 
     @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestion(@PathVariable("question-id") long id)
+    public ResponseEntity deleteQuestion(@PathVariable("question-id") long id,
+                                         @AuthenticationPrincipal String email)
     {
-        questionService.removeQuestion(id);
+        questionService.removeQuestion(id, email);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 

@@ -43,7 +43,7 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
 
         String name = String.valueOf(oAuth2User.getAttributes().get("name"));
 
-        saveMember(name, email);  // (5)
+        //saveMember(name, email);  // 나중에 oauth2 로그인한 client의 정보가 필요할 시 구현
         redirect(request, response, email, authorities);  // (6)
     }
 

@@ -36,11 +36,10 @@ public class QuestionService {
         this.answerService = answerService;
         this.memberRepository = memberRepository;
     }
-    public Question createQuestion(Question question, String email)
+    public Question createQuestion(Question question)
     {
         // 검증 : 이미 등록된 질문인지
         // 필요한가?
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
         //회원이름으로 회원이 존재하는지 확인
         //verifyQuestion(question);
@@ -48,9 +47,12 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public Question updateQuestion(Question question, Long id)
+    public Question updateQuestion(Question question, Long id, String email)
     {
         Question findQuestion = findVerifiedQuestion(id);
+
+        if(!findQuestion.getMember().getEmail().equals(email))
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED_EDIT);
 
         Optional.ofNullable(question.getTitle()).ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getContent()).ifPresent(content -> findQuestion.setContent(content));
@@ -78,10 +80,13 @@ public class QuestionService {
         return questionRepository.findAllByQuestionStatus(Question.QuestionStatus.QUESTION_POST, pageRequest);
     }
 
-    public void removeQuestion(long id)
+    public void removeQuestion(long id, String email)
     {
         // 존재하는지 확인
         Question findQuestion = findVerifiedQuestion(id);
+        if(!findQuestion.getMember().getEmail().equals(email))
+            throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED_EDIT);
+
         findQuestion.setQuestionStatus(Question.QuestionStatus.QUESTION_DELETE);
         questionRepository.save(findQuestion);
     }

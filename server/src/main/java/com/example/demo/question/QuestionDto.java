@@ -24,8 +24,6 @@ public class QuestionDto {
         private String title;
         private String content;
         private String asked_at;
-        @NotBlank
-        private String member;
         private List<String> tags;
     }
     @Getter
@@ -35,7 +33,6 @@ public class QuestionDto {
         private String title;
         private String content;
         private String modified_at;
-        private String member;
         private List<String> tags;
     }
 
