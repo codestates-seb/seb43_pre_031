@@ -8,8 +8,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Header = () => {
   const navigate = useNavigate();
-  let isLogin = storage.get('login');
-  isLogin = true;
+  const isLogin = storage.get('login');
 
   if (isLogin) {
     return (
