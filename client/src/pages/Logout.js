@@ -16,6 +16,7 @@ export default function Logout({ setIsLogin }) {
       // const res = await axios.post(`${API}/members/logout, ${userId}`);
       setIsLogin(false);
       // console.log(res);
+      alert('로그아웃 되었습니다.');
       console.log('로그아웃 성공!');
       // 로컬 스토리지의 정보 모두 삭제
       storage.clear();

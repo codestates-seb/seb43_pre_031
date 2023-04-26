@@ -11,10 +11,9 @@ import { useNavigate } from 'react-router-dom';
 const token = getCookie('AccessToken');
 const userID = storage.get('userID');
 
-const navigate = useNavigate();
-
 const UserDelete = () => {
   const [boxChecked, setBoxChecked] = useState(false);
+  const navigate = useNavigate();
   const CheckedHandler = () => {
     setBoxChecked(!boxChecked);
   };

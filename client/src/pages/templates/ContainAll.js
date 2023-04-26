@@ -30,5 +30,31 @@ const Container = styled.div`
     display: flex;
     margin: 0 auto;
     width: 75%;
+    & > div {
+      margin-right: 3rem;
+    }
+    @media screen and (max-width: 980px) and (min-width: 641px) {
+      margin: 0;
+      width: 100%;
+      aside {
+        display: none;
+      }
+      nav {
+        padding-left: 2rem;
+      }
+    }
+    @media screen and (max-width: 640px) {
+      nav {
+        display: none;
+      }
+      aside {
+        display: none;
+      }
+      & > div {
+        width: 100%;
+        margin: 0;
+        margin-top: 6rem;
+      }
+    }
   }
 `;

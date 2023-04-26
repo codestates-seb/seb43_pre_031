@@ -5,7 +5,7 @@ import Button from '../elements/Button';
 import { API } from '../utils/API';
 import { Link, useNavigate } from 'react-router-dom';
 import storage from '../lib/storage';
-import { setCookie } from '../lib/Cookies';
+import { setCookie, getCookie } from '../lib/Cookies';
 
 export default function Login({ setIsLogin }) {
   const [loginInfo, setLoginInfo] = useState({});
@@ -18,6 +18,9 @@ export default function Login({ setIsLogin }) {
     setPwErrorMessage('');
     setLoginInfo({ ...loginInfo, [key]: e.target.value });
   };
+
+  const Atoken = getCookie(`AccessToken`);
+  console.log(Atoken);
 
   const loginRequestHandler = () => {
     const { email, password } = loginInfo;
@@ -64,8 +67,9 @@ export default function Login({ setIsLogin }) {
           // '쿠키 이름' 에 토큰 값을 저장하기
           setCookie('AccessToken', `${accessToken}`);
           setCookie('RefreshToken', `${refreshToken}`);
-          // axios 동작 시 헤더에 기본으로 붙도록 설정하기
-          axios.defaults.headers.common['x-access-token'] = accessToken;
+
+          //
+
           console.log(`userID : ${userID} 로그인 성공`);
           // 로그인 성공 시 질문(홈) 페이지로 이동하기
           navigate('/');

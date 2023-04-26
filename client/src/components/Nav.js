@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PublicIcon from '@mui/icons-material/Public';
 import StarsIcon from '@mui/icons-material/Stars';
 
-const Container = styled.div`
+const Container = styled.nav`
   border-right: 1px solid #bbc0c4;
   min-height: 100vh;
   background-color: white;

@@ -98,9 +98,10 @@ export default function Signup() {
         .catch((err) => {
           console.log(err);
           // 임시 설정
-          // if (err.response.status === 500) {
-          //   navigate('/users/account-recovery');
-          // }
+          if (err.response.status === 409) {
+            alert('중복된 메일 주소입니다. 비밀번호 찾기 페이지로 이동합니다.');
+            navigate('/users/account-recovery');
+          }
           //
           if (err.response.status === 401) {
             setErrorMessage(
