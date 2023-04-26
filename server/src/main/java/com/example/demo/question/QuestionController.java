@@ -1,11 +1,13 @@
 package com.example.demo.question;
 
+import com.example.demo.member.Member;
 import com.example.demo.response.ErrorResponse;
 import com.example.demo.response.MultiResponseDto;
 import com.example.demo.utils.UriCreator;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -36,11 +38,13 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post dto)
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post dto,
+                                       @AuthenticationPrincipal String email)
     {
+        //System.out.println("---------------\n" + email + "\n---------------------\n");
         Question question = mapper.questionPostDtoToQuestion(dto);
 
-        Question savedQuestion = questionService.createQuestion(question);
+        Question savedQuestion = questionService.createQuestion(question, email);
 
         // URI 인스턴트로 만들어서 헤더에 정보추가하기
         URI location = UriCreator.createUri(QUESTION_DEFAULT_URL, savedQuestion.getId());

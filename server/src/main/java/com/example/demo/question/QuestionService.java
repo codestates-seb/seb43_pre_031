@@ -3,6 +3,8 @@ package com.example.demo.question;
 import com.example.demo.answer.AnswerService;
 import com.example.demo.exception.BusinessLogicException;
 import com.example.demo.exception.ExceptionCode;
+import com.example.demo.member.Member;
+import com.example.demo.member.MemberRepository;
 import com.example.demo.member.MemberService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,22 +24,26 @@ public class QuestionService {
     private QuestionRepository questionRepository;
     private MemberService memberService;
     private AnswerService answerService;
+    private MemberRepository memberRepository;
 
     public QuestionService(QuestionRepository questionRepository,
                            MemberService memberService,
-                           AnswerService answerService)
+                           AnswerService answerService,
+                           MemberRepository memberRepository)
     {
         this.questionRepository = questionRepository;
         this.memberService = memberService;
         this.answerService = answerService;
+        this.memberRepository = memberRepository;
     }
-    public Question createQuestion(Question question)
+    public Question createQuestion(Question question, String email)
     {
         // 검증 : 이미 등록된 질문인지
         // 필요한가?
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
-        //회원
-        verifyQuestion(question);
+        //회원이름으로 회원이 존재하는지 확인
+        //verifyQuestion(question);
 
         return questionRepository.save(question);
     }

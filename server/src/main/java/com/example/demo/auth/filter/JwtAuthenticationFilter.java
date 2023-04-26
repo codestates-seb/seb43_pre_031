@@ -51,11 +51,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
         Long memberId = member.getMemberId();
+        Integer expiration = jwtTokenizer.getAccessTokenExpirationMinutes();
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
-        TokenResponse tokenResponse = new TokenResponse(memberId, accessToken, refreshToken);
+        TokenResponse tokenResponse = new TokenResponse(memberId, expiration,accessToken, refreshToken);
         Gson gson = new Gson();
         response.getWriter().println(gson.toJson(tokenResponse));
 
@@ -92,11 +93,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private static class TokenResponse
     {
         private Long memberId;
+        private Integer accessTokenExpirationMinutes;
         private String accessToken;
         private String refreshToken;
-        public TokenResponse(Long memberId,String accessToken,String refreshToken)
+        public TokenResponse(Long memberId,Integer expiration, String accessToken,String refreshToken)
         {
             this.memberId = memberId;
+            this.accessTokenExpirationMinutes = expiration;
             this.accessToken = accessToken;
             this.refreshToken = refreshToken;
         }
