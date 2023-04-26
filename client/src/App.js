@@ -10,14 +10,13 @@ import Signup from './pages/Signup';
 import EditAllPosts from './pages/EditAllPosts';
 import User from './pages/User';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import storage from './lib/storage';
 import FindPW from './pages/FindPW';
 import ContainAll from './pages/templates/ContainAll';
 import NavFooter from './pages/templates/NavFooter';
 import OnlyFooter from './pages/templates/OnlyFooter';
 import ReceiveToken from './pages/ReceiveToken';
-import { API } from './utils/API';
 import { getCookie } from './lib/Cookies';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
@@ -26,7 +25,6 @@ axios.defaults.withCredentials = true;
 function App() {
   // 로그인 성공 시 로그인 여부 받아오기
   const [isLogin, setIsLogin] = useState(false);
-  const [questions, setQuestions] = useState([]);
 
   // access token 여부로 로그인 여부 판단 및 로컬스토리지에 userID, 로그인 여부 저장하기
   let loginStatus;
@@ -43,19 +41,6 @@ function App() {
     },
     [loginStatus]
   );
-
-  const getQuestions = () => {
-    axios
-      .get(`${API}/questions`)
-      .then((res) => {
-        setQuestions(res.data.data);
-      })
-      .catch((error) => console.log(`getQuestions error : ${error}`));
-  };
-
-  useEffect(() => {
-    getQuestions();
-  }, []);
 
   console.log(`App.js - isLogin : ${isLogin}`);
 
