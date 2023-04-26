@@ -124,3 +124,28 @@ function App() {
 }
 
 export default App;
+
+////////////
+// async setToken (state) {
+//   // HEADER에 토큰 설정
+//   axios.defaults.headers.common['x-access-token'] =  localStorage.getItem('accessToken')
+//   // 만료시간이 지났을 경우, RefreshToken을 이용하여 AccessToken 재발급
+//   var expiredTime = await this.$moment.utc(localStorage.getItem('expiredTime'))
+//   var diffTime = await this.$moment.duration(expiredTime.diff(this.$moment()))
+//   if (diffTime < 10000){
+//       axios.defaults.headers.common['x-refresh-token'] = localStorage.getItem('refreshToken')
+//       await axios.get(process.env.BACKEND_URL+'/api/users/reissue').then(
+//         (res) => {
+//           localStorage.setItem('accessToken', res.data.data.accessToken)
+//           localStorage.setItem('expiredTime', res.data.data.cur_time)
+//           axios.defaults.headers.common['x-access-token'] =  localStorage.getItem('accessToken')
+//         },
+//         (err) => {
+//             // Login 페이지로 리디렉션
+//         }
+//       )
+//   }
+//   return new Promise(function(resolve, reject) {
+//       resolve(true)
+//   });
+// }
