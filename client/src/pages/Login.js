@@ -62,11 +62,11 @@ export default function Login({ setIsLogin }) {
 
           //reponse에서 토큰값을 꺼내서 변수에 저장
           const accessToken = res.data.accessToken;
-          const refreshToken = res.data.refreshToken;
+          // const refreshToken = res.data.refreshToken;
 
           // '쿠키 이름' 에 토큰 값을 저장하기
           setCookie('AccessToken', `${accessToken}`);
-          setCookie('RefreshToken', `${refreshToken}`);
+          // setCookie('RefreshToken', `${refreshToken}`);
 
           //
 

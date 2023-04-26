@@ -91,6 +91,7 @@ export default function Signup() {
         .then((res) => {
           console.log(res);
           console.log('회원가입 성공');
+          alert('회원가입에 성공했습니다.');
           navigate('/users/login');
           // 회원가입 성공 후 /users/login 페이지로 redirect
         })
