@@ -1,10 +1,13 @@
 package com.example.demo.oauth2;
 
+import com.example.demo.auth.filter.JwtAuthenticationFilter;
 import com.example.demo.auth.jwt.JwtTokenizer;
 import com.example.demo.auth.utils.CustomAuthorityUtils;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberService;
 import com.example.demo.member.MemberServiceForOAuth;
+import com.google.gson.Gson;
+import lombok.Getter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -57,8 +60,12 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
         String accessToken = delegateAccessToken(username, authorities);  // (6-1)
         String refreshToken = delegateRefreshToken(username);     // (6-2)
 
-        String uri = createURI(accessToken, refreshToken).toString();   // (6-3)
-        getRedirectStrategy().sendRedirect(request, response, uri);   // (6-4)
+        TokenResponse tokenResponse = new TokenResponse(accessToken, refreshToken);
+        Gson gson = new Gson();
+        response.getWriter().println(gson.toJson(tokenResponse));
+
+        //String uri = createURI(accessToken, refreshToken).toString();   // (6-3)
+        //getRedirectStrategy().sendRedirect(request, response, uri);   // (6-4)
     }
 
     private String delegateAccessToken(String username, List<String> authorities) {
@@ -100,5 +107,19 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
                 .queryParams(queryParams)
                 .build()
                 .toUri();
+    }
+    @Getter
+    private static class TokenResponse
+    {
+        private Long memberId;
+        private Integer accessTokenExpirationMinutes;
+        private String accessToken;
+        private String refreshToken;
+        public TokenResponse(String accessToken,String refreshToken)
+        {
+
+            this.accessToken = accessToken;
+            this.refreshToken = refreshToken;
+        }
     }
 }

@@ -97,7 +97,12 @@ public class SecurityConfiguration {
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer,authorityUtils,memberService))
                 )
-
+//                .logout()
+//                .clearAuthentication(true)
+//                .invalidateHttpSession(true)
+//                .deleteCookies("JSESSIONID")
+//                .logoutSuccessUrl("/exit") // 로그아웃 성공시
+//                .permitAll()
 
         //.clientRegistrationRepository(clientRegistrationRepository())
 
