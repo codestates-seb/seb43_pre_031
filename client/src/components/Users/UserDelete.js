@@ -11,8 +11,6 @@ import { useNavigate } from 'react-router-dom';
 const token = getCookie('AccessToken');
 const userID = storage.get('userID');
 
-const navigate = useNavigate();
-
 const UserDelete = () => {
   const [boxChecked, setBoxChecked] = useState(false);
   const CheckedHandler = () => {
@@ -23,6 +21,7 @@ const UserDelete = () => {
     //   id: 1,
     //   memberStatus: 'MEMBER_ACTIVE',
     // };
+    const navigate = useNavigate();
     axios(
       `${API}/members/${userID}`,
       //요청할 api 주소, api명세를 보고 작성(path)

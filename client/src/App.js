@@ -19,6 +19,7 @@ import FindPW from './pages/FindPW';
 import ContainAll from './pages/templates/ContainAll';
 import NavFooter from './pages/templates/NavFooter';
 import OnlyFooter from './pages/templates/OnlyFooter';
+import ReceiveToken from './pages/ReceiveToken';
 import { API } from './utils/API';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
@@ -102,6 +103,10 @@ function App() {
         />
         <Route path="/users/signup" element={<Signup />} />
         <Route path="/users/account-recovery" element={<FindPW />} />
+        <Route
+          path="/receive-token"
+          element={<ReceiveToken setIsLogin={setIsLogin} />}
+        />
 
         <Route path="/" element={<ContainAll />}>
           <Route path="/" element={<Main questions={questions} />} />
