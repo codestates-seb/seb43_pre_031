@@ -5,6 +5,8 @@ import axios from 'axios';
 import storage from '../../lib/storage';
 import { API } from '../../utils/API';
 import { getCookie } from '../../lib/Cookies';
+// import SvgIcon from '@mui/material/SvgIcon';
+// import CakeIcon from '@mui/icons-material/Cake';
 // import { patchMemberInfo, getMemberInfo } from '../../utils/API';
 
 const SettingsBody = () => {
@@ -159,13 +161,19 @@ const SettingsBody = () => {
         </div>
         <p>Links</p>
         <div className="right-link">
-          <span>Website link</span>
-          <input placeholder="https://123"></input>
-          <span>Twitter link or username</span>
-          <input placeholder="https://twitter.com/234"></input>
-          <span>GitHub link or username</span>
-          <input placeholder="https://github.com/456"></input>
+          <div className="around">
+            <span>Website link</span>
+
+            <span>Twitter link</span>
+            <span>GitHub link</span>
+          </div>
+          <div className="link">
+            <input></input>
+            <input></input>
+            <input></input>
+          </div>
         </div>
+
         <p>
           Private information <text>Not shown publcly</text>
         </p>
@@ -196,8 +204,10 @@ const SettingContent = styled.div`
       width: 50%;
     }
   }
+
   display: flex;
   flex-direction: column;
+  
 
   margin: 0 0 0 3rem;
   input {
@@ -231,6 +241,14 @@ const SettingContent = styled.div`
     font-size: 1.2rem;
     color: ${(props) => props.theme.color.black600};
   }
+  .link {
+    display: flex;
+    flex-direction: row;
+  }
+  .around {
+    display: flex;
+    justify-content: space-around;
+  }
   .right {
     border-radius: 0.5rem;
     border: 1px solid ${(props) => props.theme.color.black100};
@@ -245,8 +263,8 @@ const SettingContent = styled.div`
         border-radius: 0.5rem;
         border: 1px solid ${(props) => props.theme.color.black100};
         padding: 1rem;
-        display: flex;
-        justify-content: center;
+
+
         flex-direction: row;
         background-color: white;
         margin-bottom: 2.3rem;
