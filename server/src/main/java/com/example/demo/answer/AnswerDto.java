@@ -17,7 +17,6 @@ public class AnswerDto {
     public static class Post {
         @NotNull
         private Long question_id;
-        private String email;
         @NotBlank
         private String content;
     }

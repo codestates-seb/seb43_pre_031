@@ -11,19 +11,19 @@ INSERT INTO MEMBER (EMAIL, FULL_NAME, IS_MARKETING, MEMBER_STATUS, PASSWORD) VAL
 INSERT INTO MEMBER (EMAIL, FULL_NAME, IS_MARKETING, MEMBER_STATUS, PASSWORD) VALUES('hgd11@gmail.com', '홍길동11', true, 'MEMBER_ACTIVE', '1100');
 INSERT INTO MEMBER (EMAIL, FULL_NAME, IS_MARKETING, MEMBER_STATUS, PASSWORD) VALUES('hgd12@gmail.com', '홍길동12', true,  'MEMBER_ACTIVE', '1212');
 
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문1','질문 내용1', '2023-04-19 11:11:11',null,1,	'["a", "b", "c"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문2','질문 내용2', '2023-04-19 11:11:12',null,1,	'["a", "b"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문3','질문 내용3', '2023-04-19 11:11:13',null,1,	'["a", "c"]', 3000);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문4','질문 내용4', '2023-04-19 11:11:14',null,1,	'["c"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문5','질문 내용5', '2023-04-19 11:11:15',null,1,	'["a", "b", "c"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문6','질문 내용6', '2023-04-19 11:12:11',null,1,	'["a", "b", "c"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문7','질문 내용7', '2023-04-19 11:13:11',null,1,	'["a", "b", "c"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문8','질문 내용8', '2023-04-19 11:14:11',null,1,	'["a", "b", "c"]', -3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문9','질문 내용9', '2023-04-19 12:11:11',null,1,	'["a", "b", "c"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문10','질문 내용10', '2023-04-19 13:11:11',null,1,	'["a", "b", "c"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문11','질문 내용11', '2023-04-19 14:11:11',null,1, '["a", "b", "c"]', -200);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문12','질문 내용12', '2023-04-19 15:11:11',null,1, '["a", "b", "c"]', 3);
-INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes) VALUES('질문13','질문 내용13', '2023-04-19 16:11:11',null,1, '["a", "b", "c"]', 3);
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문1','질문 내용1', '2023-04-19 11:11:11',null,1,	'["a", "b", "c"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문2','질문 내용2', '2023-04-19 11:11:12',null,1,	'["a", "b"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문3','질문 내용3', '2023-04-19 11:11:13',null,1,	'["a", "c"]', 3000, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문4','질문 내용4', '2023-04-19 11:11:14',null,1,	'["c"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문5','질문 내용5', '2023-04-19 11:11:15',null,1,	'["a", "b", "c"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문6','질문 내용6', '2023-04-19 11:12:11',null,1,	'["a", "b", "c"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문7','질문 내용7', '2023-04-19 11:13:11',null,1,	'["a", "b", "c"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문8','질문 내용8', '2023-04-19 11:14:11',null,1,	'["a", "b", "c"]', -3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문9','질문 내용9', '2023-04-19 12:11:11',null,1,	'["a", "b", "c"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, Question_Status) VALUES('질문10','질문 내용10', '2023-04-19 13:11:11',null,1,	'["a", "b", "c"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문11','질문 내용11', '2023-04-19 14:11:11',null,1, '["a", "b", "c"]', -200, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문12','질문 내용12', '2023-04-19 15:11:11',null,1, '["a", "b", "c"]', 3, 'QUESTION_POST');
+INSERT INTO QUESTION (title, content, asked_at, modified_at, member_id, tags, votes, question_Status) VALUES('질문13','질문 내용13', '2023-04-19 16:11:11',null,1, '["a", "b", "c"]', 3, 'QUESTION_POST');
 
 INSERT INTO ANSWER (created_at, modified_at, content, status, member_id, question_id) VALUES('2023-04-18 11:11:01', '2023-04-18 11:11:01', '답변 내용1', 'ANSWER_VALID', 1, 1);
 INSERT INTO ANSWER (created_at, modified_at, content, status, member_id, question_id) VALUES('2023-04-18 11:11:02', '2023-04-18 11:11:02', '답변 내용2', 'ANSWER_VALID', 2, 2);

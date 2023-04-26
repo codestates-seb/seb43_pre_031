@@ -69,14 +69,15 @@ public class QuestionService {
     public Page<Question> findQuestions(int page, int size)
     {
         PageRequest pageRequest = PageRequest.of(page,size, Sort.by("askedAt").descending());
-        return questionRepository.findAll(pageRequest);
+        return questionRepository.findAllByQuestionStatus(Question.QuestionStatus.QUESTION_POST, pageRequest);
     }
 
     public void removeQuestion(long id)
     {
         // 존재하는지 확인
-
-        questionRepository.deleteById(id);
+        Question findQuestion = findVerifiedQuestion(id);
+        findQuestion.setQuestionStatus(Question.QuestionStatus.QUESTION_DELETE);
+        questionRepository.save(findQuestion);
     }
 
     public Question updateQuestionVote(String upAndDown, long questionId)
