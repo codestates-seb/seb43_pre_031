@@ -85,4 +85,11 @@ public class Member implements Principal {
         ROLE_USER,
         ROLE_ADMIN
     }
+
+    public Member(String fullName,String email,String password)
+    {
+        this.fullName = fullName;
+        this.email = email;
+        this.password = password;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.member;
 
+import com.example.demo.auth.utils.CustomAuthorityUtils;
 import com.example.demo.exception.BusinessLogicException;
 import com.example.demo.exception.ExceptionCode;
 import com.example.demo.helper.event.MemberRegistrationApplicationEvent;
@@ -57,6 +58,15 @@ public class MemberService {
 
         List<String> roles = authorityUtils.createRoles(member.getEmail());
         member.setRoles(roles);
+
+        Member savedMember = memberRepository.save(member);
+
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
+        return savedMember;
+    }
+
+    public Member createMemberForOAuth(Member member) {
+        verifyExistsEmail(member.getEmail());
 
         Member savedMember = memberRepository.save(member);
 

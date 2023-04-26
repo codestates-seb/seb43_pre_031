@@ -9,6 +9,17 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 24201237268-a4n4us4gv91auvj1uhhnu6ua3trngvj4.apps.googleusercontent.com
+            clientSecret: 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
+            scope:
+              - email
+              - profile
+
 mail:
   address:
     admin: admin@gmail.com
@@ -16,5 +27,5 @@ mail:
 jwt:
   key: jwt123412341234123412341234123412341234123412341234
   access-token-expiration-minutes: 3000
-  refresh-token-expiration-minutes: 420000
+  refresh-token-expiration-minutes: 4200000
 
