@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.Optional;
  * 기본 CRUD메서드 구현
  */
 
+@Transactional
 @Service
 public class QuestionService {
 
@@ -76,7 +78,7 @@ public class QuestionService {
 
     public Page<Question> findQuestions(int page, int size)
     {
-        PageRequest pageRequest = PageRequest.of(page,size, Sort.by("askedAt").descending());
+        PageRequest pageRequest = PageRequest.of(page,size, Sort.by("id").descending());
         return questionRepository.findAllByQuestionStatus(Question.QuestionStatus.QUESTION_POST, pageRequest);
     }
 

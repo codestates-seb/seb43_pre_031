@@ -4,7 +4,6 @@ import com.example.demo.auth.utils.CustomAuthorityUtils;
 import com.example.demo.exception.BusinessLogicException;
 import com.example.demo.exception.ExceptionCode;
 import com.example.demo.helper.event.MemberRegistrationApplicationEvent;
-import com.example.demo.member.auth.CustomUserDetailsService;
 import com.example.demo.auth.utils.CustomAuthorityUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.AuthenticationManager;

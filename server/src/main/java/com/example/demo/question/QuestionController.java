@@ -87,7 +87,7 @@ public class QuestionController {
                                        @RequestParam(value = "size", required = false) Integer size)
     {
         if(page == null) page = 1;
-        if(size == null) size = 10;
+        if(size == null) size = 5;
         Page<Question> questionPage = questionService.findQuestions(page-1, size);
 
         List<Question> questions = questionPage.getContent();
@@ -110,7 +110,7 @@ public class QuestionController {
                                          @RequestParam(value = "page", required = false) Integer page,
                                          @RequestParam(value = "size", required = false) Integer size) {
         if(page == null) page = 1;
-        if(size == null) size = 10;
+        if(size == null) size = 5;
 
         Page<Question> questionPage = questionService.searchQuestions(keyword, page-1, size);
 

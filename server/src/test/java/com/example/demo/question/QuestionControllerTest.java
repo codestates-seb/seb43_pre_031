@@ -2,6 +2,7 @@
 //
 //import com.example.demo.answer.Answer;
 //import com.example.demo.answer.AnswerDto;
+//import com.example.demo.config.SecurityConfiguration;
 //import com.example.demo.member.Member;
 //import com.google.gson.Gson;
 //import org.apache.catalina.security.SecurityConfig;
@@ -23,7 +24,9 @@
 //import org.springframework.http.MediaType;
 //import org.springframework.http.HttpHeaders;
 //import org.springframework.restdocs.payload.JsonFieldType;
+//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 //import org.springframework.security.core.annotation.AuthenticationPrincipal;
+//import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 //import org.springframework.security.test.context.support.WithMockUser;
 //import org.springframework.test.web.servlet.MockMvc;
 //import org.springframework.test.web.servlet.ResultActions;
@@ -38,6 +41,7 @@
 //import static com.example.demo.utils.ApiDocumentUtils.getRequestPreProcessor;
 //import static com.example.demo.utils.ApiDocumentUtils.getResponsePreProcessor;
 //import static org.mockito.ArgumentMatchers.anyLong;
+//import static org.mockito.ArgumentMatchers.anyString;
 //import static org.mockito.BDDMockito.given;
 //import static org.mockito.Mockito.doNothing;
 //import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
@@ -57,7 +61,7 @@
 //@WebMvcTest(controllers = QuestionController.class,
 //        excludeAutoConfiguration = SecurityAutoConfiguration.class,
 //        excludeFilters = {
-//            @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+//            @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = OAuth2LoginAuthenticationFilter.class)
 //})
 //@MockBean(JpaMetamodelMappingContext.class)
 //@AutoConfigureRestDocs
@@ -122,19 +126,20 @@
 ////    }
 //
 //    @Test
+//    @WithMockUser(roles="USER")
 //    //@WithMockUser
 //    public void patchQuestionTest() throws Exception
 //    {
 //        //given
 //        Long id = 1L;
-//        QuestionDto.Patch patch = new QuestionDto.Patch("test", "content","수정일","userName",List.of("a","b","c"));
+//        QuestionDto.Patch patch = new QuestionDto.Patch("test", "content","수정일",List.of("a","b","c"));
 //        String content = gson.toJson(patch);
 //
 //        QuestionDto.Response response = new QuestionDto.Response(
 //                1L,"test", "test","2023-04-19 16:11:11","2023-04-20 11:22:33",1L,"김코딩",new ArrayList<>());
 //
 //        given(mapper.questionPatchDtoToQuestion(Mockito.any(QuestionDto.Patch.class))).willReturn(new Question());
-//        given(questionService.updateQuestion(Mockito.any(Question.class),anyLong())).willReturn(new Question());
+//        given(questionService.updateQuestion(Mockito.any(Question.class),anyLong(),anyString())).willReturn(new Question());
 //        given(mapper.questionToQuestionResponseDto(Mockito.any(Question.class))).willReturn(response);
 //
 //
@@ -370,7 +375,7 @@
 //        Long id = 1L;
 //        QuestionDto.Response response = new QuestionDto.Response(1L,"test", "test","2023-04-19 16:11:11",null,1L,"김코딩",List.of("a"));
 //
-//        doNothing().when(questionService).removeQuestion(Mockito.anyLong());
+//        doNothing().when(questionService).removeQuestion(Mockito.anyLong(),Mockito.anyString());
 //
 //        //when
 //        ResultActions actions =
