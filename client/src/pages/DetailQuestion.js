@@ -42,7 +42,7 @@ const DetailQuestion = () => {
         },
         {
           headers: {
-            Authorization: `Bearer ${getCookie('AccessToken')}`,
+            Authorization: `Bearer ${getCookie('accessToken')}`,
           },
         }
       )
@@ -67,7 +67,7 @@ const DetailQuestion = () => {
     axios
       .delete(`${API}/questions/${id}`, {
         headers: {
-          Authorization: `Bearer ${getCookie('AccessToken')}`,
+          Authorization: `Bearer ${getCookie('accessToken')}`,
         },
       })
       .then((response) => {
@@ -80,7 +80,7 @@ const DetailQuestion = () => {
     axios
       .delete(`${API}/answers/${id}`, {
         headers: {
-          Authorization: `Bearer ${getCookie('AccessToken')}`,
+          Authorization: `Bearer ${getCookie('accessToken')}`,
         },
       })
       .then((response) => {
@@ -91,8 +91,8 @@ const DetailQuestion = () => {
 
   useEffect(() => {
     getContents();
-    console.log(getCookie('AccessToken'));
-  }, []);
+    console.log(getCookie('accessToken'));
+  }, [answers.length]);
 
   return (
     <Container>

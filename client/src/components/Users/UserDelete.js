@@ -20,7 +20,7 @@ const UserDelete = () => {
     //   id: 1,
     //   memberStatus: 'MEMBER_ACTIVE',
     // };
-    const navigate = useNavigate();
+
     axios(
       `${API}/members/${userID}`,
       //요청할 api 주소, api명세를 보고 작성(path)

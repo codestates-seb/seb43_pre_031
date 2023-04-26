@@ -46,7 +46,7 @@ const AskQuestion = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${getCookie('AccessToken')}`,
+              Authorization: `Bearer ${getCookie('accessToken')}`,
             },
           }
         )
@@ -68,7 +68,7 @@ const AskQuestion = () => {
 
   useEffect(() => {
     setToday(getCurrentDate());
-    console.log(getCookie('AccessToken'));
+    console.log(getCookie('accessToken'));
   }, []);
 
   return (
