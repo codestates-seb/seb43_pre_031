@@ -34,7 +34,7 @@ function App() {
       if (!isAToken) return;
 
       let userId = storage.get('userID');
-      loginStatus = storage.set('login', `${isAToken}`);
+      loginStatus = storage.set('login', `${!!isAToken}`);
       setIsLogin(true);
       console.log(`localstorage userId : ${userId}`);
       console.log(`localstorage login : ${storage.get('login')}`);
