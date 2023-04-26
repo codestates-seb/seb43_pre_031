@@ -4,11 +4,19 @@ import storage from '../../lib/storage';
 import { API } from '../../utils/API';
 import { getCookie } from '../../lib/Cookies';
 import { useEffect, useState } from 'react';
+import SvgIcon from '@mui/material/SvgIcon';
+import CakeIcon from '@mui/icons-material/Cake';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import CreateIcon from '@mui/icons-material/Create';
+import CommentIcon from '@mui/icons-material/Comment';
 
 const UserBoard = () => {
   const [fullname, setFullname] = useState('');
   const [title, setTitle] = useState('');
-  const token = getCookie('AccessToken');
+  const [location, setLocation] = useState('');
+  const token = getCookie('accessToken');
   const userID = storage.get('userID');
 
   useEffect(() => {
@@ -40,6 +48,7 @@ const UserBoard = () => {
         // 페이지 초기 값 설정
         setFullname(res.data.fullName);
         setTitle(res.data.title);
+        setLocation(res.data.location);
       })
       .catch((ex) => {
         //오류가 발생했을때 오류를 콘솔에 찍는 것
@@ -57,24 +66,39 @@ const UserBoard = () => {
           <div>{title}</div>
           <ul>
             <li>
+              <SvgIcon component={CakeIcon} inheritViewBox />
               <div>
                 Member for <span>5 days</span>
               </div>
             </li>
             <li>
+              <SvgIcon component={AccessTimeIcon} inheritViewBox />
               <div>Last seen this week</div>
             </li>
             <li>
+              <SvgIcon component={CalendarMonthIcon} inheritViewBox />
               <div>Visited 4 days, 2 consecutive</div>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              <SvgIcon component={LocationOnIcon} inheritViewBox />
+              <div>{location}</div>
             </li>
           </ul>
         </div>
         <div className="userboard-btns">
           <Link to="/user/settings">
-            <button>Edit profile</button>
+            <button>
+              <SvgIcon component={CreateIcon} inheritViewBox />
+              Edit profile
+            </button>
           </Link>
 
-          <button>Network profile</button>
+          <button>
+            <SvgIcon component={CommentIcon} inheritViewBox />
+            Network profile
+          </button>
         </div>
       </section>
     </>

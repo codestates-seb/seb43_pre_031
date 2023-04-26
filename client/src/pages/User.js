@@ -44,7 +44,7 @@ export const UserWrapper = styled.div`
       display: flex;
       position: absolute;
       top: 1.2rem;
-      right: 2.4rem;
+      right: 0.1rem;
       button {
         height: 3.6rem;
         display: flex;

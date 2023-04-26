@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import SvgIcon from '@mui/material/SvgIcon';
+import ReorderIcon from '@mui/icons-material/Reorder';
 
 const ProfileSide = () => {
   return (
@@ -27,6 +29,7 @@ const ProfileSide = () => {
       <div className="left">
         <div className="flex">
           <div>
+            <SvgIcon component={ReorderIcon} inheritViewBox />
             <p>
               Stack Overflow<span>1</span>
             </p>

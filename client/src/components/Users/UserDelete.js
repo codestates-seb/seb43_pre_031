@@ -7,11 +7,12 @@ import { API } from '../../utils/API';
 import { getCookie } from '../../lib/Cookies';
 import storage from '../../lib/storage';
 
-const token = getCookie('AccessToken');
+const token = getCookie('accessToken');
 const userID = storage.get('userID');
 
 const UserDelete = () => {
   const [boxChecked, setBoxChecked] = useState(false);
+  const navigate = useNavigate();
   const CheckedHandler = () => {
     setBoxChecked(!boxChecked);
   };

@@ -63,9 +63,9 @@ button.is-selected {
 }`;
 
 const SavesButton = styled.div`
-display: flex;
-  align-items: center;
-  width: 20rem;
+
+      position: absolute;
+      right: 0.1rem;
           button {
             padding: 1rem;
   border: none;
