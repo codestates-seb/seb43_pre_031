@@ -42,8 +42,10 @@ public class AnswerService {
         return answerRepository.save(answer);
     }
 
-    public Answer updateAnswer(Answer answer, long id) {
+    public Answer updateAnswer(Answer answer, long id, String email) {
         Answer findAnswer = findAnswer(id);
+
+        if (!findAnswer.getMember().getEmail().equals(email)) throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED_EDIT);
 
         Optional.ofNullable(answer.getContent()).ifPresent(content -> findAnswer.setContent(content));
         findAnswer.setModified_at(LocalDateTime.now());
@@ -74,8 +76,9 @@ public class AnswerService {
         return answers;
     }
 
-    public void deleteAnswer(long id) {
+    public void deleteAnswer(long id, String email) {
         Answer findAnswer = findAnswer(id);
+        if (!findAnswer.getMember().getEmail().equals(email)) throw new BusinessLogicException(ExceptionCode.UNAUTHORIZED_EDIT);
 
         answerRepository.delete(findAnswer);
     }

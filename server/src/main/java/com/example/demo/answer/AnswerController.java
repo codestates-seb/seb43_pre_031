@@ -51,10 +51,11 @@ public class AnswerController {
 
     @PatchMapping("/{id}")
     public ResponseEntity patchAnswer(@PathVariable("id") @Positive long id,
+                                      @AuthenticationPrincipal String email,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
         requestBody.setId(id);
 
-        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(requestBody), id);
+        Answer answer = answerService.updateAnswer(mapper.answerPatchDtoToAnswer(requestBody), id, email);
 
         return new ResponseEntity<>(mapper.answerToAnswerResponseDto(answer), HttpStatus.OK);
     }
@@ -79,8 +80,9 @@ public class AnswerController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteAnswer(@PathVariable("id") @Positive long id) {
-        answerService.deleteAnswer(id);
+    public ResponseEntity deleteAnswer(@PathVariable("id") @Positive long id,
+                                       @AuthenticationPrincipal String email) {
+        answerService.deleteAnswer(id, email);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
