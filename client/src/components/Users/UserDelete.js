@@ -6,7 +6,7 @@ import axios from 'axios';
 import { API } from '../../utils/API';
 import { getCookie, removeCookie } from '../../lib/Cookies';
 import storage from '../../lib/storage';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const token = getCookie('accessToken');
 const userID = storage.get('userID');
