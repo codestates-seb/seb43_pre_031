@@ -8,7 +8,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Signup from './pages/Signup';
 import EditAllPosts from './pages/EditAllPosts';
-import User from './pages/User';
+// import User from './pages/User';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import storage from './lib/storage';
@@ -18,6 +18,7 @@ import NavFooter from './pages/templates/NavFooter';
 import OnlyFooter from './pages/templates/OnlyFooter';
 import ReceiveToken from './pages/ReceiveToken';
 import { getCookie } from './lib/Cookies';
+import Search from './pages/Search';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -66,10 +67,11 @@ function App() {
         <Route path="/" element={<ContainAll />}>
           <Route path="/" element={<Main />} />
           <Route path="/question/:id" element={<DetailQuestion />} />
+          <Route path="/search" element={<Search />} />
         </Route>
 
         <Route path="/" element={<NavFooter />}>
-          <Route path="/*" element={<User />} />
+          {/* <Route path="/*" element={<User />} /> */}
           <Route path="/question/:id" element={<DetailQuestion />} />
           <Route path="/question/editq/:id" element={<EditAllPosts />} />
           <Route path="/question/edita/:id" element={<EditAllPosts answer />} />
