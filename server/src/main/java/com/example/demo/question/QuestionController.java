@@ -110,11 +110,6 @@ public class QuestionController {
 
         List<Question> questions = questionPage.getContent();
 
-        for(Question question:questions) {
-            System.out.println(question.getTitle());
-            System.out.println(question.getContent());
-        }
-
         List<QuestionDto.Response> responses = mapper.questionsToQuestionResponseDtos(questions);
 
         return new ResponseEntity<>(new MultiResponseDto<>(responses,questionPage), HttpStatus.OK);
