@@ -19,7 +19,9 @@ import FindPW from './pages/FindPW';
 import ContainAll from './pages/templates/ContainAll';
 import NavFooter from './pages/templates/NavFooter';
 import OnlyFooter from './pages/templates/OnlyFooter';
+import ReceiveToken from './pages/ReceiveToken';
 import { API } from './utils/API';
+import { getCookie } from './lib/Cookies';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -29,18 +31,30 @@ function App() {
   // 로그인이 되어있는지 확인하기 위해 로컬스토리지에서 userID를 가져오기(로그인 시 로컬스토리지에 userID가 저장됨)
   // 로그인 정보가 없다면 멈추기
   // 로그인이 되어있다면 userId 를 서버로 보내서 회원정보를 받아오기!
-  let userId;
-  (function checkUserLogin() {
-    const loggedInfo = storage.get('login');
-    if (!loggedInfo) return;
-    userId = storage.get('userID');
-    console.log(`localstorage userId : ${userId}`);
-    console.log(`localstorage login : ${loggedInfo}`);
-  })();
+  // let userId;
+  // (function checkUserLogin() {
+  //   const loggedInfo = storage.get('login');
+  //   if (!loggedInfo) return;
+  //   userId = storage.get('userID');
+  //   console.log(`localstorage userId : ${userId}`);
+  //   console.log(`localstorage login : ${loggedInfo}`);
+  // })();
 
   // 로그인 성공 시 로그인 여부 받아오기
   const [isLogin, setIsLogin] = useState(false);
   const [questions, setQuestions] = useState([]);
+
+  // 로그인 여부 판단 및 스토리지 저장을 여기서 하기?
+  (function checkUserLogin() {
+    const isAToken = getCookie('accessToken');
+    if (!isAToken) return;
+
+    let userId = storage.get('userID');
+    storage.set('login', !!isAToken);
+    setIsLogin(true);
+    console.log(`localstorage userId : ${userId}`);
+    console.log(`localstorage login : ${storage.get('login')}`);
+  })();
 
   const getQuestions = () => {
     axios
@@ -98,10 +112,14 @@ function App() {
         />
         <Route
           path="/users/logout"
-          element={<Logout setIsLogin={setIsLogin} userId={userId} />}
+          element={<Logout setIsLogin={setIsLogin} />}
         />
         <Route path="/users/signup" element={<Signup />} />
         <Route path="/users/account-recovery" element={<FindPW />} />
+        <Route
+          path="/receive-token"
+          element={<ReceiveToken setIsLogin={setIsLogin} />}
+        />
 
         <Route path="/" element={<ContainAll />}>
           <Route path="/" element={<Main questions={questions} />} />
