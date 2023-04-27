@@ -2,6 +2,8 @@ package com.example.demo.auth.filter;
 
 import com.example.demo.auth.dto.LoginDto;
 import com.example.demo.auth.jwt.JwtTokenizer;
+import com.example.demo.exception.BusinessLogicException;
+import com.example.demo.exception.ExceptionCode;
 import com.example.demo.member.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -25,6 +27,8 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.example.demo.member.Member.MemberStatus.MEMBER_QUIT;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
