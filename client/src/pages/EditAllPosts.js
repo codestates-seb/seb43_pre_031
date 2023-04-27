@@ -98,7 +98,6 @@ const EditAllPosts = ({ answer }) => {
   useEffect(() => {
     setToday(getCurrentDate());
     getContentByType();
-    console.log(getCookie('accessToken'));
   }, []);
 
   return (
