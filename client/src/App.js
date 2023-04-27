@@ -8,7 +8,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Signup from './pages/Signup';
 import EditAllPosts from './pages/EditAllPosts';
-// import User from './pages/User';
+import User from './pages/User';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import storage from './lib/storage';
@@ -71,7 +71,7 @@ function App() {
         </Route>
 
         <Route path="/" element={<NavFooter />}>
-          {/* <Route path="/*" element={<User />} /> */}
+          <Route path="/*" element={<User />} />
           <Route path="/question/:id" element={<DetailQuestion />} />
           <Route path="/question/editq/:id" element={<EditAllPosts />} />
           <Route path="/question/edita/:id" element={<EditAllPosts answer />} />

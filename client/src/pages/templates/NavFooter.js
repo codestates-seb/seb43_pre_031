@@ -20,6 +20,11 @@ const NavFooter = () => {
 export default NavFooter;
 
 const Container = styled.div`
+  @media screen and (max-width: 640px) {
+    nav {
+      display: none;
+    }
+  }
   width: 100vw;
   min-height: 100%;
   padding-bottom: 30rem;

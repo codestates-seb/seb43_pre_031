@@ -62,7 +62,11 @@ const Header = () => {
         </BasicHeader>
         <MobileHeader>
           <div>
-            <ReorderIcon />
+            <ReorderIcon
+              onClick={() => {
+                navigate('/');
+              }}
+            />
             <SmallLogo
               src="/assets/128px-Stack_Overflow_icon.svg.png"
               alt="작은 로고"
@@ -73,7 +77,7 @@ const Header = () => {
             <Link to="/products">Products</Link>
           </div>
           <div className="right">
-            <SearchIcon />
+            <SearchIcon onClick={() => setIsSearchModal(true)} />
             <AccountCircleIcon
               onClick={() => {
                 navigate('/user');
@@ -87,6 +91,36 @@ const Header = () => {
             />
           </div>
         </MobileHeader>
+        {isSearchModal && (
+          <>
+            <Overlay
+              onClick={() => {
+                setIsSearchModal(false);
+              }}
+            />
+            <SearchInput>
+              <div>
+                <div>
+                  <SearchIcon />
+                  <form
+                    onSubmit={(e) => {
+                      handleSearch(e);
+                      setIsSearchModal(false);
+                    }}
+                  >
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      onChange={(e) => {
+                        setKeyword(e.target.value);
+                      }}
+                    />
+                  </form>
+                </div>
+              </div>
+            </SearchInput>
+          </>
+        )}
       </>
     );
   } else {
@@ -135,7 +169,11 @@ const Header = () => {
         </BasicHeader>
         <MobileHeader>
           <div>
-            <ReorderIcon />
+            <ReorderIcon
+              onClick={() => {
+                navigate('/');
+              }}
+            />
             <SmallLogo
               src="/assets/128px-Stack_Overflow_icon.svg.png"
               alt="작은 로고"
