@@ -2,6 +2,7 @@
 Stackoverflow 클론코딩 사이트
 
 ## :pushpin: 배포 페이지 바로가기
+http://seb43-pre-031.s3-website.ap-northeast-2.amazonaws.com/
 
 ## :paperclip: 프로젝트 소개
 코드스테이츠 43기 Pre-project 31팀의 Stackoverflow 클론코딩 과제입니다.
