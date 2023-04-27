@@ -12,6 +12,8 @@ const Header = () => {
   const isLogin = storage.get('login');
 
   const [keyword, setKeyword] = useState('');
+  const [isModal, setIsModal] = useState(false);
+
   const handleSearch = (e) => {
     e.preventDefault();
     navigate(`/search?keyword=${keyword}`);
@@ -144,7 +146,11 @@ const Header = () => {
             <Link to="/products">Products</Link>
           </div>
           <div>
-            <SearchIcon />
+            <SearchIcon
+              onClick={() => {
+                setIsModal(true);
+              }}
+            />
             <LoginBtn
               onClick={() => {
                 navigate('/users/login');
@@ -160,6 +166,29 @@ const Header = () => {
             />
           </div>
         </MobileHeader>
+        {isModal && (
+          <SearchInput>
+            <div>
+              <div>
+                <SearchIcon />
+                <form
+                  onSubmit={(e) => {
+                    handleSearch(e);
+                    setIsModal(false);
+                  }}
+                >
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    onChange={(e) => {
+                      setKeyword(e.target.value);
+                    }}
+                  />
+                </form>
+              </div>
+            </div>
+          </SearchInput>
+        )}
       </>
     );
   }
@@ -273,16 +302,6 @@ const Search = styled.div`
   }
 `;
 
-// const ProfileImg = styled.img`
-//   margin: 0 1rem;
-//   width: 5rem;
-//   height: 4rem;
-//   background-image: url(https://www.gravatar.com/avatar/4155f0d14a5ae70fc6670903206da4e8?s=256&d=identicon&r=PG&f=y&so-version=2);
-//   background-size: contain;
-//   border-radius: 100%;
-//   cursor: pointer;
-// `;
-
 const MobileHeader = styled.header`
   @media screen and (min-width: 641px) {
     display: none;
@@ -344,4 +363,46 @@ const SmallLogo = styled.img`
   width: 5rem;
   cursor: pointer;
   margin: 0 1rem;
+`;
+
+const SearchInput = styled.div`
+  width: 100%;
+  height: 5rem;
+  background-color: ${(props) => props.theme.color.black100};
+  margin-top: 6rem;
+  position: fixed;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & > div {
+    border: 1px solid ${(props) => props.theme.color.black350};
+    border-radius: 3px;
+    background-color: white;
+    width: 95%;
+    height: 80%;
+    & > div {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 0 0.5rem;
+      svg {
+        font-size: 3rem;
+        margin-right: 0.5rem;
+        color: ${(props) => props.theme.color.black300};
+      }
+    }
+    form {
+      width: 100%;
+      input {
+        border: none;
+        background-color: transparent;
+        font-size: 1.5rem;
+        width: 100%;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
 `;

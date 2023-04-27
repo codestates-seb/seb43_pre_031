@@ -16,6 +16,8 @@ const NoResults = ({ keyword }) => {
 export default NoResults;
 
 const Container = styled.div`
+  border-top: 1px solid #bbc0c4;
+  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
