@@ -1,5 +1,6 @@
 package com.example.demo.member;
 
+import com.example.demo.auth.details.MemberDetailsService;
 import com.example.demo.utils.UriCreator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,8 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -24,10 +27,17 @@ public class MemberController {
     private final static String MEMBER_DEFAULT_URL = "/members";
     private final MemberService memberService;
     private final MemberMapper mapper;
+    private final MemberDetailsService memberDetailsService;
 
-    public MemberController(MemberService memberService, MemberMapper mapper) {
+    public MemberController(MemberService memberService, MemberMapper mapper, MemberDetailsService memberDetailsService) {
         this.memberService = memberService;
         this.mapper = mapper;
+        this.memberDetailsService = memberDetailsService;
+    }
+
+    @GetMapping("/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        memberDetailsService.logout(request, response);
     }
 
     @PostMapping
