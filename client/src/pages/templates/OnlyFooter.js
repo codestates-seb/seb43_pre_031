@@ -22,4 +22,10 @@ const Container = styled.div`
     margin: 0 auto;
     width: 70%;
   }
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    & > div {
+      width: 95%;
+    }
+  }
 `;
