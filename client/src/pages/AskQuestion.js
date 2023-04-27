@@ -53,6 +53,10 @@ const AskQuestion = () => {
         .then((response) => {
           console.log(response);
           navigate('/');
+        })
+        .catch(() => {
+          alert('작성 권한이 없습니다.');
+          navigate(-1);
         });
     } else {
       setIsEmpty(true);
@@ -149,7 +153,7 @@ const AskQuestion = () => {
 };
 
 const Container = styled.div`
-  max-width: 85%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;

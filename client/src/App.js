@@ -8,7 +8,7 @@ import Login from './pages/Login';
 import Logout from './pages/Logout';
 import Signup from './pages/Signup';
 import EditAllPosts from './pages/EditAllPosts';
-import User from './pages/User';
+// import User from './pages/User';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import storage from './lib/storage';
@@ -17,8 +17,8 @@ import ContainAll from './pages/templates/ContainAll';
 import NavFooter from './pages/templates/NavFooter';
 import OnlyFooter from './pages/templates/OnlyFooter';
 import ReceiveToken from './pages/ReceiveToken';
-import { API } from './utils/API';
 import { getCookie } from './lib/Cookies';
+import Search from './pages/Search';
 
 // 모든 요청에 withCredentials가 true로 설정됩니다.
 axios.defaults.withCredentials = true;
@@ -26,7 +26,6 @@ axios.defaults.withCredentials = true;
 function App() {
   // 로그인 성공 시 로그인 여부 받아오기
   const [isLogin, setIsLogin] = useState(false);
-  const [questions, setQuestions] = useState([]);
 
   // access token 여부로 로그인 여부 판단 및 로컬스토리지에 userID, 로그인 여부 저장하기
   let loginStatus;
@@ -43,19 +42,6 @@ function App() {
     },
     [loginStatus]
   );
-
-  const getQuestions = () => {
-    axios
-      .get(`${API}/questions`)
-      .then((res) => {
-        setQuestions(res.data.data);
-      })
-      .catch((error) => console.log(`getQuestions error : ${error}`));
-  };
-
-  useEffect(() => {
-    getQuestions();
-  }, []);
 
   console.log(`App.js - isLogin : ${isLogin}`);
 
@@ -79,12 +65,13 @@ function App() {
         />
 
         <Route path="/" element={<ContainAll />}>
-          <Route path="/" element={<Main questions={questions} />} />
+          <Route path="/" element={<Main />} />
           <Route path="/question/:id" element={<DetailQuestion />} />
+          <Route path="/search" element={<Search />} />
         </Route>
 
         <Route path="/" element={<NavFooter />}>
-          <Route path="/*" element={<User />} />
+          {/* <Route path="/*" element={<User />} /> */}
           <Route path="/question/:id" element={<DetailQuestion />} />
           <Route path="/question/editq/:id" element={<EditAllPosts />} />
           <Route path="/question/edita/:id" element={<EditAllPosts answer />} />

@@ -2,25 +2,10 @@ import styled from 'styled-components';
 
 const Input = (props) => {
   const { type, placeholder, value, defaultValue, label, onChange } = props;
-  if (label) {
-    return (
-      <div>
-        <StyledLabel htmlFor={label}>{label}</StyledLabel>
-        <StyledInput
-          id={label}
-          type={type}
-          placeholder={placeholder}
-          onChange={onChange}
-          value={value}
-          defaultValue={defaultValue}
-          autoComplete="off"
-        />
-      </div>
-    );
-  }
 
   return (
-    <>
+    <div>
+      {label && <StyledLabel htmlFor={label}>{label}</StyledLabel>}
       <StyledInput
         type={type}
         placeholder={placeholder}
@@ -30,7 +15,7 @@ const Input = (props) => {
         autoComplete="off"
       />
       {/* {error !== '' && <Error>{error}</Error>} */}
-    </>
+    </div>
   );
 };
 

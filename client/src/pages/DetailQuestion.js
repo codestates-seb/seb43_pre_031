@@ -18,6 +18,13 @@ const DetailQuestion = () => {
   const [myAnswer, setMyAnswer] = useState('');
   const [isEmpty, setIsEmpty] = useState(false);
 
+  //로그인한 상태의 유저인지 확인
+  const checkUser = () => {
+    if (`${getCookie('accessToken')}` === 'undefined') {
+      return navigate('/users/login');
+    }
+  };
+
   //질문 & 답변 불러오기(GET) ========================================================================
   const getContents = async () => {
     await axios.get(`${API}/questions/${id}`).then((response) => {
@@ -28,6 +35,8 @@ const DetailQuestion = () => {
 
   //답변 추가(POST) ===============================================================================
   const postAnswer = () => {
+    checkUser();
+
     if (myAnswer === '') {
       setIsEmpty(true);
       return;
@@ -55,6 +64,8 @@ const DetailQuestion = () => {
 
   //수정 위해 이동 ===============================================================================
   const moveForEdit = (id, type) => {
+    checkUser();
+
     if (type === 'question') {
       navigate(`/question/editq/${id}`);
     } else {
@@ -64,6 +75,8 @@ const DetailQuestion = () => {
 
   //질문 삭제(DELETE) ===============================================================================
   const deleteQuestion = (id) => {
+    checkUser();
+
     axios
       .delete(`${API}/questions/${id}`, {
         headers: {
@@ -73,10 +86,15 @@ const DetailQuestion = () => {
       .then((response) => {
         console.log(response);
         navigate('/');
+      })
+      .catch(() => {
+        alert('질문 삭제 권한이 없습니다.');
       });
   };
   //답변 삭제(DELETE) ===============================================================================
   const deleteAnswer = (id) => {
+    checkUser();
+
     axios
       .delete(`${API}/answers/${id}`, {
         headers: {
@@ -86,13 +104,16 @@ const DetailQuestion = () => {
       .then((response) => {
         console.log(response);
         setAnswers(answers.filter((i) => i.id !== id));
+      })
+      .catch(() => {
+        alert('답변 삭제 권한이 없습니다.');
       });
   };
 
   useEffect(() => {
     getContents();
-    console.log(getCookie('accessToken'));
-  }, []);
+    console.log(getCookie('AccessToken'));
+  }, [answers.length]);
 
   return (
     <Container>

@@ -5,11 +5,17 @@ import storage from '../lib/storage';
 import SearchIcon from '@mui/icons-material/Search';
 import ReorderIcon from '@mui/icons-material/Reorder';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useState } from 'react';
 
 const Header = () => {
   const navigate = useNavigate();
   const isLogin = storage.get('login');
 
+  const [keyword, setKeyword] = useState('');
+  const handleSearch = (e) => {
+    e.preventDefault();
+    navigate(`/search?keyword=${keyword}`);
+  };
   if (isLogin) {
     return (
       <>
@@ -25,7 +31,19 @@ const Header = () => {
           <div className="right">
             <Search>
               <SearchIcon />
-              <input type="text" placeholder="Search..." />
+              <form
+                onSubmit={(e) => {
+                  handleSearch(e);
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  onChange={(e) => {
+                    setKeyword(e.target.value);
+                  }}
+                />
+              </form>
             </Search>
             <AccountCircleIcon
               onClick={() => {
@@ -84,7 +102,19 @@ const Header = () => {
           <div className="right">
             <Search>
               <SearchIcon />
-              <input type="text" placeholder="Search..." />
+              <form
+                onSubmit={(e) => {
+                  handleSearch(e);
+                }}
+              >
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  onChange={(e) => {
+                    setKeyword(e.target.value);
+                  }}
+                />
+              </form>
             </Search>
             <LoginBtn
               onClick={() => {

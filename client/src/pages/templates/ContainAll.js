@@ -30,6 +30,7 @@ const Container = styled.div`
     display: flex;
     margin: 0 auto;
     width: 75%;
+    min-height: 100vh;
     & > div {
       margin-right: 3rem;
     }

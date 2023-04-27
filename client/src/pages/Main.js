@@ -4,36 +4,59 @@ import Button from '../elements/Button';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Paging from '../elements/Paging';
+import axios from 'axios';
+import { API } from '../utils/API';
+import { getCookie } from '../lib/Cookies';
 
-const Main = ({ questions }) => {
+const Main = () => {
   const navigate = useNavigate();
-
-  // 페이지네이션 상태
-  const [count, setCount] = useState(0); // 아이템 총 개수
+  const SIZE = 10;
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
-  const [postPerPage] = useState(5); // 한 페이지에 보여질 아이템 수
+  const [count, setCount] = useState(0); // 총 질문 갯수
+  const [questions, setQuestions] = useState([]); // 현재 페이지 질문들
   const [indexOfLast, setIndexOfLast] = useState(0); // 현재 페이지의 마지막 아이템 인덱스
   const [indexOfFirst, setIndexOfFirst] = useState(0); // 현재 페이지의 첫번째 아이템 인덱스
-  const [currentQuestions, setCurrentQuestions] = useState([]); // 현재 페이지에서 보여지는 아이템들
+
+  const getQuestions = async () => {
+    await axios
+      .get(`${API}/questions?page=${currentPage}&size=${SIZE}`)
+      .then((res) => {
+        setCount(res.data.pageInfo.totalElements);
+        setCurrentPage(res.data.pageInfo.page);
+        setQuestions(res.data.data);
+        setIndexOfLast(currentPage * SIZE);
+        setIndexOfFirst(indexOfLast - SIZE);
+      });
+  };
 
   useEffect(() => {
-    setCount(questions.length);
-    setIndexOfLast(currentPage * postPerPage);
-    setIndexOfFirst(indexOfLast - postPerPage);
-    setCurrentQuestions(questions.slice(indexOfFirst, indexOfLast));
-  }, [currentPage, indexOfLast, indexOfFirst, questions, postPerPage]);
+    getQuestions();
+  }, [currentPage, indexOfLast, indexOfFirst]);
 
-  const setPage = (error) => {
-    setCurrentPage(error);
+  const setPage = (e) => {
+    setCurrentPage(e);
   };
+
+  const checkUser = () => {
+    if (`${getCookie('accessToken')}`) {
+      navigate('/question/ask');
+    } else {
+      navigate('/users/login');
+    }
+  };
+
   return (
     <Container>
       <Title>
         <h1>All Questions</h1>
-        <Button text="Ask Question" onClick={() => navigate('/question/ask')} />
+        <Button text="Ask Question" onClick={checkUser} />
       </Title>
-      <h2>{questions.length} questions</h2>
-      <Questions questions={currentQuestions} />
+      {count !== 0 ? (
+        <h2>{count} questions</h2>
+      ) : (
+        <h2>등록된 질문이 없습니다.</h2>
+      )}
+      <Questions questions={questions} />
       <Paging page={currentPage} count={count} setPage={setPage} />
     </Container>
   );
