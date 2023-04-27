@@ -24,6 +24,12 @@ const Container = styled.div`
     nav {
       display: none;
     }
+    & > div {
+      width: 100%;
+      & > div {
+        padding: 0;
+      }
+    }
   }
   width: 100vw;
   min-height: 100%;
