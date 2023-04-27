@@ -1,11 +1,13 @@
 package com.example.demo.question;
 
+import com.example.demo.member.Member;
 import com.example.demo.response.ErrorResponse;
 import com.example.demo.response.MultiResponseDto;
 import com.example.demo.utils.UriCreator;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -36,9 +38,11 @@ public class QuestionController {
     }
 
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post dto)
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post dto,
+                                       @AuthenticationPrincipal String email)
     {
-        Question question = mapper.questionPostDtoToQuestion(dto);
+        //System.out.println("---------------\n" + email + "\n---------------------\n");
+        Question question = mapper.questionPostDtoToQuestion(dto, email);
 
         Question savedQuestion = questionService.createQuestion(question);
 
@@ -50,11 +54,12 @@ public class QuestionController {
 
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@RequestBody QuestionDto.Patch dto,
-                                        @PathVariable("question-id") long questionId)
+                                        @PathVariable("question-id") long questionId,
+                                        @AuthenticationPrincipal String email)
     {
         //dto.setId(questionId);
 
-        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(dto),questionId);
+        Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(dto),questionId, email);
 
         return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
     }
@@ -74,7 +79,7 @@ public class QuestionController {
     {
         Question question = questionService.findQuestion(questionId);
 
-        return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.questionToQuestionResponseWithAnswersDto(question), HttpStatus.OK);
     }
 
     @GetMapping
@@ -82,7 +87,7 @@ public class QuestionController {
                                        @RequestParam(value = "size", required = false) Integer size)
     {
         if(page == null) page = 1;
-        if(size == null) size = 10;
+        if(size == null) size = 5;
         Page<Question> questionPage = questionService.findQuestions(page-1, size);
 
         List<Question> questions = questionPage.getContent();
@@ -93,10 +98,26 @@ public class QuestionController {
 
 
     @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestion(@PathVariable("question-id") long id)
+    public ResponseEntity deleteQuestion(@PathVariable("question-id") long id,
+                                         @AuthenticationPrincipal String email)
     {
-        questionService.removeQuestion(id);
+        questionService.removeQuestion(id, email);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/search")
+    public ResponseEntity searchQuestions(@RequestParam(value = "keyword") String keyword,
+                                         @RequestParam(value = "page", required = false) Integer page,
+                                         @RequestParam(value = "size", required = false) Integer size) {
+        if(page == null) page = 1;
+        if(size == null) size = 5;
+
+        Page<Question> questionPage = questionService.searchQuestions(keyword, page-1, size);
+
+        List<Question> questions = questionPage.getContent();
+
+        List<QuestionDto.Response> responses = mapper.questionsToQuestionResponseDtos(questions);
+
+        return new ResponseEntity<>(new MultiResponseDto<>(responses,questionPage), HttpStatus.OK);
+    }
 }
