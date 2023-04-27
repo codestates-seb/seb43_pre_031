@@ -5,9 +5,6 @@ import axios from 'axios';
 import storage from '../../lib/storage';
 import { API } from '../../utils/API';
 import { getCookie } from '../../lib/Cookies';
-// import SvgIcon from '@mui/material/SvgIcon';
-// import CakeIcon from '@mui/icons-material/Cake';
-// import { patchMemberInfo, getMemberInfo } from '../../utils/API';
 
 const SettingsBody = () => {
   // 유저 아이디 ->>> 추후 수정 필요
@@ -28,12 +25,6 @@ const SettingsBody = () => {
   };
   // 페이지 초기화
   useEffect(() => {
-    // 유저 아이디 가져오는 부분 ->>> 추후 수정 필요
-
-    // const reqParams = {
-    //   memberId: userId,
-    // };
-
     axios(
       `${API}/members/${userID}`,
       //요청할 api 주소, api명세를 보고 작성(path)
@@ -42,12 +33,9 @@ const SettingsBody = () => {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
-          // ngrok 으로 데이터 받을 때 browser warning 스킵
-          // 'ngrok-skip-browser-warning': '69420',
         },
       }
     )
-      // getMemberInfo(reqParams) //요청할 api주소를 적는다.
       .then((res) => {
         //res에 데이터 들어옴
         // 응답 데이터 LOG
@@ -64,7 +52,7 @@ const SettingsBody = () => {
         console.log(ex);
         alert('서버가 정상적이지 않음. \n 다시 시도해 주세요.');
       });
-  }, [check]); //useeffect 처음에 1번만 실행하고 실행 안함 안에 username을 넣으면 바꿀때마다 실행됨
+  }, [check]);
 
   const onChange = (event) => {
     const {
@@ -95,7 +83,6 @@ const SettingsBody = () => {
       },
       data: JSON.stringify(reqParams),
     })
-      // await patchMemberInfo(reqParams)
       .then((res) => {
         // 응답을 받은 경우
         setCheck(!check);
@@ -113,7 +100,7 @@ const SettingsBody = () => {
   };
 
   const handleClickBtnCancel = () => {
-    navigate(`/user`);
+    navigate(`/user/profile`);
   };
 
   return (
@@ -124,7 +111,6 @@ const SettingsBody = () => {
         <p>Public information</p>
         <div className="right">
           <span>Profile image</span>
-          {/* <input type="file" accept="image/*" /> */}
           <div className="user-imgBox"></div>
           <span>Display name</span>
           <input

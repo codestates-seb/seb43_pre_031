@@ -20,12 +20,6 @@ const UserBoard = () => {
   const userID = storage.get('userID');
 
   useEffect(() => {
-    // 유저 아이디 가져오는 부분 ->>> 추후 수정 필요
-
-    // const reqParams = {
-    //   memberId: userId,
-    // };
-
     axios(
       `${API}/members/${userID}`,
       //요청할 api 주소, api명세를 보고 작성(path)
@@ -34,12 +28,9 @@ const UserBoard = () => {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
-          // ngrok 으로 데이터 받을 때 browser warning 스킵
-          // 'ngrok-skip-browser-warning': '69420',
         },
       }
     )
-      // getMemberInfo(reqParams) //요청할 api주소를 적는다.
       .then((res) => {
         //res에 데이터 들어옴
         // 응답 데이터 LOG

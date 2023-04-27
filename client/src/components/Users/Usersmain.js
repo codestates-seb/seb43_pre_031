@@ -10,15 +10,6 @@ import Preferences from './Preferences';
 import { Routes, Route } from 'react-router-dom';
 
 const Usersmain = () => {
-  // const [userObj, setUserObj] = useState(null);
-  //   useEffect() => {
-  //     axios
-  //     if(user) {
-  //       setUserObj(user);
-  //     }
-  //     setInit(true);
-  //   });
-  // }, []);
   return (
     <>
       <main className="position">
