@@ -82,6 +82,8 @@ const color = {
   lightBronze: '#F2E9E1',
   bronze: '#CAA789',
   darkBronze: '#AB825F',
+  lightGray: '#F8F9F9',
+  bgGray: '#F1F2F3',
 };
 
 const common = {

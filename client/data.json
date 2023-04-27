@@ -1,0 +1,243 @@
+{
+  "members": [
+    {
+      "id": 0,
+      "fullName": "이현진",
+      "email": "nagi5924@gmail.com",
+      "password": 1111,
+      "location": "seoul",
+      "title": "title",
+      "aboutme": "lll"
+    },
+    {
+      "id": 1,
+      "fullName": "0",
+      "location": "9",
+      "title": "8",
+      "aboutme": "7",
+      "memberId": null,
+      "memberStatus": "MEMBER_ACTIVE"
+    },
+    {
+      "id": 2,
+      "fullName": "안유진",
+      "email": "yujin@gmail.com",
+      "password": 1111
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "title": "Heroku + node.js error (Web process failed to bind to $PORT within 60 seconds of launch)",
+      "asked": "10 years ago",
+      "modified": "1 month ago",
+      "viewed": "380k",
+      "content": "I have my first **_node.js_** app (runs fine locally) but I am unable to deploy it via heroku (first time w/ heroku as well).The code is below. SO doesn't let me write so much code,so I would just say that the running the code locally as well within my network shows no issue. ## **Any idea???**",
+      "vote": 641,
+      "tags": [
+        "node.js",
+        "heroku"
+      ],
+      "edited": "Mar 28, 2013 at 22:32",
+      "author": {
+        "username": "user428900",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/88.jpg"
+      },
+      "answer_count": 39
+    },
+    {
+      "id": 2,
+      "title": "How can I SELECT rows with MAX(Column value), PARTITION by another column in MYSQL?",
+      "asked": "14 years ago",
+      "modified": "3 month ago",
+      "viewed": "1.9m",
+      "content": "I have a table of player performance:, what query will return the rows for each distinct home holding its maximum value of datetime?",
+      "vote": 903,
+      "tags": [
+        "mysql",
+        "max",
+        "distinct"
+      ],
+      "edited": "May 10, 2022 at 23:59",
+      "author": {
+        "username": "unknownuser001",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/1.jpg"
+      },
+      "answer_count": 22
+    },
+    {
+      "title": "질문 작성 테스트",
+      "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
+      "tags": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "vote": 0,
+      "asked": "1 min ago",
+      "viewed": 1,
+      "modified": "never",
+      "edited": "never",
+      "answer_count": 0,
+      "author": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/55.jpg"
+      },
+      "id": 4
+    },
+    {
+      "title": "질문 작성 테스트",
+      "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
+      "tags": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "vote": 0,
+      "asked": "1 min ago",
+      "viewed": 1,
+      "modified": "never",
+      "edited": "never",
+      "answer_count": 0,
+      "author": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/55.jpg"
+      },
+      "id": 5
+    },
+    {
+      "title": "질문 작성 테스트",
+      "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
+      "tags": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "vote": 0,
+      "asked": "1 min ago",
+      "viewed": 1,
+      "modified": "never",
+      "edited": "never",
+      "answer_count": 0,
+      "author": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/55.jpg"
+      },
+      "id": 6
+    },
+    {
+      "title": "질문 작성 테스트",
+      "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
+      "tags": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "vote": 0,
+      "asked": "1 min ago",
+      "viewed": 1,
+      "modified": "never",
+      "edited": "never",
+      "answer_count": 0,
+      "author": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/55.jpg"
+      },
+      "id": 7
+    },
+    {
+      "title": "질문 작성 테스트",
+      "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
+      "tags": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "vote": 0,
+      "asked": "1 min ago",
+      "viewed": 1,
+      "modified": "never",
+      "edited": "never",
+      "answer_count": 0,
+      "author": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/55.jpg"
+      },
+      "id": 8
+    },
+    {
+      "title": "질문 작성 테스트",
+      "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
+      "tags": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "vote": 0,
+      "asked": "1 min ago",
+      "viewed": 1,
+      "modified": "never",
+      "edited": "never",
+      "answer_count": 0,
+      "author": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/55.jpg"
+      },
+      "id": 9
+    },
+    {
+      "title": "질문 작성 테스트",
+      "content": "태그가 제한숫자내에서 잘 등록되는지?gg",
+      "tags": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "vote": 0,
+      "asked": "1 min ago",
+      "viewed": 1,
+      "modified": "never",
+      "edited": "never",
+      "answer_count": 0,
+      "author": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/men/55.jpg"
+      },
+      "id": 10
+    }
+  ],
+  "answers": [
+    {
+      "content": "**This Dabongdochi will solve your question.**\n\n![image](https://dreamrail.co.kr/files/attach/images/2022/05/30/a0821a86da739458d27635f12ffed75d.png)",
+      "user": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/women/3.jpg"
+      },
+      "answered": "Apr 17, 2023 at 22:36",
+      "id": 3
+    },
+    {
+      "content": "`const PI = 3.14;`\n\n파이는 맛있다",
+      "user": {
+        "username": "idx123",
+        "userimage": "https://randomuser.me/api/portraits/thumb/women/3.jpg"
+      },
+      "answered": "Apr 17, 2023 at 22:36",
+      "id": 6
+    }
+  ]
+}
