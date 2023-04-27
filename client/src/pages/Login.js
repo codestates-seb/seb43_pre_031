@@ -197,14 +197,18 @@ export default function Login({ setIsLogin }) {
 
 // Styled-components
 const MainContainer = styled.div`
-  margin-top: 6rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => props.theme.color.bgGray};
 `;
 const Main = styled.main`
   margin: 2rem;
-  padding: 24px;
   width: 320px;
   display: flex;
   flex-direction: column;

@@ -36,7 +36,6 @@ export default function Signup() {
       console.log(`checked ${isMarketing}`);
       signupInfo.isMarketing = true;
     }
-    console.log(signupInfo);
 
     // 유효성검사 - 에러메시지 출력 조건
     // 1. captcha 체크가 되지 않으면 captcha 옆에 에러메세지 출력
@@ -107,8 +106,13 @@ export default function Signup() {
         .catch((err) => {
           console.log(err);
           if (err.response.status === 409) {
-            alert('중복된 메일 주소입니다. 비밀번호 찾기 페이지로 이동합니다.');
-            navigate('/users/account-recovery');
+            if (
+              confirm(
+                '중복된 메일 주소입니다. 비밀번호 찾기 페이지로 이동하시겠습니까?'
+              )
+            ) {
+              navigate('/users/account-recovery');
+            }
           }
         })
     );
@@ -166,6 +170,12 @@ export default function Signup() {
           </div>
           <a href="/">Get Stack Overflow for Teams free for up to 50 users.</a>
         </TextContainer>
+        <MobileTextContainer>
+          <h2>
+            Create your Stack Overflow account. It’s free and only takes a
+            minute.
+          </h2>
+        </MobileTextContainer>
 
         <Main>
           <SocialContainer>
@@ -328,12 +338,16 @@ export default function Signup() {
 
 // Styled-components
 const SUConatainer = styled.div`
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1264px;
   padding: 24px;
+  background-color: ${(props) => props.theme.color.bgGray};
+  @media screen and (max-width: 768px) {
+    margin-top: 100px;
+    flex-direction: column;
+  }
 `;
 const TextContainer = styled.div`
   & > h2,
@@ -342,6 +356,20 @@ const TextContainer = styled.div`
   }
   & path {
     fill: ${(props) => props.theme.color.blue400};
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+const MobileTextContainer = styled.div`
+  width: 360px;
+  & > h2 {
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
   }
 `;
 const Main = styled.main`
