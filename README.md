@@ -14,6 +14,9 @@ Stackoverflow 클론코딩 사이트
 
 
 ## :rocket: 개발 환경
+프론트엔드
+
+백엔드
 
 
 ## :bowtie: 팀원 구성
