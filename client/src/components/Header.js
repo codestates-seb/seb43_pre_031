@@ -253,13 +253,16 @@ const Search = styled.div`
   align-items: center;
   margin-right: 0.5rem;
   margin-left: 2rem;
-  input {
-    border: none;
-    background-color: transparent;
-    font-size: 1.5rem;
+  form {
     width: 100%;
-    &:focus {
-      outline: none;
+    input {
+      border: none;
+      background-color: transparent;
+      font-size: 1.5rem;
+      width: 100%;
+      &:focus {
+        outline: none;
+      }
     }
   }
   svg {
