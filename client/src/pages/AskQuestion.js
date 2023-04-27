@@ -152,7 +152,7 @@ const AskQuestion = () => {
 };
 
 const Container = styled.div`
-  width: 80%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
@@ -174,10 +174,6 @@ const Container = styled.div`
     button:first-child {
       margin-right: 1rem;
     }
-  }
-
-  @media screen and (max-width: 640px) {
-    width: 100%;
   }
 `;
 
