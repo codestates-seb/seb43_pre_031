@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const ProfileBody = () => {
-  // const { aboutme } = { userObj} ;
-
   return (
     <UserProfile>
       <h2>About</h2>
@@ -22,7 +20,7 @@ const ProfileBody = () => {
         </p>
       </div>
       <h2>Posts</h2>
-      <div className="right post">
+      <div className="right">
         <p>Just getting started? Try answering a question!</p>
         <p>
           Your most helpful questions, answers and tags will appear here. Start
@@ -74,10 +72,6 @@ const UserProfile = styled.div`
           color: ${(props) => props.theme.color.blue300};
         }
       }
-    }
-    svg {
-      width: 19.6rem;
-      height: 19.6rem;
     }
   }
 `;
