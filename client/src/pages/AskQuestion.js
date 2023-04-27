@@ -153,7 +153,7 @@ const AskQuestion = () => {
 };
 
 const Container = styled.div`
-  max-width: 85%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1.6rem;

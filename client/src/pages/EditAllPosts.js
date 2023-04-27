@@ -47,6 +47,7 @@ const EditAllPosts = ({ answer }) => {
         })
         .catch(() => {
           alert('수정 권한이 없습니다.');
+          navigate(-1);
         });
     } else {
       if (title === '' || questionContent === '' || tags.length === 0) {
