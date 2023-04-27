@@ -9,7 +9,6 @@ import com.example.demo.auth.handler.MemberAuthenticationFailureHandler;
 import com.example.demo.auth.handler.MemberAuthenticationSuccessHandler;
 import com.example.demo.auth.jwt.JwtTokenizer;
 import com.example.demo.auth.utils.CustomAuthorityUtils;
-import com.example.demo.member.MemberServiceForOAuth;
 import com.example.demo.oauth2.OAuth2MemberSuccessHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -17,8 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
@@ -42,13 +39,10 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
 
-    private final MemberServiceForOAuth memberService;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils,
-                                 MemberServiceForOAuth memberService) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-        this.memberService = memberService;
     }
 
     @Value("${spring.security.oauth2.client.registration.google.clientId}")  // (1)
@@ -97,7 +91,7 @@ public class SecurityConfiguration {
                 .anyRequest().permitAll()
                 .and()
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer,authorityUtils,memberService))
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer,authorityUtils))
                 )
 
 
