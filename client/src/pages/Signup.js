@@ -30,10 +30,8 @@ export default function Signup() {
 
     // 일단 불리언으로 바꿨는데... 여러번 체크했다 해제하면 계속 true 값으로 남아있음. 디버깅 필요함.
     if (isMarketing !== 'on') {
-      console.log(`not checked ${isMarketing}`);
       signupInfo.isMarketing = false;
     } else {
-      console.log(`checked ${isMarketing}`);
       signupInfo.isMarketing = true;
     }
 
@@ -97,7 +95,6 @@ export default function Signup() {
         .post(`${API}/members`, { ...signupInfo })
         .then((res) => {
           console.log(res);
-          console.log('회원가입 성공');
           // 회원가입 성공 후 /users/login 페이지로 redirect
           alert('회원가입에 성공했습니다.');
           navigate('/users/login');
