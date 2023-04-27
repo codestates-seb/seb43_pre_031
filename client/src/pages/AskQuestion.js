@@ -72,11 +72,10 @@ const AskQuestion = () => {
 
   useEffect(() => {
     setToday(getCurrentDate());
-    console.log(getCookie('accessToken'));
   }, []);
 
   return (
-    <Container>
+    <Container className="question-div">
       <h1>Ask a public question</h1>
       <Notice color="blue">
         <h1>Writing a good question</h1>
@@ -157,9 +156,9 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
-  /* padding: 2rem; */
   margin: 0 auto;
-  margin-top: 6rem;
+  margin-top: 8rem;
+  padding: 2rem;
   padding-bottom: 40rem;
   h1 {
     font-size: 2.4rem;
