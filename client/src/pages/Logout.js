@@ -4,14 +4,12 @@ import storage from '../lib/storage';
 import { useNavigate } from 'react-router-dom';
 import { removeCookie } from '../lib/Cookies';
 
-export default function Logout({ setIsLogin }) {
+export default function Logout() {
   const navigate = useNavigate();
 
   const logoutHandler = async (e) => {
     e.preventDefault();
-    setIsLogin(false);
     try {
-      setIsLogin(false);
       // 로그아웃 시 쿠키에서 토큰 삭제하기
       removeCookie('accessToken');
       removeCookie('refreshToken');
