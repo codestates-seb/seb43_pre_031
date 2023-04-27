@@ -7,18 +7,18 @@ const Saves = () => {
         <StyledButton>All saves</StyledButton>
         <StyledButton>For later</StyledButton>
       </div>
-      <Center>
+      <Column>
         <text>All saves</text>
         <text>0 saved items</text>
-      </Center>
-      <SavesButton>
+      </Column>
+      <NewListButton>
         <button>Create new list</button>
-      </SavesButton>
+      </NewListButton>
     </Row>
   );
 };
 
-const Center = styled.div`
+const Column = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,7 @@ button.is-selected {
   color: white;
 }`;
 
-const SavesButton = styled.div`
+const NewListButton = styled.div`
 
       position: absolute;
       right: 0.1rem;
