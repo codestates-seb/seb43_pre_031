@@ -10,7 +10,6 @@ import com.example.demo.auth.handler.MemberAuthenticationSuccessHandler;
 import com.example.demo.auth.jwt.JwtTokenizer;
 import com.example.demo.auth.utils.CustomAuthorityUtils;
 import com.example.demo.member.MemberRepository;
-import com.example.demo.member.MemberServiceForOAuth;
 import com.example.demo.oauth2.OAuth2MemberSuccessHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -44,14 +43,12 @@ public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
 
-    private final MemberServiceForOAuth memberService;
     private final RedisTemplate redisTemplate;
     private final MemberRepository memberRepository;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberServiceForOAuth memberService, RedisTemplate redisTemplate, MemberRepository memberRepository) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, RedisTemplate redisTemplate, MemberRepository memberRepository) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-        this.memberService = memberService;
         this.redisTemplate = redisTemplate;
         this.memberRepository = memberRepository;
     }
@@ -102,7 +99,7 @@ public class SecurityConfiguration {
                 .anyRequest().permitAll()
                 .and()
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer,authorityUtils,memberService))
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer,authorityUtils))
                 )
 
 

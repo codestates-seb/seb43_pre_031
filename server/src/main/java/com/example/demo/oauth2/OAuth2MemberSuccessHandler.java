@@ -4,7 +4,6 @@ import com.example.demo.auth.jwt.JwtTokenizer;
 import com.example.demo.auth.utils.CustomAuthorityUtils;
 import com.example.demo.member.Member;
 import com.example.demo.member.MemberService;
-import com.example.demo.member.MemberServiceForOAuth;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -26,14 +25,11 @@ import java.util.Map;
 public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-    private final MemberServiceForOAuth memberService;
 
     public OAuth2MemberSuccessHandler(JwtTokenizer jwtTokenizer,
-                                      CustomAuthorityUtils authorityUtils,
-                                      MemberServiceForOAuth memberService) {
+                                      CustomAuthorityUtils authorityUtils) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
-        this.memberService = memberService;
     }
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -50,7 +46,7 @@ public class OAuth2MemberSuccessHandler extends SavedRequestAwareAuthenticationS
     private void saveMember(String name, String email) {
         Member member = new Member(name,email,"1234");
 
-        memberService.createMember(member);
+        //memberService.createMember(member);
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
