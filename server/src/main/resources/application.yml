@@ -9,6 +9,9 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+  redis:
+    host: localhost  # 배포 시 ec2 주소 사용
+    port: 6379
   security:
     oauth2:
       client:

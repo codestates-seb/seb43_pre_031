@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.SneakyThrows;
 import net.minidev.json.JSONObject;
 import net.minidev.json.parser.JSONParser;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,10 +29,19 @@ import java.util.Map;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
+    private final RedisTemplate redisTemplate;
 
-    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer) {
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, JwtTokenizer jwtTokenizer, RedisTemplate redisTemplate) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenizer = jwtTokenizer;
+        this.redisTemplate = redisTemplate;
+    }
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager, AuthenticationManager authenticationManager1, JwtTokenizer jwtTokenizer, RedisTemplate redisTemplate) {
+        super(authenticationManager);
+        this.authenticationManager = authenticationManager1;
+        this.jwtTokenizer = jwtTokenizer;
+        this.redisTemplate = redisTemplate;
     }
 
     @SneakyThrows
@@ -61,6 +72,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.getWriter().println(gson.toJson(tokenResponse));
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
+
+        redisTemplate.opsForValue().set(refreshToken, member.getEmail(), Duration.ofMinutes(420));
     }
 
     private String delegateAccessToken(Member member) {

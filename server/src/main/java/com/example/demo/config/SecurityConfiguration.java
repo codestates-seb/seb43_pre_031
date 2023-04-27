@@ -9,11 +9,13 @@ import com.example.demo.auth.handler.MemberAuthenticationFailureHandler;
 import com.example.demo.auth.handler.MemberAuthenticationSuccessHandler;
 import com.example.demo.auth.jwt.JwtTokenizer;
 import com.example.demo.auth.utils.CustomAuthorityUtils;
+import com.example.demo.member.MemberRepository;
 import com.example.demo.member.MemberServiceForOAuth;
 import com.example.demo.oauth2.OAuth2MemberSuccessHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,12 +45,15 @@ public class SecurityConfiguration {
     private final CustomAuthorityUtils authorityUtils;
 
     private final MemberServiceForOAuth memberService;
+    private final RedisTemplate redisTemplate;
+    private final MemberRepository memberRepository;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils,
-                                 MemberServiceForOAuth memberService) {
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils, MemberServiceForOAuth memberService, RedisTemplate redisTemplate, MemberRepository memberRepository) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
         this.memberService = memberService;
+        this.redisTemplate = redisTemplate;
+        this.memberRepository = memberRepository;
     }
 
     @Value("${spring.security.oauth2.client.registration.google.clientId}")  // (1)
@@ -69,7 +74,7 @@ public class SecurityConfiguration {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                .authenticationEntryPoint(new MemberAuthenticationEntryPoint(redisTemplate, jwtTokenizer, memberRepository))
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
 
             .and()
@@ -144,7 +149,7 @@ public class SecurityConfiguration {
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, redisTemplate);
             jwtAuthenticationFilter.setFilterProcessesUrl("/members/login");
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
