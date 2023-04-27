@@ -10,6 +10,7 @@ import { useState } from 'react';
 const Header = () => {
   const navigate = useNavigate();
   const isLogin = storage.get('login');
+
   const [keyword, setKeyword] = useState('');
   const handleSearch = (e) => {
     e.preventDefault();
