@@ -38,10 +38,10 @@ const Main = () => {
   };
 
   const checkUser = () => {
-    if (`${getCookie('accessToken')}`) {
-      navigate('/question/ask');
-    } else {
+    if (getCookie('accessToken') === undefined) {
       navigate('/users/login');
+    } else {
+      navigate('/question/ask');
     }
   };
 

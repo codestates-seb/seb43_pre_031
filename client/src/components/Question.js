@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { IoMdArrowDropup, IoMdArrowDropdown } from 'react-icons/io';
 import Content from '../elements/Content';
 import Button from '../elements/Button';
+import { getCookie } from '../lib/Cookies';
 
 const Question = (props) => {
   const {
@@ -19,16 +20,22 @@ const Question = (props) => {
   } = props;
   const navigate = useNavigate();
 
+  const checkUser = () => {
+    if (getCookie('accessToken') === undefined) {
+      navigate('/users/login');
+      return;
+    } else {
+      navigate('/question/ask');
+    }
+  };
+
   return (
     <div className="question-wrapper">
       <TitleSection>
         <Title>
           <h1>{title}</h1>
           <div>
-            <Button
-              text="Ask Question"
-              onClick={() => navigate(`/question/ask`)}
-            />
+            <Button text="Ask Question" onClick={checkUser} />
           </div>
         </Title>
         <ExtraInfoArea>

@@ -1,4 +1,4 @@
-import Profilebody from './ProfileBody';
+import Profilebody from './Profilebody';
 import Profileside from './ProfileSide';
 
 const Profile = () => {
