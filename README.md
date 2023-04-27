@@ -27,4 +27,4 @@ http://seb43-pre-031.s3-website.ap-northeast-2.amazonaws.com/
 |김희진|FE|질문, 답변|
 |한재영|BE 팀장| 질문crud|
 |양준호|BE||
-|차진수|BE||답변, JWT|
+|차진수|BE|답변, JWT|
