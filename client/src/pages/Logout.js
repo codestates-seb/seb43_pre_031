@@ -15,9 +15,7 @@ export default function Logout({ setIsLogin }) {
       // 로그아웃 시 쿠키에서 토큰 삭제하기
       removeCookie('accessToken');
       removeCookie('refreshToken');
-
       alert('로그아웃 되었습니다.');
-      console.log('로그아웃 성공!');
       // 로컬 스토리지의 정보 모두 삭제
       storage.clear();
       // 질문페이지로 돌아가기
@@ -42,44 +40,65 @@ export default function Logout({ setIsLogin }) {
           <LinkBox>
             <LinkList>
               <Links>
-                <a href="/">
-                  <img src="/" alt="logo" />
+                <a href="https://askubuntu.com/">
+                  <img
+                    src="https://cdn.sstatic.net/Sites/askubuntu/img/apple-touch-icon.png"
+                    alt="ask ubuntu logo"
+                  />
                   <span>askubuntu.com</span>
                 </a>
               </Links>
               <Links>
-                <a href="/">
-                  <img src="/" alt="logo" />
+                <a href="https://mathoverflow.net/">
+                  <img
+                    src="https://cdn.sstatic.net/Sites/mathoverflow/img/apple-touch-icon.png"
+                    alt="mathoverflow logo"
+                  />
                   <span>mathoverflow.net</span>
                 </a>
               </Links>
               <Links>
-                <a href="/">
-                  <img src="/" alt="logo" />
+                <a href="serverfault/queries">
+                  <img
+                    src="https://cdn.sstatic.net/Sites/serverfault/img/apple-touch-icon.png"
+                    alt="serverfault logo"
+                  />
                   <span>serverfault.com</span>
                 </a>
               </Links>
               <Links>
-                <a href="/">
-                  <img src="/" alt="logo" />
+                <a href="stackapps/queries">
+                  <img
+                    src="https://cdn.sstatic.net/Sites/stackapps/img/apple-touch-icon.png"
+                    alt="stackapps logo"
+                  />
                   <span>stackapps.com</span>
                 </a>
               </Links>
               <Links>
-                <a href="/">
-                  <img src="/" alt="logo" />
+                <a href="https://stackexchange.com">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Stack_Exchange_icon.svg"
+                    alt="stackexchangelogo"
+                  />
                   <span>stackexchange.com</span>
                 </a>
               </Links>
               <Links>
-                <a href="/">
-                  <img src="/" alt="logo" />
+                <a href="stackoverflow/queries">
+                  <img
+                    src="https://cdn.sstatic.net/Sites/stackoverflow/img/apple-touch-icon.png"
+                    alt="stackoverflow logo"
+                  />
                   <span>stackoverflow.com</span>
                 </a>
               </Links>
               <Links>
-                <a href="/">
-                  <img src="/" alt="logo" />
+                <a href="superuser/queries">
+                  <img
+                    src="https://cdn.sstatic.net/Sites/superuser/img/apple-touch-icon.png"
+                    alt="superuser logo"
+                  />
                   <span>superuser.com</span>
                 </a>
               </Links>
@@ -125,22 +144,25 @@ const GuidanceText = styled.div`
   text-align: center;
 `;
 const LogoutBox = styled.form`
-  width: 280px;
+  width: 320px;
   min-height: 430px;
-  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   padding: 2.4rem;
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
+  @media (max-width: 640px) {
+    width: 280px;
+  }
 `;
 const LinkBox = styled.div`
   width: 100%;
   padding-bottom: 1.2rem;
-  border-bottom: 1px solid ${(props) => props.theme.color.black200};
   margin-bottom: 1.6rem;
+  border-bottom: 1px solid ${(props) => props.theme.color.black200};
 `;
 const LinkList = styled.ul`
   list-style: none;
@@ -148,29 +170,37 @@ const LinkList = styled.ul`
 const Links = styled.li`
   font-size: 1.4rem;
   margin: 4px;
+  & a {
+    display: flex;
+    align-items: center;
+  }
+  & img {
+    width: 20px;
+    height: 20px;
+    margin: -4px;
+    margin-right: 8px;
+  }
 `;
 const Checkbox = styled.div`
   display: flex;
   margin-bottom: 1.6rem;
 `;
 const Label = styled.label`
-  margin: 2px 0;
   padding: 0 2px;
+  margin: 2px 0;
 `;
 const CancelBtn = styled.button`
-  margin: 2px;
   padding: 1rem;
+  margin: 2px;
   border: none;
   border-radius: ${(props) => props.theme.common.borderRadius};
   background-color: #fff;
   outline: none;
   color: ${(props) => props.theme.color.blue600};
   cursor: pointer;
-
   &:hover {
     background-color: ${(props) => props.theme.color.blue050};
   }
-
   &:focus {
     background-color: ${(props) => props.theme.color.blue100} solid 0.4rem;
   }

@@ -22,13 +22,24 @@ export default function Signup() {
     setSignupInfo({ ...signupInfo, [key]: e.target.value });
   };
   const [captcha, setCaptcha] = useState(false);
+  // const [isMarketing, setIsMarketing] = useState(false);
   const navigate = useNavigate();
 
   const signupRequestHandler = () => {
     const { fullName, email, password, isMarketing } = signupInfo;
-    console.log(`isMarketing:${isMarketing}`);
+
+    // 일단 불리언으로 바꿨는데... 여러번 체크했다 해제하면 계속 true 값으로 남아있음. 디버깅 필요함.
+    if (isMarketing !== 'on') {
+      console.log(`not checked ${isMarketing}`);
+      signupInfo.isMarketing = false;
+    } else {
+      console.log(`checked ${isMarketing}`);
+      signupInfo.isMarketing = true;
+    }
+    console.log(signupInfo);
+
     // 유효성검사 - 에러메시지 출력 조건
-    // 1. captcha 체크가 되지 않으면 captcha 옆이나 아래에 에러메세지 출력
+    // 1. captcha 체크가 되지 않으면 captcha 옆에 에러메세지 출력
     if (!captcha) {
       setCaptchaErrorMessage('CAPTCHA response required.');
       return;
@@ -45,12 +56,12 @@ export default function Signup() {
       setErrorEmailMessage(`${signupInfo.email} is not a valid email address.`);
       return;
     }
-    // 5. password 밑의 기본 안내 메세지//
+    // 5. password 밑의 기본 안내 메세지
     if (!password) {
       setErrorPwMessage('Password cannot be empty.');
       return;
     }
-    // 5-1. 입력값에 숫자 혹은 문자가 없을 경우//
+    // 5-1. 입력값에 숫자 혹은 문자가 없을 경우 숫자 혹은 문자 입력 요청 메시지 출력
     if (
       signupInfo.password.length > 1 &&
       !signupInfo.password.match(/[^0-9]/)
@@ -69,7 +80,7 @@ export default function Signup() {
       );
       return;
     }
-    // 5-2. 8글자 미만인 경우//
+    // 5-2. 8글자 미만인 경우 부족한 글자수 입력 요청 메시지 출력
     if (signupInfo.password.length > 0 && signupInfo.password.length < 8) {
       setErrorPwMessage(
         `Must contain at least ${
@@ -82,40 +93,29 @@ export default function Signup() {
       setErrorPwMessage('');
     }
     // 유효성 검사 통과 후 사용자가 입력한 회원가입 정보를 서버로 post 하기
-    // * email 이 중복인 경우 서버에서 오류 메세지 전송 예정
-    // * 중복인 경우 forgot your password? 사이트로 이동하고 메일 보내기 확인 버튼이 뜸.
-
     return (
       axios
         .post(`${API}/members`, { ...signupInfo })
         .then((res) => {
           console.log(res);
           console.log('회원가입 성공');
+          // 회원가입 성공 후 /users/login 페이지로 redirect
           alert('회원가입에 성공했습니다.');
           navigate('/users/login');
-          // 회원가입 성공 후 /users/login 페이지로 redirect
         })
-        // * (백엔드) email 이 DB 의 회원정보와 중복되는 경우 -> send recovery email 페이지로 이동 => 지금은 500에러
+        // * email 이 DB 의 회원정보와 중복되는 경우 서버에서 409 오류 메세지 전송 -> 비밀번호 찾기 페이지로 이동
         .catch((err) => {
           console.log(err);
-          // 임시 설정
-
           if (err.response.status === 409) {
             alert('중복된 메일 주소입니다. 비밀번호 찾기 페이지로 이동합니다.');
             navigate('/users/account-recovery');
-          }
-          //
-          if (err.response.status === 401) {
-            setErrorMessage(
-              'Forgot your account’s password? Enter your email address and we’ll send you a recovery link.'
-            );
           }
         })
     );
   };
 
-  const onCheckedCaptcha = (e) => {
-    setCaptcha(e.target.checked);
+  const onCheckedCaptcha = () => {
+    setCaptcha(!captcha);
   };
 
   return (
