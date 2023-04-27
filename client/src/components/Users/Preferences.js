@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import SettingsSide from './SettingsSide.js';
 import { useState } from 'react';
-// import { Link } from 'react-router-dom';
 
 const Preferences = () => {
   const [radiobutton, setRadioButton] = useState();
@@ -17,7 +16,7 @@ const Preferences = () => {
         <h2>Preferences</h2>
         <hr></hr>
         <p>Interface</p>
-        <Test>
+        <Column>
           <div className="image">
             <span>Theme</span>
 
@@ -41,7 +40,7 @@ const Preferences = () => {
               ></input>
             </label>
           </div>
-        </Test>
+        </Column>
       </SettingContent>
     </Center>
   );
@@ -96,24 +95,6 @@ const SettingContent = styled.div`
     font-weight: Bold;
     margin: 1rem;
   }
-  .theme-lightimgBox {
-    width: 100x;
-    height: 70px;
-    border-radius: 5px;
-    margin: 10px;
-    background-image: url(https://cdn.sstatic.net/Img/preferences/theme-light.svg?v=2d017a78abab);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-  .theme-darkimgBox {
-    width: 100x;
-    height: 70px;
-    border-radius: 5px;
-    margin: 10px;
-    background-image: url(https://cdn.sstatic.net/Img/preferences/theme-dark.svg?v=9a46fd615a91);
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
 `;
 
 const Center = styled.div`
@@ -122,7 +103,7 @@ const Center = styled.div`
   justify-content: space-between;
 `;
 
-const Test = styled.div`
+const Column = styled.div`
   display: flex;
   flex-direction: column;
 `;

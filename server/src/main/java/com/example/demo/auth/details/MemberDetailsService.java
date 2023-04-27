@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Optional;
 
-//@Component
+import static com.example.demo.member.Member.MemberStatus.MEMBER_QUIT;
+
+@Component
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
     private final CustomAuthorityUtils authorityUtils;
@@ -29,12 +31,18 @@ public class MemberDetailsService implements UserDetailsService {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
 
+        if (findMember.getMemberStatus().equals(MEMBER_QUIT)) {
+            System.out.println("탈퇴한 회원입니다.");
+            throw new BusinessLogicException(ExceptionCode.MEMBER_QUIT);
+        }
+
         return new MemberDetails(findMember);
     }
 
     private final class MemberDetails extends Member implements UserDetails {
         MemberDetails(Member member) {
             setMemberId(member.getMemberId());
+            setFullName(member.getFullName());
             setEmail(member.getEmail());
             setPassword(member.getPassword());
             setRoles(member.getRoles());

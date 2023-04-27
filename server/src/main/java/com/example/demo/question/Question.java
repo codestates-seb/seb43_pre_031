@@ -34,6 +34,10 @@ public class Question {
     @Setter
     private int votes;
 
+    @Setter
+    @Enumerated(value = EnumType.STRING)
+    private QuestionStatus questionStatus = QuestionStatus.QUESTION_POST;
+
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -50,6 +54,19 @@ public class Question {
 //    {
 //        this.vote = vote;
 //    }
+
+    public enum QuestionStatus {
+        QUESTION_POST("질문 게시됨"),
+        QUESTION_DELETE("질문 삭제됨");
+
+        @Getter
+        private String status;
+
+        QuestionStatus(String status) {
+            this.status = status;
+        }
+    }
+
 
     public void setMember(Member member) {
         this.member = member;

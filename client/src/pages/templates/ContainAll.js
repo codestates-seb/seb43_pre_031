@@ -30,7 +30,7 @@ const Container = styled.div`
     display: flex;
     margin: 0 auto;
     width: 75%;
-    min-height: 100vh;
+    min-height: 180vh;
     & > div {
       margin-right: 3rem;
     }
@@ -45,6 +45,7 @@ const Container = styled.div`
       }
     }
     @media screen and (max-width: 640px) {
+      width: 100%;
       nav {
         display: none;
       }
@@ -55,6 +56,9 @@ const Container = styled.div`
         width: 100%;
         margin: 0;
         margin-top: 6rem;
+        button {
+          margin-right: 2rem;
+        }
       }
     }
   }

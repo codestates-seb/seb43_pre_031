@@ -1,5 +1,6 @@
 package com.example.demo.auth.handler;
 
+import com.example.demo.exception.ExceptionCode;
 import com.example.demo.response.ErrorResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class MemberAuthenticationFailureHandler implements AuthenticationFailure
 
     private void sendErrorResponse(HttpServletResponse response) throws IOException {
         Gson gson = new Gson();
-        ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.UNAUTHORIZED);
+        ErrorResponse errorResponse = ErrorResponse.of(ExceptionCode.UNAUTHORIZED_LOGIN);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         response.getWriter().write(gson.toJson(errorResponse, ErrorResponse.class));

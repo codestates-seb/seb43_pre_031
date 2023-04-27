@@ -28,7 +28,7 @@ const Activity = () => {
               unlock new privileges.
             </p>
             <p>
-              Learn more about <span>reputation</span> and{' '}
+              Learn more about <span>reputation</span> and
               <span>privileges</span>
             </p>
           </div>
