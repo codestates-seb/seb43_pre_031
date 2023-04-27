@@ -11,10 +11,13 @@ export default function FindPW() {
 
   const loginRequestHandler = () => {
     const mailFormat = /^[A-Za-z0-9_-]+@[A-Za-z0-9-]+\.[A-Za-z0-9-]+/;
-    if (!email.match(mailFormat) || email.length === 0) {
+    if (!email) {
+      setErrorMessage('Please input email address');
+      return;
+    } else if (!email.match(mailFormat)) {
       setErrorMessage('Invalid email address');
       return;
-    } else if (email.match(mailFormat)) {
+    } else {
       // email 유효성 검사를 통과하면 메일 발송 완료 페이지로 이동하기
       setErrorMessage('');
       alert(`${email}로 비밀번호 복구 메일이 발송되었습니다.`);
