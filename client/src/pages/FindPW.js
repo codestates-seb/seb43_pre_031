@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function FindPW() {
   const [errorMessage, setErrorMessage] = useState('');
-  const [isValid, setIsValid] = useState(false);
 
   let email;
   let navigate = useNavigate();
@@ -15,19 +14,12 @@ export default function FindPW() {
     if (!email.match(mailFormat) || email.length === 0) {
       setErrorMessage('Invalid email address');
       return;
-    } else {
+    } else if (email.match(mailFormat)) {
+      // email 유효성 검사를 통과하면 메일 발송 완료 페이지로 이동하기
       setErrorMessage('');
+      alert(`${email}로 비밀번호 복구 메일이 발송되었습니다.`);
+      navigate('/');
     }
-    console.log(`email 보낼곳 ${email}`);
-    // email 유효성 검사를 통과하면 메일 발송 완료 페이지로 이동하기
-    // email 유효성 검사 통과 여부는 isValid 상태로 관리
-    setIsValid(true);
-    console.log(isValid);
-  };
-  // isValid 가 true 면 메인페이지로 이동
-  // 근데 두번 클릭해야 이동한다!
-  const moveTo = () => {
-    navigate('/');
   };
 
   return (
@@ -52,7 +44,7 @@ export default function FindPW() {
               <Button
                 width="100%"
                 text="Send recovery email"
-                onClick={isValid ? moveTo : loginRequestHandler}
+                onClick={loginRequestHandler}
               ></Button>
             </form>
           </FormContainer>
@@ -67,6 +59,7 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: ${(props) => props.theme.color.bgGray};
 `;
 const Main = styled.main`
   margin: 2rem;
