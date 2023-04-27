@@ -2,7 +2,7 @@
 Stackoverflow 클론코딩 사이트
 
 ## :pushpin: 배포 페이지 바로가기
-
+URL
 ## :paperclip: 프로젝트 소개
 코드스테이츠 43기 Pre-project 31팀의 Stackoverflow 클론코딩 과제입니다.
 
@@ -14,7 +14,11 @@ Stackoverflow 클론코딩 사이트
 
 
 ## :rocket: 개발 환경
-
+프론트엔드
+|React|Redux|Axios|Styled-Components|
+|1|2|3|4|5|
+백엔드
+|1|2|3|4|5|
 
 ## :bowtie: 팀원 구성
 
@@ -23,7 +27,7 @@ Stackoverflow 클론코딩 사이트
 |이현진|FE 팀장|로그인, 회원가입, 인증|
 |류수빈|FE|질문페이지, 검색|
 |이진하B|FE|마이페이지|
-|김희진|FE|질문, 답변|
+|김희진|FE|마이페이지|
 |한재영|BE 팀장||
 |양준호|BE||
 |차진수|BE||
