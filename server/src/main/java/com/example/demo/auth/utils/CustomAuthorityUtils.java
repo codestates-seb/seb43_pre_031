@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@Component
+@Component
 public class CustomAuthorityUtils {
     @Value("${mail.address.admin}")
     private String adminMailAddress;
