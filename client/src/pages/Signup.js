@@ -30,13 +30,10 @@ export default function Signup() {
 
     // 일단 불리언으로 바꿨는데... 여러번 체크했다 해제하면 계속 true 값으로 남아있음. 디버깅 필요함.
     if (isMarketing !== 'on') {
-      console.log(`not checked ${isMarketing}`);
       signupInfo.isMarketing = false;
     } else {
-      console.log(`checked ${isMarketing}`);
       signupInfo.isMarketing = true;
     }
-    console.log(signupInfo);
 
     // 유효성검사 - 에러메시지 출력 조건
     // 1. captcha 체크가 되지 않으면 captcha 옆에 에러메세지 출력
@@ -98,7 +95,6 @@ export default function Signup() {
         .post(`${API}/members`, { ...signupInfo })
         .then((res) => {
           console.log(res);
-          console.log('회원가입 성공');
           // 회원가입 성공 후 /users/login 페이지로 redirect
           alert('회원가입에 성공했습니다.');
           navigate('/users/login');
@@ -107,8 +103,13 @@ export default function Signup() {
         .catch((err) => {
           console.log(err);
           if (err.response.status === 409) {
-            alert('중복된 메일 주소입니다. 비밀번호 찾기 페이지로 이동합니다.');
-            navigate('/users/account-recovery');
+            if (
+              confirm(
+                '중복된 메일 주소입니다. 비밀번호 찾기 페이지로 이동하시겠습니까?'
+              )
+            ) {
+              navigate('/users/account-recovery');
+            }
           }
         })
     );
@@ -166,6 +167,12 @@ export default function Signup() {
           </div>
           <a href="/">Get Stack Overflow for Teams free for up to 50 users.</a>
         </TextContainer>
+        <MobileTextContainer>
+          <h2>
+            Create your Stack Overflow account. It’s free and only takes a
+            minute.
+          </h2>
+        </MobileTextContainer>
 
         <Main>
           <SocialContainer>
@@ -328,12 +335,16 @@ export default function Signup() {
 
 // Styled-components
 const SUConatainer = styled.div`
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 1264px;
   padding: 24px;
+  background-color: ${(props) => props.theme.color.bgGray};
+  @media screen and (max-width: 768px) {
+    margin-top: 100px;
+    flex-direction: column;
+  }
 `;
 const TextContainer = styled.div`
   & > h2,
@@ -342,6 +353,20 @@ const TextContainer = styled.div`
   }
   & path {
     fill: ${(props) => props.theme.color.blue400};
+  }
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+const MobileTextContainer = styled.div`
+  width: 360px;
+  & > h2 {
+    font-weight: 400;
+    margin-bottom: 24px;
+  }
+  display: none;
+  @media screen and (max-width: 768px) {
+    display: block;
   }
 `;
 const Main = styled.main`

@@ -6,6 +6,7 @@ import { API } from '../utils/API';
 import Questions from '../components/Questions';
 import Button from '../elements/Button';
 import Paging from '../elements/Paging';
+import NoResults from '../elements/NoResults';
 
 const Search = () => {
   const [searchParams] = useSearchParams();
@@ -35,8 +36,15 @@ const Search = () => {
   return (
     <Container>
       <Title>
-        <h1>검색 키워드 : {keyword}</h1>
-        <Button text="Ask Question" onClick={() => navigate('/question/ask')} />
+        <div>
+          <h1>Search Results</h1>
+          <Button
+            text="Ask Question"
+            onClick={() => navigate('/question/ask')}
+          />
+        </div>
+        <h2>Results for {keyword}</h2>
+        <h3>{result.length} results</h3>
       </Title>
       {result.length !== 0 ? (
         <>
@@ -44,7 +52,7 @@ const Search = () => {
           <Paging page={currentPage} count={count} setPage={setPage} />
         </>
       ) : (
-        <h2>검색 결과가 없습니다.</h2>
+        <NoResults keyword={keyword} />
       )}
     </Container>
   );
@@ -56,17 +64,26 @@ const Container = styled.div`
   margin-top: 6rem;
   width: 100%;
   margin-left: 18rem;
-  h2 {
-    margin-left: 2.5rem;
-  }
 `;
 
 const Title = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   padding: 2.5rem 0 2.5rem 2.5rem;
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
   h1 {
     font-size: 3rem;
+    font-weight: 600;
+  }
+  h2 {
+    margin: 1rem 0;
+  }
+  h2,
+  h3 {
+    font-weight: 400;
   }
 `;

@@ -1,7 +1,11 @@
 package com.example.demo.question;
 
 import com.example.demo.answer.Answer;
+import com.example.demo.answer.AnswerMapper;
+import com.example.demo.exception.BusinessLogicException;
+import com.example.demo.exception.ExceptionCode;
 import com.example.demo.member.Member;
+import com.example.demo.member.MemberRepository;
 import com.example.demo.member.MemberService;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +15,15 @@ import java.util.List;
 
 @Component
 public class QuestionMapper {
-    private MemberService memberService;
-    public QuestionMapper(MemberService memberService)
+    private MemberRepository memberRepository;
+    private AnswerMapper answerMapper;
+    public QuestionMapper(MemberRepository memberRepository,
+                          AnswerMapper answerMapper)
     {
-        this.memberService = memberService;
+        this.memberRepository = memberRepository;
+        this.answerMapper = answerMapper;
     }
-    public Question questionPostDtoToQuestion(QuestionDto.Post dto)
+    public Question questionPostDtoToQuestion(QuestionDto.Post dto, String email)
     {
         Question question = new Question(
                 dto.getTitle(),
@@ -24,7 +31,8 @@ public class QuestionMapper {
                 dto.getAsked_at(),
                 listToString(dto.getTags())
         );
-        Member member = memberService.findVerifiedMember(dto.getMember()); // dto로 username만 받기때문에 userService추가
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        //Member member = memberService.findVerifiedMember(dto.getMember()); // dto로 username만 받기때문에 userService추가
         //member.setMemberId(dto.getMemberId());
 
         question.setMember(member);
@@ -56,6 +64,21 @@ public class QuestionMapper {
                 question.getMember().getMemberId(),
                 question.getMember().getFullName(),
                 stringToList(question.getTags())
+        );
+    }
+
+    public QuestionDto.ResponseWithAnswers questionToQuestionResponseWithAnswersDto(Question question)
+    {
+        return new QuestionDto.ResponseWithAnswers(
+                question.getId(),
+                question.getTitle(),
+                question.getContent(),
+                question.getAskedAt(),
+                question.getModifiedAt(),
+                question.getMember().getMemberId(),
+                question.getMember().getFullName(),
+                stringToList(question.getTags()),
+                answerMapper.answerToAnswerResponseDtos(question.getAnswers())
         );
     }
 

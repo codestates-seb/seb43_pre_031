@@ -9,4 +9,5 @@ public class MemberRegistrationApplicationEvent {
     public MemberRegistrationApplicationEvent(Member member) {
         this.member = member;
     }
+
 }

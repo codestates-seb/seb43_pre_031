@@ -4,7 +4,11 @@ import com.example.demo.auth.dto.LoginDto;
 import com.example.demo.auth.jwt.JwtTokenizer;
 import com.example.demo.member.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import lombok.Getter;
 import lombok.SneakyThrows;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -45,9 +50,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String accessToken = delegateAccessToken(member);
         String refreshToken = delegateRefreshToken(member);
+        Long memberId = member.getMemberId();
+        Integer expiration = jwtTokenizer.getAccessTokenExpirationMinutes();
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
+
+        TokenResponse tokenResponse = new TokenResponse(memberId, expiration,accessToken, refreshToken);
+        Gson gson = new Gson();
+        response.getWriter().println(gson.toJson(tokenResponse));
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
@@ -76,5 +87,21 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
 
         return refreshToken;
+    }
+
+    @Getter
+    private static class TokenResponse
+    {
+        private Long memberId;
+        private Integer accessTokenExpirationMinutes;
+        private String accessToken;
+        private String refreshToken;
+        public TokenResponse(Long memberId,Integer expiration, String accessToken,String refreshToken)
+        {
+            this.memberId = memberId;
+            this.accessTokenExpirationMinutes = expiration;
+            this.accessToken = accessToken;
+            this.refreshToken = refreshToken;
+        }
     }
 }

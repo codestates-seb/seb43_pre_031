@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import storage from '../lib/storage';
 import { setCookie } from '../lib/Cookies';
 
-export default function Login({ setIsLogin }) {
+export default function Login() {
   const [loginInfo, setLoginInfo] = useState({});
   const navigate = useNavigate();
 
@@ -22,7 +22,6 @@ export default function Login({ setIsLogin }) {
 
   const loginRequestHandler = () => {
     const { email, password } = loginInfo;
-    console.log('loginRequestHandler');
     // 유효성검사 - 에러메시지 출력 조건
     // 1. 이메일이나 패스워드 중 하나라도 입력이 누락되었을 경우 입력요청 에러메시지 출력
     if (!email || !password) {
@@ -47,9 +46,6 @@ export default function Login({ setIsLogin }) {
       axios
         .post(`${API}/members/login`, { ...loginInfo })
         .then((res) => {
-          // App.js 의 로그인 상태를 true 로 변경
-          setIsLogin(true);
-
           // 로컬스토리지에 유저 ID 와 로그인 상태 저장
           const userID = res.data.memberId;
           storage.set('userID', userID);
@@ -65,8 +61,6 @@ export default function Login({ setIsLogin }) {
 
           // 로그인 성공 시 질문(홈) 페이지로 이동하기
           navigate('/');
-
-          console.log(`userID : ${userID} 로그인 성공`);
         })
         //email 이나 password가 DB 의 회원정보와 일치하지 않는 경우 에러 메시지 출력
         .catch((err) => {
@@ -197,14 +191,18 @@ export default function Login({ setIsLogin }) {
 
 // Styled-components
 const MainContainer = styled.div`
-  margin-top: 6rem;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => props.theme.color.bgGray};
 `;
 const Main = styled.main`
   margin: 2rem;
-  padding: 24px;
   width: 320px;
   display: flex;
   flex-direction: column;
