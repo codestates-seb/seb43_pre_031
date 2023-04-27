@@ -11,7 +11,7 @@ public enum ExceptionCode {
     CANNOT_CHANGE_MEMBER(403, "Member can not change"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),
     INVALID_MEMBER_STATUS(400, "Invalid member status"),
-
+    MEMBER_QUIT(409, "Quit Member"),
     UNAUTHORIZED_EDIT(401,"No permission"),
     UNAUTHORIZED_LOGIN(401, "The email or password is incorrect.");
 

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Optional;
 
+import static com.example.demo.member.Member.MemberStatus.MEMBER_QUIT;
+
 @Component
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
@@ -28,6 +30,11 @@ public class MemberDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        if (findMember.getMemberStatus().equals(MEMBER_QUIT)) {
+            System.out.println("탈퇴한 회원입니다.");
+            throw new BusinessLogicException(ExceptionCode.MEMBER_QUIT);
+        }
 
         return new MemberDetails(findMember);
     }
