@@ -37,7 +37,7 @@ const DetailQuestion = () => {
 
   //답변 추가(POST) ===============================================================================
   const postAnswer = () => {
-    if (checkUser()) {
+    if (!checkUser()) {
       if (myAnswer === '') {
         setIsEmpty(true);
         return;
