@@ -12,7 +12,7 @@ const Header = () => {
   const isLogin = storage.get('login');
 
   const [keyword, setKeyword] = useState('');
-  const [isModal, setIsModal] = useState(false);
+  const [isSearchModal, setIsSearchModal] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -148,7 +148,7 @@ const Header = () => {
           <div>
             <SearchIcon
               onClick={() => {
-                setIsModal(true);
+                setIsSearchModal(true);
               }}
             />
             <LoginBtn
@@ -166,28 +166,35 @@ const Header = () => {
             />
           </div>
         </MobileHeader>
-        {isModal && (
-          <SearchInput>
-            <div>
+        {isSearchModal && (
+          <>
+            <Overlay
+              onClick={() => {
+                setIsSearchModal(false);
+              }}
+            />
+            <SearchInput>
               <div>
-                <SearchIcon />
-                <form
-                  onSubmit={(e) => {
-                    handleSearch(e);
-                    setIsModal(false);
-                  }}
-                >
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    onChange={(e) => {
-                      setKeyword(e.target.value);
+                <div>
+                  <SearchIcon />
+                  <form
+                    onSubmit={(e) => {
+                      handleSearch(e);
+                      setIsSearchModal(false);
                     }}
-                  />
-                </form>
+                  >
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      onChange={(e) => {
+                        setKeyword(e.target.value);
+                      }}
+                    />
+                  </form>
+                </div>
               </div>
-            </div>
-          </SearchInput>
+            </SearchInput>
+          </>
         )}
       </>
     );
@@ -363,6 +370,14 @@ const SmallLogo = styled.img`
   width: 5rem;
   cursor: pointer;
   margin: 0 1rem;
+`;
+
+const Overlay = styled.div`
+  background-color: transparent;
+  z-index: 1;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
 `;
 
 const SearchInput = styled.div`
