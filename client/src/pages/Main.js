@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import Paging from '../elements/Paging';
 import axios from 'axios';
 import { API } from '../utils/API';
+import { getCookie } from '../lib/Cookies';
 
 const Main = () => {
   const navigate = useNavigate();
@@ -36,11 +37,19 @@ const Main = () => {
     setCurrentPage(e);
   };
 
+  const checkUser = () => {
+    if (`${getCookie('accessToken')}`) {
+      navigate('/question/ask');
+    } else {
+      navigate('/users/login');
+    }
+  };
+
   return (
     <Container>
       <Title>
         <h1>All Questions</h1>
-        <Button text="Ask Question" onClick={() => navigate('/question/ask')} />
+        <Button text="Ask Question" onClick={checkUser} />
       </Title>
       {count !== 0 ? (
         <h2>{count} questions</h2>
